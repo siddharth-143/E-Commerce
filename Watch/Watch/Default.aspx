@@ -8,8 +8,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Home</title>
+    <script src="Scripts/jquery-3.6.0.min.js"></script>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link href="CSS/Custom.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function myfunction() {
+            $("#btnCart").click(function myfunction() {
+                window.location.href = "/Cart.aspx";
+            });
+        });
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -18,7 +28,8 @@
         <div>
             <nav id="navbar_top" class="navbar navbar-expand-lg navbar-light bg-light" role="navigation">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="Default.aspx"><span><img src="Images/logo.jpg" height="30"/></span>  Watch.com</a>
+                    <a class="navbar-brand" href="Default.aspx"><span>
+                        <img src="Images/logo.jpg" height="30" /></span>  Watch.com</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -34,6 +45,10 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">All Watches
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="Products.aspx">All Products</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
                                     <li><a class="dropdown-item" href="#">Men</a></li>
                                     <li><a class="dropdown-item" href="#">Women</a></li>
                                     <li>
@@ -45,11 +60,19 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">About</a>
                             </li>
-                            <li class="nav-item">
+                            <li>
+                                <button id="btnCart" type="button" class="btn btn-default navbar-btn">
+                                    Cart <span class="badge bg-secondary" id="pCount" runat="server"></span>
+                                </button>
+                            </li>
+                            <li class="nav-item" id="btnSignup" runat="server">
                                 <a class="nav-link" href="SignUp.aspx">Sign Up</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" id="btnSigin" runat="server">
                                 <a class="nav-link" href="SignIn.aspx">Sign In</a>
+                            </li>
+                            <li class="nav-item">
+                                <asp:Button ID="btnSignOut" runat="server" Text="Sign Out" CssClass="btn btn-default navbar-btn" OnClick="btnSignOut_Click" />
                             </li>
                         </ul>
                         <%--            <form class="d-flex">
@@ -112,8 +135,9 @@
         </div>
     </footer>
     <!-- Footer end-->
-    <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/jquery-3.6.0.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/bootstrap.bundle.min.js"></script>
     <script src="JS/Main.js" type="text/javascript"></script>
 </body>
 </html>
