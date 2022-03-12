@@ -28,6 +28,9 @@ public partial class Cart : System.Web.UI.Page
             {
                 h5NoItems.InnerText = "MY CART (" + CookieDataArray.Length + "  Items)";
                 DataTable dtBrands = new DataTable();
+                Int64 CartTotal = 0;
+                Int64 Total = 0;
+
                 for (int i = 0; i < CookieDataArray.Length; i++)
                 {
                     string PID = CookieDataArray[i].ToString().Split('-')[0];
@@ -49,10 +52,16 @@ public partial class Cart : System.Web.UI.Page
 
                         }
                     }
+                    CartTotal += Convert.ToInt64(dtBrands.Rows[i]["PPrice"]);
+                    Total += Convert.ToInt64(dtBrands.Rows[i]["PSelPrice"]);
                 }
                 rptrCartProducts.DataSource = dtBrands;
                 rptrCartProducts.DataBind();
                 divPriceDetails.Visible = true;
+
+                spanCartTotal.InnerHtml = CartTotal.ToString();
+                spanTotal.InnerHtml = "Rs.  " + Total.ToString();
+                spanDiscount.InnerHtml = " " + (CartTotal - Total).ToString();
             }
             else
             {
@@ -71,7 +80,28 @@ public partial class Cart : System.Web.UI.Page
 
     protected void btnRemoveItem_Click(object sender, EventArgs e)
     {
+        string CookiePID = Request.Cookies["CartPID"].Value.Split('=')[1];
+        Button btn = (Button)(sender);
+        string PID = btn.CommandArgument;
 
+        List<String> CookiePIDList = CookiePID.Split(',').Select(i => i.Trim()).Where(i => i != string.Empty).ToList();
+        CookiePIDList.Remove(PID);
+        string CookiesPIDUpdated = String.Join(",", CookiePIDList.ToArray());
+        if (CookiesPIDUpdated == "")
+        {
+            HttpCookie CartProducts = Request.Cookies["CartPID"];
+            CartProducts.Values["CartPID"] = null;
+            CartProducts.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(CartProducts);
+        }
+        else
+        {
+            HttpCookie CartProducts = Request.Cookies["CartPID"];
+            CartProducts.Values["CartPID"] = CookiesPIDUpdated;
+            CartProducts.Expires = DateTime.Now.AddDays(30);
+            Response.Cookies.Add(CartProducts);
+        }
+        Response.Redirect("~/Cart.aspx");
     }
 
     protected void btnBuyNow_Click(object sender, EventArgs e)

@@ -19,7 +19,7 @@
                             <span class="proPriceView"><%#Eval("PSelPrice","{0:c}") %></span>
                             <span class="proOgPriceView"><%#Eval("PPrice","{0:0,00}") %></span>
                             <p>
-                                <asp:Button ID="btnRemoveItem" CssClass="removeButton" runat="server" Text="REMOVE" OnClick="btnRemoveItem_Click" />
+                                <asp:Button CommandArgument='<%#Eval("PID") %>' ID="btnRemoveItem" CssClass="removeButton" runat="server" Text="REMOVE" OnClick="btnRemoveItem_Click" />
                             </p>
                         </div>
                     </div>
@@ -32,17 +32,17 @@
 
                 <div>
                     <label>Cart Total</label>
-                    <span class="pull-right priceGray">1900</span>
+                    <span class="pull-right priceGray" id="spanCartTotal" runat="server"></span>
                 </div>
                 <div>
                     <label>Cart Discount</label>
-                    <span class="pull-right priceGreen">500</span>
+                    <span class="pull-right priceGreen" id="spanDiscount" runat="server"></span>
                 </div>
             </div>
             <div>
                 <div class="proPriceView">
                     <label>Total</label>
-                    <span class="pull-right priceGreen">Rs. 1400</span>
+                    <span class="pull-right priceGreen" id="spanTotal" runat="server"></span>
                 </div>
                 <div>
                     <asp:Button ID="btnBuyNow" CssClass="buyNowBtn" runat="server" Text="BUY NOW" OnClick="btnBuyNow_Click" />
