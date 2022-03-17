@@ -8,6 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sign Up</title>
+    <script src="Scripts/jquery-3.6.0.min.js"></script>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link href="CSS/Custom.css" rel="stylesheet" />
 </head>
@@ -17,7 +18,8 @@
         <div>
             <nav id="navbar_top" class="navbar navbar-expand-lg navbar-light bg-light" role="navigation">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="Default.aspx"><span><img src="Images/logo.jpg" height="30"/></span>  Watch.com</a>
+                    <a class="navbar-brand" href="Default.aspx"><span>
+                        <img src="Images/logo.jpg" height="30" /></span>  Watch.com</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -33,6 +35,10 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">All Watches
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="Products.aspx">All Products</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
                                     <li><a class="dropdown-item" href="#">Men</a></li>
                                     <li><a class="dropdown-item" href="#">Women</a></li>
                                     <li>
@@ -110,7 +116,6 @@
     </footer>
     <!-- Footer end -->
     <script src="Scripts/bootstrap.min.js"></script>
-    <script src="Scripts/jquery-3.6.0.min.js"></script>
     <script src="JS/Main.js" type="text/javascript"></script>
 </body>
 </html>

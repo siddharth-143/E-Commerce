@@ -135,7 +135,6 @@
         </div>
     </footer>
     <!-- Footer end-->
-    <script src="Scripts/jquery-3.6.0.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/bootstrap.bundle.min.js"></script>
     <script src="JS/Main.js" type="text/javascript"></script>

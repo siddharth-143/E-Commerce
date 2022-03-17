@@ -36,6 +36,9 @@ public partial class SignIn : System.Web.UI.Page
 
             if (dt.Rows.Count != 0)
             {
+                Session["USERID"] = dt.Rows[0]["Uid"].ToString();
+                Session["USEREMAIL"] = dt.Rows[0]["Email"].ToString();
+
                 if (CheckBox1.Checked)
                 {
                     Response.Cookies["UNAME"].Value = UserName.Text;
@@ -56,7 +59,17 @@ public partial class SignIn : System.Web.UI.Page
                 if (Utype == "U")
                 {
                     Session["USERNAME"] = UserName.Text;
-                    Response.Redirect("~/UserHome.aspx");
+                    if (Request.QueryString["rurl"] != null)
+                    {
+                        if (Request.QueryString["rurl"] == "cart")
+                        {
+                            Response.Redirect("~/Cart.aspx");
+                        }
+                    }
+                    else
+                    {
+                        Response.Redirect("~/UserHome.aspx");
+                    }
                 }
                 if (Utype == "A")
                 {

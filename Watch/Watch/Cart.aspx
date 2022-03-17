@@ -48,7 +48,7 @@
                     <asp:Button ID="btnBuyNow" CssClass="buyNowBtn" runat="server" Text="BUY NOW" OnClick="btnBuyNow_Click" />
                 </div>
             </div>
-        </div>
+        </div>       
     </div>
 </asp:Content>
 

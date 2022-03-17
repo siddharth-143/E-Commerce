@@ -8,9 +8,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sign Up</title>
+    <script src="Scripts/jquery-3.6.0.min.js"></script>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link href="CSS/Custom.css" rel="stylesheet" />
-        <script>
+    <script>
         $(document).ready(function myfunction() {
             $("#btnCart").click(function myfunction() {
                 window.location.href = "/Cart.aspx";
@@ -43,7 +44,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="Products.aspx">All Products</a></li>
                                     <li>
-                                        <hr class="dropdown-divider">
+                                        <hr class="dropdown-divider" />
                                     </li>
                                     <li><a class="dropdown-item" href="#">Men</a></li>
                                     <li><a class="dropdown-item" href="#">Women</a></li>
@@ -89,7 +90,6 @@
     </footer>
     <!-- Footer end -->
     <script src="Scripts/bootstrap.min.js"></script>
-    <script src="Scripts/jquery-3.6.0.min.js"></script>
     <script src="JS/Main.js" type="text/javascript"></script>
 </body>
 </html>
