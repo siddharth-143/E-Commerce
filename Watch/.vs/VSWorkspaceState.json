@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Watch"
+    "\\Watch",
+    "\\Watch\\App_Data"
   ],
-  "SelectedNode": "\\Watch\\AddProduct.aspx.cs",
+  "SelectedNode": "\\Watch\\App_Data\\MyDatabase_log.ldf",
   "PreviewInSolutionExplorer": false
 }

@@ -191,19 +191,19 @@ public partial class AddProduct : System.Web.UI.Page
                 SqlCommand cmd6 = new SqlCommand("insert into tblProductImages values('" + PID + "','" + txtPName.Text.ToString().Trim() + "04" + "','" + Extention + "')", con);
                 cmd6.ExecuteNonQuery();
             }
-            if (fuImg05.HasFile)
-            {
-                string SavePath = Server.MapPath("~/Images/ProductImages/") + PID;
-                if (!Directory.Exists(SavePath))
-                {
-                    Directory.CreateDirectory(SavePath);
-                }
-                string Extention = Path.GetExtension(fuImg05.PostedFile.FileName);
-                fuImg05.SaveAs(SavePath + "\\" + txtPName.Text.ToString().Trim() + "05" + Extention);
+            //if (fuImg05.HasFile)
+            //{
+            //    string SavePath = Server.MapPath("~/Images/ProductImages/") + PID;
+            //    if (!Directory.Exists(SavePath))
+            //    {
+            //        Directory.CreateDirectory(SavePath);
+            //    }
+            //    string Extention = Path.GetExtension(fuImg05.PostedFile.FileName);
+            //    fuImg05.SaveAs(SavePath + "\\" + txtPName.Text.ToString().Trim() + "05" + Extention);
 
-                SqlCommand cmd7 = new SqlCommand("insert into tblProductImages values('" + PID + "','" + txtPName.Text.ToString().Trim() + "05" + "','" + Extention + "')", con);
-                cmd7.ExecuteNonQuery();
-            }
+            //    SqlCommand cmd7 = new SqlCommand("insert into tblProductImages values('" + PID + "','" + txtPName.Text.ToString().Trim() + "05" + "','" + Extention + "')", con);
+            //    cmd7.ExecuteNonQuery();
+            //}
         }
     }
 }

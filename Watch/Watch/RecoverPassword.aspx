@@ -8,6 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Reset Your Password !</title>
+    <script src="Scripts/jquery-3.6.0.min.js"></script>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link href="CSS/Custom.css" rel="stylesheet" />
 </head>
@@ -34,6 +35,10 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">All Watches
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="Products.aspx">All Products</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
                                     <li><a class="dropdown-item" href="#">Men</a></li>
                                     <li><a class="dropdown-item" href="#">Women</a></li>
                                     <li>
@@ -105,7 +110,6 @@
     <!-- Footer end-->
 
     <script src="Scripts/bootstrap.min.js"></script>
-    <script src="Scripts/jquery-3.6.0.min.js"></script>
     <script src="JS/Main.js" type="text/javascript"></script>
 </body>
 </html>

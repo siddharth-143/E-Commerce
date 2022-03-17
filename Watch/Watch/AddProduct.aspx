@@ -101,13 +101,13 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator12" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="fuImg04"></asp:RequiredFieldValidator>
                 </div>
             </div>
-            <div class="form-group">
+<%--            <div class="form-group">
                 <asp:Label ID="Label15" runat="server" CssClass="col-md-2 control-label" Text="Upload Image"></asp:Label>
                 <div class="col-md-3">
                     <asp:FileUpload ID="fuImg05" CssClass="form-control" runat="server" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator13" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="fuImg05"></asp:RequiredFieldValidator>
                 </div>
-            </div>
+            </div>--%>
             <div class="form-group">
                 <asp:Label ID="Label16" runat="server" CssClass="col-md-2 control-label" Text="Free Delivery"></asp:Label>
                 <div class="col-md-3">
