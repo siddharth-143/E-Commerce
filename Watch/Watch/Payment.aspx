@@ -3,10 +3,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <asp:hiddenfield id="hdCartAmount" runat="server"></asp:hiddenfield>
-    <asp:hiddenfield id="hdCartDiscount" runat="server"></asp:hiddenfield>
-    <asp:hiddenfield id="hdTotalPayed" runat="server"></asp:hiddenfield>
-    <asp:hiddenfield id="hdPid" runat="server"></asp:hiddenfield>
+    <asp:HiddenField ID="hdCartAmount" runat="server"></asp:HiddenField>
+    <asp:HiddenField ID="hdCartDiscount" runat="server"></asp:HiddenField>
+    <asp:HiddenField ID="hdTotalPayed" runat="server"></asp:HiddenField>
+    <asp:HiddenField ID="hdPid" runat="server"></asp:HiddenField>
 
 
     <div class="row" style="padding-top: 20px;">
@@ -35,6 +35,14 @@
                     <div class="col-md-7">
                         <asp:TextBox ID="txtPinCode" CssClass="form-control" runat="server"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="txtPinCode"></asp:RequiredFieldValidator>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <asp:Label ID="Label4" runat="server" CssClass="col-md-2 control-label" Text="Mobile Number"></asp:Label>
+                    <div class="col-md-7">
+                        <asp:TextBox ID="txtMobileNumber" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="txtMobileNumber"></asp:RequiredFieldValidator>
                     </div>
                 </div>
 
@@ -80,7 +88,7 @@
                 <div class="tab-pane fade show active" id="wallets">
                     <h3>HOME</h3>
                     <p>Some content</p>
-                    <asp:button ID="btnPaytm" runat="server" text="Pay with Paytm" OnClick="btnPaytm_Click" />
+                    <asp:Button ID="btnPaytm" runat="server" Text="Pay with Paytm" OnClick="btnPaytm_Click" />
                 </div>
                 <div class="tab-pane fade" id="cards">
                     <h3>Menu 1</h3>

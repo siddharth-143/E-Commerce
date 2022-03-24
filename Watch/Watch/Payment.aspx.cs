@@ -99,7 +99,7 @@ public partial class Payment : System.Web.UI.Page
             string USERID = Session["USERID"].ToString();
             string PaymentType = "Paytm";
             string PaymentStatus = "NotPaid";
-            DateTime DateofPurchase = DateTime.Now;
+            string EMAILID = Session["USEREMAIL"].ToString();
 
             //Insert Data to tblPurchase
 
@@ -108,8 +108,8 @@ public partial class Payment : System.Web.UI.Page
             {
                 SqlCommand cmd = new SqlCommand("insert into tblPurchase values('" + USERID + "','" 
                     + hdPid.Value + "','" + hdCartAmount.Value + "','" + hdCartDiscount.Value + "','" 
-                    + hdTotalPayed.Value + "','"+ PaymentType + "','" + PaymentStatus + "','" + DateofPurchase.ToLongDateString() + "','"
-                    + txtName.Text + "','" + txtAddress.Text + "','" + txtPinCode.Text + "') select SCOPE_IDENTITY()", con);
+                    + hdTotalPayed.Value + "','"+ PaymentType + "','" + PaymentStatus + "',getdate(),'"
+                    + txtName.Text + "','" + txtAddress.Text + "','" + txtPinCode.Text + "','" + txtMobileNumber.Text + "') select SCOPE_IDENTITY()", con);
                 con.Open();
                 Int64 PurchaseID = Convert.ToInt64(cmd.ExecuteScalar());
             }         
