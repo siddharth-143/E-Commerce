@@ -31,7 +31,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="Default.aspx">Home</a>
                             </li>
@@ -57,6 +57,13 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">About</a>
                             </li>
+
+                        </ul>
+                        <div class="form-inline d-flex">
+                            <input class=" form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </div>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li>
                                 <button id="btnCart" type="button" class="btn btn-default navbar-btn">
                                     Cart <span class="badge bg-secondary" id="pCount" runat="server"></span>
@@ -66,12 +73,7 @@
                                 <asp:Button ID="btnSignIn" runat="server" Text="Sign In" CssClass="btn btn-default navbar-btn" OnClick="btnSignIn_Click" />
                                 <asp:Button ID="btnSignOut" runat="server" Text="Sign Out" CssClass="btn btn-default navbar-btn" OnClick="btnSignOut_Click" />
                             </li>
-
                         </ul>
-                        <%--            <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>--%>
                     </div>
                 </div>
             </nav>
