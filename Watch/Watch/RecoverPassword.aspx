@@ -50,7 +50,18 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">About</a>
                             </li>
-
+                        </ul>
+                        <!-- Search form -->
+                        <div class="form-inline d-flex">
+                            <input class=" form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </div>
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li>
+                                <button id="btnCart" type="button" class="btn btn-default navbar-btn ms-2 me-2">
+                                    Cart <span class="badge bg-primary" id="pCount" runat="server"></span>
+                                </button>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="SignIn.aspx">Sign In</a>
                             </li>
