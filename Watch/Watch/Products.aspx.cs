@@ -20,12 +20,22 @@ public partial class Products : System.Web.UI.Page
     private void BindProductRepeater()
     {
         String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+        Int64 CatID = Request.QueryString["cat"] == null ? 0 : Convert.ToInt64(Request.QueryString["cat"]);
+        Int64 GenderID = Request.QueryString["gen"] == null ? 0 : Convert.ToInt64(Request.QueryString["gen"]);
 
         using (SqlConnection con = new SqlConnection(CS))
         {
             using (SqlCommand cmd = new SqlCommand("procBindAllProducts", con))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
+                if (CatID > 0)
+                {
+                    cmd.Parameters.AddWithValue("@PCategoryID", CatID);
+                }
+                //if (GenderID > 0)
+                //{
+                //    cmd.Parameters.AddWithValue("@PGender", GenderID);
+                //}
                 using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
                 {
                     DataTable dtBrands = new DataTable();
