@@ -57,19 +57,15 @@
                             </li>
                         </ul>
                         <!-- Search form -->
-                        <div class="form-inline d-flex">
+<%--                        <div class="form-inline d-flex">
                             <input class=" form-control me-2" type="search" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">Search</button>
-                        </div>
+                        </div>--%>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li>
-                                <asp:Button ID="btnAdminLogout" runat="server" Class="btn btn-default navbar-btn" Text="Logout" OnClick="btnAdminLogout_Click" />
+                                <asp:Button ID="btnAdminLogout" runat="server" Class="btn btn-primary navbar-btn ms-2 me-2" Text="Logout" OnClick="btnAdminLogout_Click" />
                             </li>
                         </ul>
-                        <%--            <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>--%>
                     </div>
                 </div>
             </nav>
@@ -85,7 +81,7 @@
     <hr />
     <footer>
         <div class="container">
-            <p class="float-right"><a href="#">Back to top</a></p>
+            <p class="float-end"><a href="#">Back to top</a></p>
             <p>&copy; 2022 Watch.com &middot; <a href="Default.aspx">Home</a> &middot; <a href="#">About</a> &middot; <a href="#">Contact</a> &middot; <a href="#">Products</a></p>
         </div>
     </footer>
