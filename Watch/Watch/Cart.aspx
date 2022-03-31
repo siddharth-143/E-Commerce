@@ -48,6 +48,9 @@
                     <div>
                         <asp:Button ID="btnBuyNow" CssClass="buyNowBtn" runat="server" Text="BUY NOW" OnClick="btnBuyNow_Click" />
                     </div>
+                    <div>
+                        <asp:Button Style="border-radius: 3px; outline: 0; margin-top: 10px; margin-bottom: 20px; font-size: 13px; min-height: 22px; padding: 10px 15px; font-weight: 500;     background: rgba(255,102,0,1); border: 1px solid #14cda8; color: #fff; width: 100%;" ID="btnViewOrder" runat="server" Text="VIEW ORDERES" />
+                    </div>
                 </div>
             </div>
         </div>
