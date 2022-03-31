@@ -32,10 +32,10 @@ public partial class Products : System.Web.UI.Page
                 {
                     cmd.Parameters.AddWithValue("@PCategoryID", CatID);
                 }
-                //if (GenderID > 0)
-                //{
-                //    cmd.Parameters.AddWithValue("@PGender", GenderID);
-                //}
+                if (GenderID > 0)
+                {
+                    cmd.Parameters.AddWithValue("@PGender", GenderID);
+                }
                 using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
                 {
                     DataTable dtBrands = new DataTable();

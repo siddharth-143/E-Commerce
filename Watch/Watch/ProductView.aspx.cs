@@ -24,7 +24,9 @@ public partial class ProductView : System.Web.UI.Page
         {
             Response.Redirect("~/Products.aspx");
         }
-    }private void BindProductDetails()
+    }
+
+    protected void BindProductDetails()
     {
         Int64 PID = Convert.ToInt64(Request.QueryString["PID"]);
 

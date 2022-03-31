@@ -7,6 +7,7 @@
     <title>Watch Online Shopping</title>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link href="CSS/Custom.css" rel="stylesheet" />
+    <script src="JS/Main.js"></script>
     <!-- Custom styles for this template -->
     <link href="CSS/carousel.css" rel="stylesheet" />
     <!-- Favicons -->
@@ -63,15 +64,43 @@
                                         <li>
                                             <hr class="dropdown-divider" />
                                         </li>
-                                        <li><a class="dropdown-item" href="Products.aspx?gen=1">Men</a></li>
-                                        <li><a class="dropdown-item" href="Products.aspx?gen=2">Women</a></li>
+
+                                        <%--<asp:Repeater ID="Repeater1" runat="server" OnItemDataBound="OnItemDataBound">--%>
+                                        <asp:Repeater ID="rptCategory" runat="server">
+                                            <ItemTemplate>
+                                                <li>
+                                                    <a class="dropdown-item p-cat" href="Products.aspx?cat=<%# Eval("CatID") %>"><%# Eval("CatName") %></a>
+                                                    <asp:HiddenField ID="hfCatID" runat="server" Value='<%# Eval("CatID") %>' />
+                                                </li>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+
+                                        <asp:Repeater ID="rptGender" runat="server">
+                                            <ItemTemplate>
+                                                <li>
+                                                    <a class="dropdown-item" href="Products.aspx?gen=<%# Eval("GenderID") %>"><%# Eval("GenderName") %></a>
+                                                </li>
+                                            </ItemTemplate>
+
+                                            <FooterTemplate>
+                                                <div class="dropdown-divider"></div>
+                                            </FooterTemplate>
+                                        </asp:Repeater>
+
+
+
+                                        <%--                                        <li><a class="dropdown-item p-cat" href="Products.aspx?cat=1">Fitness</a></li>
+                                        <li><a class="dropdown-item p-cat" href="Products.aspx?cat=3">Analog</a></li>
                                         <li>
                                             <hr class="dropdown-divider" />
                                         </li>
-                                        <li><a class="dropdown-item" href="Products.aspx?cat=1">Fitness</a></li>
-                                        <li><a class="dropdown-item" href="Products.aspx?cat=3">Analog</a></li>
+
+                                        <li><a class="dropdown-item" href="Products.aspx?gen=1">Men</a></li>
+                                        <li><a class="dropdown-item" href="Products.aspx?gen=2">Women</a></li>--%>
                                     </ul>
                                 </li>
+
+
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">About</a>
                                 </li>
@@ -79,7 +108,7 @@
                             </ul>
 
                             <!-- Search form -->
-                            <div class="form-inline d-flex">
+                            <div class="form-inline d-flex flex-fill">
                                 <input class=" form-control me-2" type="search" placeholder="Search" aria-label="Search">
                                 <button class="btn btn-outline-success" type="submit">Search</button>
                             </div>
