@@ -78,17 +78,19 @@
 
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="wallets">
-                        <h3>HOME</h3>
-                        <p>Some content</p>
-                        <asp:Button ID="btnPaytm" runat="server" Text="Pay with Paytm" OnClick="btnPaytm_Click" />
+                        <h3>PAY WITH WALLET</h3>
+                        <p>Not Available</p>
+                        <asp:Button ID="btnPaytm" runat="server" Text="Pay with Wallet" />
                     </div>
                     <div class="tab-pane fade" id="cards">
-                        <h3>Menu 1</h3>
-                        <p>Some content in menu 1</p>
+                        <h3>PAY WITH PAYTM</h3>
+                        <p>Not Available</p>
+                         <asp:Button ID="btnPay" runat="server" Text="Pay with Credit/Debit Card" />
                     </div>
                     <div class="tab-pane fade" id="cod">
-                        <h3>Menu 2</h3>
-                        <p>Some content in menu 2</p>
+                        <h3>CASH ON DELIVERY</h3>
+                        <p>Available</p>
+                         <asp:Button ID="btnCOD" runat="server" Text="Order Now" OnClick="btnCOD_Click" />
                     </div>
                 </div>
             </div>

@@ -92,7 +92,7 @@ public partial class Payment : System.Web.UI.Page
         }
     }
 
-    protected void btnPaytm_Click(object sender, EventArgs e)
+    protected void btnCOD_Click(object sender, EventArgs e)
     {
         if (Session["USERID"] != null)
         {
@@ -112,7 +112,8 @@ public partial class Payment : System.Web.UI.Page
                     + txtName.Text + "','" + txtAddress.Text + "','" + txtPinCode.Text + "','" + txtMobileNumber.Text + "') select SCOPE_IDENTITY()", con);
                 con.Open();
                 Int64 PurchaseID = Convert.ToInt64(cmd.ExecuteScalar());
-            }         
+            }
+            Response.Redirect("~/OrderSuccessfull.aspx");
         }
         else
         {
