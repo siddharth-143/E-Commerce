@@ -39,8 +39,8 @@
                     <ItemTemplate>
                         <div class="divDet1 pt-2">
                             <h1 class="proNameView"><%#Eval("PName") %></h1>
-                            <span class="proOgPriceView"><%#Eval("PPrice") %></span><span class="proPriceDiscountView"> <%# string.Format("{0}",Convert.ToInt64(Eval("PPrice"))-Convert.ToInt64(Eval("PSelPrice"))) %> OFF</span>
-                            <p class="proPriceView"><%#Eval("PSelPrice") %></p>
+                            <span class="proOgPriceView"><%#Eval("PSelPrice") %></span><span class="proPriceDiscountView"> <%# string.Format("{0}",Convert.ToInt64(Eval("PPrice"))-Convert.ToInt64(Eval("PSelPrice"))) %> OFF</span>
+                            <p class="proPriceView"><%#Eval("PPrice") %></p>
                         </div>
                         <div class="divDet1">
                             <asp:Button ID="btnAddToCart" OnClick="btnAddToCart_Click" CssClass="mainButton" runat="server" Text="ADD TO CART" />
