@@ -48,10 +48,11 @@ public partial class ForgotPassword : System.Web.UI.Page
                 SmtpClient SMTP = new SmtpClient("smtp.gmail.com", 587);
                 SMTP.Credentials = new NetworkCredential()
                 {
-                    UserName = "xyz782200@gmail.com",
+                    UserName = "xyz782200@gmail",
                     Password = "123"
                 };
                 SMTP.EnableSsl = true;
+                // SMTP.DeliveryMethod = SmtpDeliveryMethod.Network;
                 SMTP.Send(PassRecMail);
                 SMTP.UseDefaultCredentials = false;
 

@@ -15,6 +15,8 @@ public partial class Orders : System.Web.UI.Page
         if (!IsPostBack)
         {
             BindCartProducts();
+            BindProductImages();
+            BindProductDetails();
         }
     }
     private void BindCartProducts()
@@ -74,6 +76,63 @@ public partial class Orders : System.Web.UI.Page
             // empty
             h5NoItems.InnerText = "Your Shopping Cart is Empty";
             divPriceDetails.Visible = false;
+        }
+    }
+
+    // for timepass only
+
+    protected void BindProductDetails()
+    {
+        Int64 PID = Convert.ToInt64(Request.QueryString["PID"]);
+
+        String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+        using (SqlConnection con = new SqlConnection(CS))
+        {
+            using (SqlCommand cmd = new SqlCommand("select * from tblProducts where PID=" + PID + "", con))
+            {
+                cmd.CommandType = CommandType.Text;
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dtBrands = new DataTable();
+                    sda.Fill(dtBrands);
+                    rptrCartProducts.DataSource = dtBrands;
+                    rptrCartProducts.DataBind();
+                }
+
+            }
+        }
+    }
+
+    private void BindProductImages()
+    {
+        Int64 PID = Convert.ToInt64(Request.QueryString["PID"]);
+
+        String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+        using (SqlConnection con = new SqlConnection(CS))
+        {
+            using (SqlCommand cmd = new SqlCommand("select * from tblProductImages where PID=" + PID + "", con))
+            {
+                cmd.CommandType = CommandType.Text;
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dtBrands = new DataTable();
+                    sda.Fill(dtBrands);
+                    rptrCartProducts.DataSource = dtBrands;
+                    rptrCartProducts.DataBind();
+                }
+
+            }
+        }
+    }
+    protected string GetActiveClass(int ItemIndex)
+    {
+        if (ItemIndex == 0)
+        {
+            return "active";
+        }
+        else
+        {
+            return "";
         }
     }
 }
