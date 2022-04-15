@@ -54,7 +54,7 @@ public partial class SignIn : System.Web.UI.Page
                     Response.Cookies["PWD"].Expires = DateTime.Now.AddDays(-1);
                 }
                 string Utype;
-                Utype = dt.Rows[0][6].ToString().Trim();
+                Utype = dt.Rows[0][7].ToString().Trim();
 
                 if (Utype == "U")
                 {

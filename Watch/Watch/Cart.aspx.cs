@@ -52,8 +52,8 @@ public partial class Cart : System.Web.UI.Page
 
                         }
                     }
-                    CartTotal += Convert.ToInt64(dtBrands.Rows[i]["PPrice"]);
-                    Total += Convert.ToInt64(dtBrands.Rows[i]["PSelPrice"]);
+                    CartTotal += Convert.ToInt64(dtBrands.Rows[i]["PSelPrice"]);
+                    Total += Convert.ToInt64(dtBrands.Rows[i]["PPrice"]);
                 }
                 rptrCartProducts.DataSource = dtBrands;
                 rptrCartProducts.DataBind();

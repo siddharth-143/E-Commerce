@@ -97,7 +97,7 @@ public partial class Payment : System.Web.UI.Page
         if (Session["USERID"] != null)
         {
             string USERID = Session["USERID"].ToString();
-            string PaymentType = "Paytm";
+            string PaymentType = "COD";
             string PaymentStatus = "NotPaid";
             string EMAILID = Session["USEREMAIL"].ToString();
 
