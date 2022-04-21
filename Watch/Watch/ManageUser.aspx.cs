@@ -1,21 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
 
 public partial class ManageUser : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        if (!this.IsPostBack)
         {
-            BindUserDetails();
+            this.BindUserDetails();
             SearchCustomers();
         }
     }
@@ -39,8 +42,8 @@ public partial class ManageUser : System.Web.UI.Page
                 {
                     DataTable dt = new DataTable();
                     sda.Fill(dt);
-                    rptrUserDetails.DataSource = dt;
-                    rptrUserDetails.DataBind();
+                    gvUsers.DataSource = dt;
+                    gvUsers.DataBind();
                 }
                 txtSearch.Text = "";
             }
@@ -52,61 +55,97 @@ public partial class ManageUser : System.Web.UI.Page
         this.SearchCustomers();
     }
 
-
-    //protected void DeleteUser()
-    //{
-    //    // int Uid = Convert.ToInt32();
-    //    GridViewRow row = (sender as Button).NamingContainer as GridViewRow;
-    //    string Uid = row.Cells[0].Text.Trim();
-    //    string query = "DELETE FROM Users WHERE Uid=@Uid";
-    //    string constr = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
-    //    using (SqlConnection con = new SqlConnection(constr))
-    //    {
-    //        using (SqlCommand cmd = new SqlCommand(query))
-    //        {
-    //            cmd.Parameters.AddWithValue("@Uid", Uid);
-    //            cmd.Connection = con;
-    //            con.Open();
-    //            cmd.ExecuteNonQuery();
-    //            con.Close();
-    //        }
-    //    }
-    //}
-
-
-
+    protected void OnPaging(object sender, GridViewPageEventArgs e)
+    {
+        gvUsers.PageIndex = e.NewPageIndex;
+        this.SearchCustomers();
+    }
 
     private void BindUserDetails()
     {
         String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
-        using (SqlConnection con = new SqlConnection(CS))
+        SqlConnection con = new SqlConnection(CS);
+        con.Open();
+        SqlCommand cmd = new SqlCommand("Select * from Users", con);
+        SqlDataAdapter da = new SqlDataAdapter(cmd);
+        DataSet ds = new DataSet();
+        da.Fill(ds);
+        con.Close();
+        if (ds.Tables[0].Rows.Count > 0)
         {
-            using (SqlCommand cmd = new SqlCommand("select * from users", con))
-            {
-                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
-                {
-                    DataTable dtusers = new DataTable();
-                    sda.Fill(dtusers);
-                    rptrUserDetails.DataSource = dtusers;
-                    rptrUserDetails.DataBind();
-                }
-            }
+            gvUsers.DataSource = ds;
+            gvUsers.DataBind();
+        }
+        else
+        {
+            ds.Tables[0].Rows.Add(ds.Tables[0].NewRow());
+            gvUsers.DataSource = ds;
+            gvUsers.DataBind();
+            int columncount = gvUsers.Rows[0].Cells.Count;
+            gvUsers.Rows[0].Cells.Clear();
+            gvUsers.Rows[0].Cells.Add(new TableCell());
+            gvUsers.Rows[0].Cells[0].ColumnSpan = columncount;
+            gvUsers.Rows[0].Cells[0].Text = "No Records Found";
         }
     }
 
-    //protected void btnSearch_Click(object sender, EventArgs e)
-    //{
-    //    String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
-    //    using (SqlConnection con = new SqlConnection(CS))
-    //    {
-    //        SqlCommand cmd = new SqlCommand("select Uid, Username, Name, Password, Email, Mobile, Gender, Usertype" +
-    //            "from Users" +
-    //            "where( (Word LIKE '%' + @Uid + '%')");
-    //        con.Open();
-    //        cmd.ExecuteNonQuery();
-    //        txtSearch.Text = string.Empty;
-    //    }
-    //    BindUserDetails();
-    //}
+    protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+        SqlConnection con = new SqlConnection(CS);
+        int userid = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Values["Uid"].ToString());
+        string username = gvUsers.DataKeys[e.RowIndex].Values["Name"].ToString();
+        con.Open();
+        SqlCommand cmd = new SqlCommand("delete from Users where Uid=" + userid, con);
+        int result = cmd.ExecuteNonQuery();
+        con.Close();
+        if (result == 1)
+        {
+            BindUserDetails();
+            lblresult.ForeColor = Color.Red;
+            lblresult.Text = username + " details deleted successfully";
+        }
+    }
 
+
+    protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+    {
+        gvUsers.EditIndex = e.NewEditIndex;
+        BindUserDetails();
+    }
+
+    protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
+    {
+        String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+        SqlConnection con = new SqlConnection(CS);
+        int userid = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Value.ToString());
+        string username = gvUsers.DataKeys[e.RowIndex].Values["Name"].ToString();
+        GridViewRow row = (GridViewRow)gvUsers.Rows[e.RowIndex];
+        Label lblID = (Label)row.FindControl("Uid");
+        //TextBox txtname=(TextBox)gr.cell[].control[];  
+        TextBox textUserName = (TextBox)row.Cells[0].Controls[0];
+        TextBox textName = (TextBox)row.Cells[1].Controls[0];
+        TextBox textPassword = (TextBox)row.Cells[2].Controls[0];
+        TextBox textEmail = (TextBox)row.Cells[3].Controls[0];
+        TextBox textMobile = (TextBox)row.Cells[4].Controls[0];
+        TextBox textGender = (TextBox)row.Cells[5].Controls[0];
+        TextBox textUsertype = (TextBox)row.Cells[6].Controls[0];
+        //TextBox textname = (TextBox)row.FindControl("txtname");  
+        //TextBox textc = (TextBox)row.FindControl("txtc");  
+        gvUsers.EditIndex = -1;
+        con.Open();
+        //SqlCommand cmd = new SqlCommand("SELECT * FROM detail", conn);  
+        SqlCommand cmd = new SqlCommand("update Users set Username='" + textUserName.Text + "',Name='" + textName.Text + "',Password='" + textPassword.Text + "', Email='" + textEmail.Text + "', Mobile='" + textMobile.Text + "',Gender='" + textGender.Text + "', UserType='" + textUsertype.Text + "' where id='" + userid + "'", con);
+        cmd.ExecuteNonQuery();
+        con.Close();
+        lblresult.Text = username + " Details Updated successfully";
+        BindUserDetails();
+        //GridView1.DataBind();  
+    }
+
+    protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+    {
+        gvUsers.EditIndex = -1;
+        BindUserDetails();
+    }
 }
