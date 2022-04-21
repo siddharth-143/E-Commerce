@@ -17,7 +17,6 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-6">
                     <asp:Button ID="btnSearch" type="search" runat="server" Text="Search" CssClass="btn btn-primary" OnClick="Search" />
-                    <%--  <asp:Button Text="Search" runat="server" OnClick="Search" />--%>
                 </div>
             </div>
         </div>
@@ -25,72 +24,23 @@
 
         <h1>Users Details</h1>
         <hr />
-        <div class="panel panel-default">
-            <div class="panel-heading">All Users</div>
-            <asp:Repeater ID="rptrUserDetails" runat="server">
-                <HeaderTemplate>
-                    <div class="panel-body">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>UserName</th>
-                                    <th>Full Name</th>
-                                    <th>Password</th>
-                                    <th>Email</th>
-                                    <th>Mobile</th>
-                                    <th>Gender</th>
-                                    <th>UserType</th>
-                                    <th>Update</th>
-                                    <th>Delete</th>
-                                    <th>Edit</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                </HeaderTemplate>
-                <ItemTemplate>
-                    <tr>
-                        <td><%# Eval("Uid") %></td>
-                        <td><%# Eval("Username") %></td>
-                        <td><%# Eval("Name") %></td>
-                        <td><%# Eval("Password") %></td>
-                        <td><%# Eval("Email") %></td>
-                        <td><%# Eval("Mobile") %></td>
-                        <td><%# Eval("Gender") %></td>
-                        <td><%# Eval("UserType") %></td>
-                        <td>
-                            <asp:Button ID="btnUpdate" CssClass="btn btn-primary" runat="server" Text="Update" />
-                        </td>
-                        <td>
-                            <asp:Button ID="btnDelete" CssClass="btn btn-danger" runat="server" Text="Delete"/>
-                        </td>
-                        <td>
-                            <asp:Button ID="btnEdit" CssClass="btn btn-success" runat="server" Text="Edit" />
-                        </td>
-                    </tr>
-                </ItemTemplate>
-                <FooterTemplate>
-                    </tbody>
-                </table>
-        </div>
-                </FooterTemplate>
-            </asp:Repeater>
-        </div>
-
-
-
-        <%--<asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="false" AllowPaging="true" OnPageIndexChanging="OnPaging">
+        <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="false" AllowPaging="true" OnPageIndexChanging="OnPaging" class="table table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowDeleting="GridView1_RowDeleting" OnRowUpdating="GridView1_RowUpdating">
             <Columns>
-                <asp:BoundField DataField="Uid" HeaderText="#" ItemStyle-Width="150" />
-                <asp:BoundField DataField="Username" HeaderText="User Name" ItemStyle-Width="150" />
-                <asp:BoundField DataField="Name" HeaderText="Full Name" ItemStyle-Width="150" />
-                <asp:BoundField DataField="Password" HeaderText="Password" ItemStyle-Width="150" />
-                <asp:BoundField DataField="Email" HeaderText="Email" ItemStyle-Width="150" />
-                <asp:BoundField DataField="Mobile" HeaderText="Mobile" ItemStyle-Width="150" />
-                <asp:BoundField DataField="Gender" HeaderText="Gender" ItemStyle-Width="150" />
-                <asp:BoundField DataField="Usertype" HeaderText="User Type" ItemStyle-Width="150" />
+                <asp:BoundField DataField="Uid" HeaderText="#" ItemStyle-Width="150px" />
+                <asp:BoundField DataField="Username" HeaderText="User Name" ItemStyle-Width="150px" />
+                <asp:BoundField DataField="Name" HeaderText="Full Name" ItemStyle-Width="200px" />
+                <asp:BoundField DataField="Password" HeaderText="Password" ItemStyle-Width="150px" />
+                <asp:BoundField DataField="Email" HeaderText="Email" ItemStyle-Width="250px" />
+                <asp:BoundField DataField="Mobile" HeaderText="Mobile" ItemStyle-Width="150px" />
+                <asp:BoundField DataField="Gender" HeaderText="Gender" ItemStyle-Width="150px" />
+                <asp:BoundField DataField="Usertype" HeaderText="User Type" ItemStyle-Width="150px" />
+                <asp:CommandField ShowEditButton="true" />
+                <asp:CommandField ShowDeleteButton="true" />
             </Columns>
-        </asp:GridView>--%>
+        </asp:GridView>
+        <div>
+            <asp:Label ID="lblresult" runat="server"></asp:Label>
+        </div>
     </div>
 </asp:Content>
 
