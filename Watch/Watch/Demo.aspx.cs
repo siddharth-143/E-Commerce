@@ -1,105 +1,118 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data.SqlClient;
-using System.Configuration;
-using System.Data;
-using System.Drawing;
 
-public partial class Demo : System.Web.UI.Page
+public partial class Cart : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!this.IsPostBack)
+        if (!IsPostBack)
         {
-            this.BindUserDetails();
-            SearchCustomers();
+            BindCartProducts();
         }
     }
 
-
-    private void SearchCustomers()
+    private void BindCartProducts()
     {
-        string constr = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
-        using (SqlConnection con = new SqlConnection(constr))
+        if (Request.Cookies["CartPID"] != null)
         {
-            using (SqlCommand cmd = new SqlCommand())
+            string CookieData = Request.Cookies["CartPID"].Value.Split('=')[1];
+            string[] CookieDataArray = CookieData.Split(',');
+            if (CookieDataArray.Length > 0)
             {
-                string sql = "SELECT Uid, Username, Name, Password, Email, Mobile, Gender, Usertype FROM Users";
-                if (!string.IsNullOrEmpty(txtSearch.Text.Trim()))
+                h5NoItems.InnerText = "MY CART (" + CookieDataArray.Length + "  Items)";
+                DataTable dtBrands = new DataTable();
+                Int64 CartTotal = 0;
+                Int64 Total = 0;
+
+                for (int i = 0; i < CookieDataArray.Length; i++)
                 {
-                    sql += " WHERE Name LIKE @Name + '%'";
-                    cmd.Parameters.AddWithValue("@Name", txtSearch.Text.Trim());
+                    string PID = CookieDataArray[i].ToString().Split('-')[0];
+
+                    String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+                    using (SqlConnection con = new SqlConnection(CS))
+                    {
+                        using (SqlCommand cmd = new SqlCommand("select A.*,dbo.getProductName(" + PID + ") as PNamee,"
+                            + PID + " as PIDD,PData.Name,PData.Extention from tblProducts A cross apply( select top 1 B.Name,Extention from tblProductImages B where B.PID=A.PID ) PData where A.PID="
+                            + PID + "", con))
+                        {
+                            cmd.CommandType = CommandType.Text;
+                            using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                            {
+
+                                sda.Fill(dtBrands);
+
+                            }
+
+                        }
+                    }
+                    CartTotal += Convert.ToInt64(dtBrands.Rows[i]["PSelPrice"]);
+                    Total += Convert.ToInt64(dtBrands.Rows[i]["PPrice"]);
                 }
-                cmd.CommandText = sql;
-                cmd.Connection = con;
-                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
-                {
-                    DataTable dt = new DataTable();
-                    sda.Fill(dt);
-                    dlCustomers.DataSource = dt;
-                    dlCustomers.DataBind();
-                }
-                txtSearch.Text = "";
+                rptrCartProducts.DataSource = dtBrands;
+                rptrCartProducts.DataBind();
+                divPriceDetails.Visible = true;
+
+                spanCartTotal.InnerHtml = CartTotal.ToString();
+                spanTotal.InnerHtml = "Rs.  " + Total.ToString();
+                spanDiscount.InnerHtml = " " + (CartTotal - Total).ToString();
+            }
+            else
+            {
+                // empty
+                h5NoItems.InnerText = "Your Shopping Cart is Empty";
+                divPriceDetails.Visible = false;
             }
         }
-    }
-
-    protected void Search(object sender, EventArgs e)
-    {
-        this.SearchCustomers();
-    }
-
-
-
-    protected void OnDelete(object sender, EventArgs e)
-    {
-        DataListItem item = (sender as Button).NamingContainer as DataListItem;
-        int id = Convert.ToInt32((item.FindControl("lblId") as Label).Text.Trim());
-        SqlCommand cmd = new SqlCommand();
-        cmd.CommandText = "DELETE FROM Users WHERE Uid = @Uid";
-        cmd.Parameters.AddWithValue("@Uid", id);
-        InsertUpdateDelete(cmd);
-        this.BindUserDetails();
-    }
-
-    protected void OnCancel(object sender, EventArgs e)
-    {
-        this.BindUserDetails();
-    }
-
-    private void InsertUpdateDelete(SqlCommand cmd)
-    {
-        string conString = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
-        using (SqlConnection con = new SqlConnection(conString))
+        else
         {
-            cmd.Connection = con;
-            con.Open();
-            cmd.ExecuteNonQuery();
-            con.Close();
+            // empty
+            h5NoItems.InnerText = "Your Shopping Cart is Empty";
+            divPriceDetails.Visible = false;
         }
     }
 
-    private void BindUserDetails()
+    protected void btnRemoveItem_Click(object sender, EventArgs e)
     {
-        String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
-        using (SqlConnection con = new SqlConnection(CS))
+        string CookiePID = Request.Cookies["CartPID"].Value.Split('=')[1];
+        Button btn = (Button)(sender);
+        string PID = btn.CommandArgument;
+
+        List<String> CookiePIDList = CookiePID.Split(',').Select(i => i.Trim()).Where(i => i != string.Empty).ToList();
+        CookiePIDList.Remove(PID);
+        string CookiesPIDUpdated = String.Join(",", CookiePIDList.ToArray());
+        if (CookiesPIDUpdated == "")
         {
-            using (SqlCommand cmd = new SqlCommand("select * from users", con))
-            {
-                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
-                {
-                    DataTable dtusers = new DataTable();
-                    sda.Fill(dtusers);
-                    dlCustomers.DataSource = dtusers;
-                    dlCustomers.DataBind();
-                }
-            }
+            HttpCookie CartProducts = Request.Cookies["CartPID"];
+            CartProducts.Values["CartPID"] = null;
+            CartProducts.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(CartProducts);
         }
+        else
+        {
+            HttpCookie CartProducts = Request.Cookies["CartPID"];
+            CartProducts.Values["CartPID"] = CookiesPIDUpdated;
+            CartProducts.Expires = DateTime.Now.AddDays(30);
+            Response.Cookies.Add(CartProducts);
+        }
+        Response.Redirect("~/Cart.aspx");
     }
 
-
+    protected void btnBuyNow_Click(object sender, EventArgs e)
+    {
+        if (Session["USERNAME"] != null)
+        {
+            Response.Redirect("~/Payment.aspx");
+        }
+        else
+        {
+            Response.Redirect("~/SignIn.aspx?rurl=cart");
+        }
+    }
 }

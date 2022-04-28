@@ -8,6 +8,9 @@
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link href="CSS/Custom.css" rel="stylesheet" />
     <script src="JS/Main.js"></script>
+    <%-- Dark Mode --%>
+    <link href="Scripts/dark-mode-bootstrap/dark-mode.css" rel="stylesheet" />
+    <script src="Scripts/dark-mode-bootstrap/dark-mode-switch.min.js"></script>
     <!-- Custom styles for this template -->
     <link href="CSS/carousel.css" rel="stylesheet" />
     <link href="CSS/OrderSuccessfull.css" rel="stylesheet" />
@@ -112,8 +115,11 @@
 
                             <!-- Search form -->
                             <div class="form-inline d-flex flex-fill">
-                                <input class=" form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-success" type="submit">Search</button>
+                                <%--<input class="form-control me-2" id="txtSearch" type="search" placeholder="Search" aria-label="Search">--%>
+                                <asp:TextBox ID="txtSearch1" class="form-control me-2" runat="server" type="search" placeholder="Search" aria-label="Search"></asp:TextBox>
+                                <%--<button class="btn btn-outline-success" type="submit" ValidationGroup="B">Search</button>--%>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidatorUsername" CssClass="text-danger" runat="server" ErrorMessage="Enter User Details !!!" ControlToValidate="txtSearch1" ValidationGroup="B" Display="None"></asp:RequiredFieldValidator>
+                                <asp:Button ID="btnSearchPro" class="btn btn-outline-success" runat="server" Text="Search" ValidationGroup="B" />
                             </div>
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li>

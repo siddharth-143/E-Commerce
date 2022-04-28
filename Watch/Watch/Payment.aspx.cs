@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Drawing;
 
 public partial class Payment : System.Web.UI.Page
 {
@@ -94,30 +95,40 @@ public partial class Payment : System.Web.UI.Page
 
     protected void btnCOD_Click(object sender, EventArgs e)
     {
-        if (Session["USERID"] != null)
+        if (txtName.Text != "" && txtAddress.Text != "" && txtPinCode.Text != "" && txtMobileNumber.Text != "")
         {
-            string USERID = Session["USERID"].ToString();
-            string PaymentType = "COD";
-            string PaymentStatus = "NotPaid";
-            string EMAILID = Session["USEREMAIL"].ToString();
 
-            //Insert Data to tblPurchase
 
-            String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(CS))
+            if (Session["USERID"] != null)
             {
-                SqlCommand cmd = new SqlCommand("insert into tblPurchase values('" + USERID + "','" 
-                    + hdPid.Value + "','" + hdCartAmount.Value + "','" + hdCartDiscount.Value + "','" 
-                    + hdTotalPayed.Value + "','"+ PaymentType + "','" + PaymentStatus + "',getdate(),'"
-                    + txtName.Text + "','" + txtAddress.Text + "','" + txtPinCode.Text + "','" + txtMobileNumber.Text + "') select SCOPE_IDENTITY()", con);
-                con.Open();
-                Int64 PurchaseID = Convert.ToInt64(cmd.ExecuteScalar());
+                string USERID = Session["USERID"].ToString();
+                string PaymentType = "COD";
+                string PaymentStatus = "NotPaid";
+                string EMAILID = Session["USEREMAIL"].ToString();
+
+                //Insert Data to tblPurchase
+
+                String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    SqlCommand cmd = new SqlCommand("insert into tblPurchase values('" + USERID + "','"
+                        + hdPid.Value + "','" + hdCartAmount.Value + "','" + hdCartDiscount.Value + "','"
+                        + hdTotalPayed.Value + "','" + PaymentType + "','" + PaymentStatus + "',getdate(),'"
+                        + txtName.Text + "','" + txtAddress.Text + "','" + txtPinCode.Text + "','" + txtMobileNumber.Text + "') select SCOPE_IDENTITY()", con);
+                    con.Open();
+                    Int64 PurchaseID = Convert.ToInt64(cmd.ExecuteScalar());
+                }
+                Response.Redirect("~/OrderSuccessfull.aspx");
             }
-            Response.Redirect("~/OrderSuccessfull.aspx");
+            else
+            {
+                Response.Redirect("~/SignIn.aspx");
+            }
         }
         else
         {
-            Response.Redirect("~/SignIn.aspx");
+            lblMsg.ForeColor = Color.Red;
+            lblMsg.Text = "All Fields Are Mandatory";
         }
     }
 }
