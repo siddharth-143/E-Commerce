@@ -38,16 +38,16 @@ public partial class Cart : System.Web.UI.Page
                     String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
                     using (SqlConnection con = new SqlConnection(CS))
                     {
-                        using(SqlCommand cmd = new SqlCommand("select A.*,dbo.getProductName(" + PID + ") as PNamee,"
+                        using (SqlCommand cmd = new SqlCommand("select A.*,dbo.getProductName(" + PID + ") as PNamee,"
                             + PID + " as PIDD,PData.Name,PData.Extention from tblProducts A cross apply( select top 1 B.Name,Extention from tblProductImages B where B.PID=A.PID ) PData where A.PID="
                             + PID + "", con))
                         {
                             cmd.CommandType = CommandType.Text;
                             using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
                             {
-                    
+
                                 sda.Fill(dtBrands);
-                     
+
                             }
 
                         }
@@ -68,6 +68,7 @@ public partial class Cart : System.Web.UI.Page
                 // empty
                 h5NoItems.InnerText = "Your Shopping Cart is Empty";
                 divPriceDetails.Visible = false;
+                Response.Redirect("~/EmptyCart.aspx");
             }
         }
         else
@@ -75,6 +76,7 @@ public partial class Cart : System.Web.UI.Page
             // empty
             h5NoItems.InnerText = "Your Shopping Cart is Empty";
             divPriceDetails.Visible = false;
+            Response.Redirect("~/EmptyCart.aspx");
         }
     }
 
@@ -106,7 +108,7 @@ public partial class Cart : System.Web.UI.Page
 
     protected void btnBuyNow_Click(object sender, EventArgs e)
     {
-        if (Session["USERNAME"] != null) 
+        if (Session["USERNAME"] != null)
         {
             Response.Redirect("~/Payment.aspx");
         }

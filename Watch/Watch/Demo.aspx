@@ -1,84 +1,62 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true" CodeFile="Demo.aspx.cs" Inherits="Demo" %>
+﻿<%@ Page Title="Cart" Language="C#" MasterPageFile="~/GeneralLayout.master" AutoEventWireup="true" CodeFile="Cart.aspx.cs" Inherits="Cart" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container">
-        <div class="form-horizontal">
-            <h2>Add Brand</h2>
-            <hr />
-            <div class="form-group">
-                <asp:Label ID="Label1" runat="server" CssClass="col-md-2 control-label" Text="User Details"></asp:Label>
-                <div class="col-md-3">
-                    <asp:TextBox ID="txtSearch" CssClass="form-control" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorUsername" CssClass="text-danger" runat="server" ErrorMessage="Enter User Details !!!" ControlToValidate="txtSearch"></asp:RequiredFieldValidator>
+        <div class="row" style="padding-top: 20px;">
+            <div class="col-md-8">
+                <h5 class="proNameViewCart" runat="server" id="h5NoItems"></h5>
+                <asp:Repeater ID="rptrCartProducts" runat="server">
+                    <ItemTemplate>
+                        <div class="d-flex" style="border: 1px solid #eaeaec;">
+                            <div class="flex-shrink-0 px-2 pt-2">
+                                <a href="ProductView.aspx?PID=<%#Eval("PID") %>" target="_blank">
+                                    <img width="180px" src="Images/ProductImages/<%#Eval("PID") %>/<%#Eval("Name") %><%#Eval("Extention") %>" alt="<%#Eval("Name") %>" onerror="this.onerror=null;this.src='Images/noimage.jpg';">
+                                </a>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="media-heading proNameViewCart pt-1"><%#Eval("PName") %></h5>
+                                <%--<span class="proPriceView"><%#Eval("PSelPrice","{0:c}") %></span>--%>
+                                <%--<span class="proOgPriceView"><%#Eval("PPrice","{0:0,00}") %></span>--%>
+                                <span class="proOgPriceView"><%#Eval("PSelPrice","{0:c}") %></span><span class="proPriceDiscountView"> <%# string.Format("{0}",Convert.ToInt64(Eval("PPrice"))-Convert.ToInt64(Eval("PSelPrice"))) %> OFF</span>
+                                <p class="proPriceView"><%#Eval("PPrice","{0:c}") %></p>
+                                <h6 class="fw-bold">Description</h6>
+                                <span><%#Eval("PDescription") %></span>
+                                <p>
+                                    <asp:Button CommandArgument='<%#Eval("PID") %>' ID="btnRemoveItem" CssClass="removeButton" runat="server" Text="REMOVE" OnClick="btnRemoveItem_Click" />
+                                </p>
+                            </div>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
+            <div class="col-md-3 pt-5" runat="server" id="divPriceDetails">
+                <div style="border: 1px solid #eaeaec;">
+                    <h5 class="proNameViewCart">PRICE DETAILS</h5>
+
+                    <div>
+                        <label>Cart Total</label>
+                        <span class="float-end priceGray" id="spanCartTotal" runat="server"></span>
+                    </div>
+                    <div>
+                        <label>Cart Discount</label>
+                        <span class="float-end priceGreen" id="spanDiscount" runat="server"></span>
+                    </div>
+                </div>
+                <div>
+                    <div class="proPriceView">
+                        <label>Total</label>
+                        <span class="float-end" id="spanTotal" runat="server"></span>
+                    </div>
+                    <div>
+                        <asp:Button ID="btnBuyNow" CssClass="buyNowBtn" runat="server" Text="BUY NOW" OnClick="btnBuyNow_Click" />
+                    </div>
+                    <div>
+                        <asp:Button Style="border-radius: 3px; outline: 0; margin-top: 10px; margin-bottom: 20px; font-size: 13px; min-height: 22px; padding: 10px 15px; font-weight: 500; background: rgba(255,102,0,1); border: 1px solid #14cda8; color: #fff; width: 100%;" ID="btnViewOrder" runat="server" Text="VIEW ORDERES" />
+                    </div>
                 </div>
             </div>
-
-            <div class="form-group">
-                <div class="col-md-2"></div>
-                <div class="col-md-6">
-                    <asp:Button ID="btnSearch" type="search" runat="server" Text="Search" CssClass="btn btn-primary" OnClick="Search" />
-                    <%--  <asp:Button Text="Search" runat="server" OnClick="Search" />--%>
-                </div>
-            </div>
-        </div>
-        <br />
-
-        <h1>Users Details</h1>
-        <hr />
-        <div class="panel panel-default">
-            <div class="panel-heading">All Users</div>
-            <asp:DataList ID="dlCustomers" runat="server">
-                <HeaderTemplate>
-                    <div class="panel-body">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>UserName</th>
-                                    <th>Full Name</th>
-                                    <th>Password</th>
-                                    <th>Email</th>
-                                    <th>Mobile</th>
-                                    <th>Gender</th>
-                                    <th>UserType</th>
-                                    <th>Update</th>
-                                    <th>Delete</th>
-                                    <th>Edit</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                </HeaderTemplate>
-                <ItemTemplate>
-                    <tr>
-
-                        <td>
-                            <asp:Label ID="lblId" Text='<%#Eval("Uid") %>' runat="server"></asp:Label></td>
-                        <%--<td><%# Eval("Uid") %></td>--%>
-                        <td><%# Eval("Username") %></td>
-                        <td><%# Eval("Name") %></td>
-                        <td><%# Eval("Password") %></td>
-                        <td><%# Eval("Email") %></td>
-                        <td><%# Eval("Mobile") %></td>
-                        <td><%# Eval("Gender") %></td>
-                        <td><%# Eval("UserType") %></td>
-                        <td>
-                            <asp:Button ID="btnUpdate" CssClass="btn btn-primary" runat="server" Text="Update" />
-                        </td>
-                        <td>
-                            <asp:Button ID="btnDelete" OnClick="OnDelete"
-                                OnClientClick="return confirm('Are you sure?')" CssClass="btn btn-danger" runat="server" Text="Delete" />
-                        </td>
-                        <td>
-                            <asp:Button ID="btnEdit" CssClass="btn btn-success" runat="server" Text="Edit" />
-                        </td>
-                    </tr>
-                </ItemTemplate>
-                <FooterTemplate>
-                    </tbody>
-                </table>
-        </div>
-                </FooterTemplate>
-            </asp:DataList>
         </div>
     </div>
 </asp:Content>

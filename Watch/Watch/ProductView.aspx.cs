@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.Security;
 
 public partial class ProductView : System.Web.UI.Page
 {
@@ -84,24 +85,31 @@ public partial class ProductView : System.Web.UI.Page
     }
     protected void btnAddToCart_Click(object sender, EventArgs e)
     {
-        Int64 PID = Convert.ToInt64(Request.QueryString["PID"]);
-        if (Request.Cookies["CartPID"] != null)
+        if (Session["USERNAME"] != null)
         {
-            string CookiePID = Request.Cookies["CartPID"].Value.Split('=')[1];
-            CookiePID = CookiePID + "," + PID;
+            Int64 PID = Convert.ToInt64(Request.QueryString["PID"]);
+            if (Request.Cookies["CartPID"] != null)
+            {
+                string CookiePID = Request.Cookies["CartPID"].Value.Split('=')[1];
+                CookiePID = CookiePID + "," + PID;
 
-            HttpCookie CartProducts = new HttpCookie("CartPID");
-            CartProducts.Values["CartPID"] = CookiePID;
-            CartProducts.Expires = DateTime.Now.AddDays(30);
-            Response.Cookies.Add(CartProducts);
+                HttpCookie CartProducts = new HttpCookie("CartPID");
+                CartProducts.Values["CartPID"] = CookiePID;
+                CartProducts.Expires = DateTime.Now.AddDays(30);
+                Response.Cookies.Add(CartProducts);
+            }
+            else
+            {
+                HttpCookie CartProducts = new HttpCookie("CartPID");
+                CartProducts.Values["CartPID"] = PID.ToString();
+                CartProducts.Expires = DateTime.Now.AddDays(30);
+                Response.Cookies.Add(CartProducts);
+            }
+            Response.Redirect("~/ProductView.aspx?PID=" + PID);
         }
         else
         {
-            HttpCookie CartProducts = new HttpCookie("CartPID");
-            CartProducts.Values["CartPID"] = PID.ToString();
-            CartProducts.Expires = DateTime.Now.AddDays(30);
-            Response.Cookies.Add(CartProducts);
+            Response.Redirect("~/SignIn.aspx?rurl=cart");
         }
-        Response.Redirect("~/ProductView.aspx?PID=" + PID);
     }
 }

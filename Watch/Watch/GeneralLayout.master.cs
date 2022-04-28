@@ -14,20 +14,24 @@ public partial class GeneralLayout : System.Web.UI.MasterPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        BindCategories();
-        BindGender();
-        BindCartNumber();
-        if (Session["USERNAME"] != null)
+        if (!IsPostBack)
         {
-            btnSignup.Visible = false;
-            btnSigin.Visible = false;
-            btnSignOut.Visible = true;
-        }
-        else
-        {
-            btnSignup.Visible = true;
-            btnSigin.Visible = true;
-            btnSignOut.Visible = false;
+            BindCategories();
+            BindGender();
+            BindCartNumber();
+            SearchCustomers();
+            if (Session["USERNAME"] != null)
+            {
+                btnSignup.Visible = false;
+                btnSigin.Visible = false;
+                btnSignOut.Visible = true;
+            }
+            else
+            {
+                btnSignup.Visible = true;
+                btnSigin.Visible = true;
+                btnSignOut.Visible = false;
+            }
         }
     }
     public void BindCartNumber()
@@ -47,9 +51,39 @@ public partial class GeneralLayout : System.Web.UI.MasterPage
 
     protected void btnSignOut_Click(object sender, EventArgs e)
     {
-        Session["USERNAME"] = null;
+        string CookiePID = Request.Cookies["CartPID"].Value.Split('=')[1];
+        Button btn = (Button)(sender);
+        string PID = btn.CommandArgument;
+
+        List<String> CookiePIDList = CookiePID.Split(',').Select(i => i.Trim()).Where(i => i != string.Empty).ToList();
+        CookiePIDList.Remove(PID);
+        string CookiesPIDUpdated = String.Join(",", CookiePIDList.ToArray());
+        if (CookiesPIDUpdated != null)
+        {
+            HttpCookie CartProducts = Request.Cookies["CartPID"];
+            CartProducts.Values["CartPID"] = CookiesPIDUpdated;
+            CartProducts.Expires = DateTime.Now;
+            Response.Cookies.Add(CartProducts);
+        }
+
+        Session.Clear();
+        Session.Abandon();
+        Session.RemoveAll();
+        if (Request.Cookies["ASP.NET_SessionId"] != null)
+        {
+            Response.Cookies["ASP.NET_SessionId"].Expires = DateTime.Now.AddDays(0);
+            Response.Cookies["ASP.NET_SessionId"].Value = string.Empty;
+            Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", string.Empty));
+        }
+        if (Request.Cookies["AuthToken"] != null)
+        {
+            Response.Cookies["AuthToken"].Value = string.Empty;
+            Response.Cookies["AuthToken"].Expires = DateTime.Now.AddMonths(0);
+            Response.Cookies.Add(new HttpCookie("AuthToken", ""));
+        }
         Response.Redirect("~/Default.aspx");
     }
+
     public void BindCategories()
     {
         String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
@@ -90,6 +124,39 @@ public partial class GeneralLayout : System.Web.UI.MasterPage
             }
 
         }
+    }
+
+    private void SearchCustomers()
+    {
+        String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+        using (SqlConnection con = new SqlConnection(CS))
+        {
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                string sql = "SELECT PID, PName, PPrice, PSelPrice, PBrandID, PCategoryID, PGender, PDescription, FreeDelivery, 30DayRet," +
+                    "COD FROM tblProducts";
+                if (!string.IsNullOrEmpty(txtSearch1.Text.Trim()))
+                {
+                    sql += " WHERE Name LIKE @PName + '%'";
+                    cmd.Parameters.AddWithValue("@PName", txtSearch1.Text.Trim());
+                }
+                cmd.CommandText = sql;
+                cmd.Connection = con;
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    //rptrBrands.DataSource = dt;
+                    //rptrBrands.DataBind();
+                }
+                txtSearch1.Text = "";
+            }
+        }
+    }
+
+    protected void Search(object sender, EventArgs e)
+    {
+        this.SearchCustomers();
     }
 
     //protected void OnItemDataBound(object sender, RepeaterItemEventArgs e)

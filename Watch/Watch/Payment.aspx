@@ -17,25 +17,25 @@
                     <div class="form-group">
                         <asp:Label ID="Label1" runat="server" CssClass="control-label" Text="Name"></asp:Label>
                         <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidatorUsername" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="txtName"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidatorUsername" CssClass="text-danger" runat="server" ErrorMessage="Name is Required !" ControlToValidate="txtName" Display="Dynamic" ValidationGroup="A"></asp:RequiredFieldValidator>
                     </div>
 
                     <div class="form-group">
                         <asp:Label ID="Label2" runat="server" CssClass="control-label" Text="Address"></asp:Label>
                         <asp:TextBox ID="txtAddress" TextMode="MultiLine" CssClass="form-control" runat="server"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="txtAddress"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" CssClass="text-danger" runat="server" ErrorMessage="Address is Required !" ControlToValidate="txtAddress" Display="Dynamic" ValidationGroup="A"></asp:RequiredFieldValidator>
                     </div>
 
                     <div class="form-group">
                         <asp:Label ID="Label3" runat="server" CssClass="control-label" Text="Pin Code"></asp:Label>
                         <asp:TextBox ID="txtPinCode" CssClass="form-control" runat="server"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="txtPinCode"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" CssClass="text-danger" runat="server" ErrorMessage="Pincode is Required !" ControlToValidate="txtPinCode" Display="Dynamic" ValidationGroup="A"></asp:RequiredFieldValidator>
                     </div>
 
                     <div class="form-group">
                         <asp:Label ID="Label4" runat="server" CssClass="control-label" Text="Mobile Number"></asp:Label>
                         <asp:TextBox ID="txtMobileNumber" CssClass="form-control" runat="server"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="txtMobileNumber"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" CssClass="text-danger" runat="server" ErrorMessage="Mobile Number is Required !" ControlToValidate="txtMobileNumber" ValidationGroup="A"></asp:RequiredFieldValidator>
                     </div>
 
                 </div>
@@ -90,7 +90,8 @@
                     <div class="tab-pane fade" id="cod">
                         <h3>CASH ON DELIVERY</h3>
                         <p>Available</p>
-                         <asp:Button ID="btnCOD" runat="server" Text="Order Now" OnClick="btnCOD_Click" />
+                         <asp:Button ID="btnCOD" runat="server" class="btn btn-primary" Text="Order Now" OnClick="btnCOD_Click" ValidationGroup="A" />
+                        <asp:Label ID="lblMsg" runat="server"></asp:Label>
                     </div>
                 </div>
             </div>

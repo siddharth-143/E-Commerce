@@ -14,14 +14,14 @@
             <asp:label id="lblPassword" runat="server" cssclass="col-md-2 control-label" text="New Password" visible="False"></asp:label>
             <div class="col-md-3">
                 <asp:textbox id="tbNewPass" cssclass="form-control" textmode="Password" runat="server" placeholder="Password" visible="False"></asp:textbox>
-                <asp:requiredfieldvalidator id="RequiredFieldValidatorPass" cssclass="text-danger" runat="server" errormessage="Please enter your new Password !" controltovalidate="tbNewPass"></asp:requiredfieldvalidator>
+                <asp:requiredfieldvalidator id="RequiredFieldValidatorPass" cssclass="text-danger" runat="server" errormessage="Please enter your new Password !" controltovalidate="tbNewPass" Display="Dynamic" ValidationGroup="A"></asp:requiredfieldvalidator>
             </div>
         </div>
 
         <div class="form-group">
             <asp:label id="lblRetyPass" runat="server" cssclass="col-md-2 control-label" text="Confirm Password" visible="False"></asp:label>
             <div class="col-md-3">
-                <asp:textbox id="tbConfirmPass" cssclass="form-control" textmode="Password" runat="server" placeholder="Password" visible="False"></asp:textbox>
+                <asp:textbox id="tbConfirmPass" cssclass="form-control" textmode="Password" runat="server" placeholder="Password" visible="False" ValidationGroup="A"></asp:textbox>
                 <asp:comparevalidator id="CompareValidatorPass" runat="server" cssclass="text-danger" errormessage="Both Password must be same !" controltovalidate="tbNewPass" controltocompare="tbConfirmPass"></asp:comparevalidator>
             </div>
         </div>

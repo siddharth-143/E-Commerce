@@ -9,14 +9,14 @@
                 <asp:Label ID="Label1" runat="server" CssClass="col-md-2 control-label" Text="User Details"></asp:Label>
                 <div class="col-md-3">
                     <asp:TextBox ID="txtSearch" CssClass="form-control" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorUsername" CssClass="text-danger" runat="server" ErrorMessage="Enter User Details !!!" ControlToValidate="txtSearch"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorUsername" CssClass="text-danger" runat="server" ErrorMessage="Enter User Details !!!" ControlToValidate="txtSearch" ValidationGroup="A"></asp:RequiredFieldValidator>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-2"></div>
                 <div class="col-md-6">
-                    <asp:Button ID="btnSearch" type="search" runat="server" Text="Search" CssClass="btn btn-primary" OnClick="Search" />
+                    <asp:Button ID="btnSearch" type="search" runat="server" Text="Search" CssClass="btn btn-primary" OnClick="Search" ValidationGroup="A" />
                 </div>
             </div>
         </div>
@@ -24,7 +24,9 @@
 
         <h1>Users Details</h1>
         <hr />
-        <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="false" AllowPaging="true" OnPageIndexChanging="OnPaging" class="table table-striped" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowDeleting="GridView1_RowDeleting" OnRowUpdating="GridView1_RowUpdating">
+        <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="false" AllowPaging="true" OnPageIndexChanging="OnPaging" class="table table-striped" 
+            OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowDeleting="GridView1_RowDeleting" 
+            OnRowUpdating="GridView1_RowUpdating">
             <Columns>
                 <asp:BoundField DataField="Uid" HeaderText="#" ItemStyle-Width="150px" />
                 <asp:BoundField DataField="Username" HeaderText="User Name" ItemStyle-Width="150px" />

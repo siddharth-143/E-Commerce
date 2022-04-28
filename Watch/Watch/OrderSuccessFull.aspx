@@ -9,7 +9,7 @@
                 <div class="payment">
                     <div class="payment_header">
                         <div class="check">
-                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <i class="emptycart">✓</i>
                         </div>
                     </div>
                     <div class="content">
