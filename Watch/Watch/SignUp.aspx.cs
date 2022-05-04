@@ -35,6 +35,7 @@ public partial class SignUp : System.Web.UI.Page
                 using (SqlConnection con = new SqlConnection(CS))
                 {
                     SqlCommand cmd = new SqlCommand("insert into Users values('" + tbUname.Text + "', '" + tbName.Text + "', '" + tbPass.Text + "', '" + tbEmail.Text + "', '" + tbMobile.Text + "','" + gender + "', 'U')", con);
+                    // SqlCommand cmd = new SqlCommand("insert into Users values('" + tbUname.Text + "', '" + tbName.Text + "', '" + tbPass.Text + "', '" + tbEmail.Text + "', '" + tbMobile.Text + "','" + ddlGender.SelectedValue + "', 'U')", con);   // For dropdown list to select gender
                     con.Open();
                     cmd.ExecuteNonQuery();
                     lblMsg.Text = "Registration Successfull";

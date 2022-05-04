@@ -18,8 +18,15 @@ public partial class ManageUser : System.Web.UI.Page
     {
         if (!this.IsPostBack)
         {
-            this.BindUserDetails();
-            SearchCustomers();
+            if (Session["USERNAME"] != null)
+            {
+                this.BindUserDetails();
+                SearchCustomers();
+            }
+            else
+            {
+                Response.Redirect("~/SignIn.aspx");
+            }
         }
     }
 
@@ -102,7 +109,7 @@ public partial class ManageUser : System.Web.UI.Page
         //int userid = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Value);
         //string username = gvUsers.DataKeys[e.RowIndex].Values["Name"].ToString();
         //con.Open();
-        //SqlCommand cmd = new SqlCommand("delete from Users where Uid='"+userid+"'", con);
+        //SqlCommand cmd = new SqlCommand("delete from Users where Uid='" + userid + "'", con);
         //int result = cmd.ExecuteNonQuery();
         //con.Close();
         //if (result == 1)
@@ -115,10 +122,11 @@ public partial class ManageUser : System.Web.UI.Page
         String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
         SqlConnection con = new SqlConnection(CS);
         try
-        {           
-            int userid = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Value.ToString());
+        {
+            int userid = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Values[0]);
             con.Open();
-            SqlCommand cmd = new SqlCommand("delete from Users where Uid='"+userid+"'", con);
+            SqlCommand cmd = new SqlCommand("delete from Users where Uid='" + userid + "'", con);
+            cmd.Parameters.AddWithValue("@Uid", userid);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
             ShowMessage("Record Deleted Successfully.....!");
@@ -145,31 +153,31 @@ public partial class ManageUser : System.Web.UI.Page
         String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
         SqlConnection con = new SqlConnection(CS);
         int userid = Convert.ToInt32(gvUsers.DataKeys[e.RowIndex].Value.ToString());
-        string username = gvUsers.DataKeys[e.RowIndex].Values["Name"].ToString();
+        string username = gvUsers.DataKeys[e.RowIndex].Values["Username"].ToString();
         GridViewRow row = (GridViewRow)gvUsers.Rows[e.RowIndex];
         Label lblID = (Label)row.FindControl("Uid");
         //TextBox txtname=(TextBox)gr.cell[].control[];  
-        TextBox textUserUid = (TextBox)row.Cells[0].Controls[0];
-        TextBox textUserName = (TextBox)row.Cells[1].Controls[0];
-        TextBox textName = (TextBox)row.Cells[2].Controls[0];
-        TextBox textPassword = (TextBox)row.Cells[3].Controls[0];
-        TextBox textEmail = (TextBox)row.Cells[4].Controls[0];
-        TextBox textMobile = (TextBox)row.Cells[5].Controls[0];
-        TextBox textGender = (TextBox)row.Cells[6].Controls[0];
-        TextBox textUsertype = (TextBox)row.Cells[7].Controls[0];
+        //TextBox textUserUid = (TextBox)row.Cells[0].Controls[0];
+        TextBox textUserName = (TextBox)row.Cells[0].Controls[0];
+        TextBox textName = (TextBox)row.Cells[1].Controls[0];
+        TextBox textPassword = (TextBox)row.Cells[2].Controls[0];
+        TextBox textEmail = (TextBox)row.Cells[3].Controls[0];
+        TextBox textMobile = (TextBox)row.Cells[4].Controls[0];
+        TextBox textGender = (TextBox)row.Cells[5].Controls[0];
+        TextBox textUsertype = (TextBox)row.Cells[6].Controls[0];
         //TextBox textname = (TextBox)row.FindControl("txtname");  
         //TextBox textc = (TextBox)row.FindControl("txtc");  
         gvUsers.EditIndex = -1;
         con.Open();
         //SqlCommand cmd = new SqlCommand("SELECT * FROM detail", conn);  
-        SqlCommand cmd = new SqlCommand("update Users set Username='" + textUserUid.Text + "',Username='" + textUserName.Text + "',Name='" + textName.Text + "'" +
+        SqlCommand cmd = new SqlCommand("update Users set Username='" + textUserName.Text + "',Name='" + textName.Text + "'" +
             ",Password='" + textPassword.Text + "', Email='" + textEmail.Text + "', Mobile='" + textMobile.Text + "',Gender='" + textGender.Text + "'," +
             " UserType='" + textUsertype.Text + "' where Uid='" + userid + "'", con);
         cmd.ExecuteNonQuery();
         con.Close();
         lblresult.Text = username + " Details Updated successfully";
         BindUserDetails();
-        //GridView1.DataBind();  
+        //GridView1.DataBind();         
     }
 
     protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)

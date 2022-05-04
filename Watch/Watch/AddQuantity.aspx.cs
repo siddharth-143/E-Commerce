@@ -15,7 +15,10 @@ public partial class AddQuantity : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            BindBrandsRptr();
+
+                BindBrandsRptr();
+            
+
         }
     }
 
