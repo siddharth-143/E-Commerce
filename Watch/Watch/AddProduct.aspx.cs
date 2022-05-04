@@ -16,9 +16,11 @@ public partial class AddProduct : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            BindBrands();
-            BindCategory();
-            bindGender();
+
+                BindBrands();
+                BindCategory();
+                bindGender();
+            
         }
     }
 

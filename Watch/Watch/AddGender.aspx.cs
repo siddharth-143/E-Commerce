@@ -15,7 +15,8 @@ public partial class AddGender : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            BindBrandsRptr();
+              BindBrandsRptr();
+
         }
     }
 

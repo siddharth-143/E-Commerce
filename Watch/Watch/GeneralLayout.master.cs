@@ -18,7 +18,8 @@ public partial class GeneralLayout : System.Web.UI.MasterPage
         {
             BindCategories();
             BindGender();
-            BindCartNumber();
+            // BindCartNumber();
+            BindCartNumber2();
             SearchCustomers();
             if (Session["USERNAME"] != null)
             {
@@ -49,22 +50,59 @@ public partial class GeneralLayout : System.Web.UI.MasterPage
         }
     }
 
+    public void BindCartNumber2()
+    {
+        if (Session["USERID"] != null)
+        {
+            string UserIDD = Session["USERID"].ToString();
+            String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(CS))
+            {
+                SqlCommand cmd = new SqlCommand("BindCartNumberz", con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                cmd.Parameters.AddWithValue("@UserID", UserIDD);
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    sda.Fill(dt);
+                    if (dt.Rows.Count > 0)
+                    {
+                        string CartQuantity = dt.Compute("Sum(Qty)", "").ToString();
+                        pCount.InnerText = CartQuantity;
+
+                    }
+                    else
+                    {
+                        pCount.InnerText = 0.ToString();
+                    }
+                }
+            }
+        }
+    }
+
+    //protected void btnLogin_Click(object sender, EventArgs e)
+    //{
+    //    Response.Redirect("~/SignIn.aspx");
+    //}
+
     protected void btnSignOut_Click(object sender, EventArgs e)
     {
-        string CookiePID = Request.Cookies["CartPID"].Value.Split('=')[1];
-        Button btn = (Button)(sender);
-        string PID = btn.CommandArgument;
+        //string CookiePID = Request.Cookies["CartPID"].Value.Split('=')[1];
+        //Button btn = (Button)(sender);
+        //string PID = btn.CommandArgument;
 
-        List<String> CookiePIDList = CookiePID.Split(',').Select(i => i.Trim()).Where(i => i != string.Empty).ToList();
-        CookiePIDList.Remove(PID);
-        string CookiesPIDUpdated = String.Join(",", CookiePIDList.ToArray());
-        if (CookiesPIDUpdated != null)
-        {
-            HttpCookie CartProducts = Request.Cookies["CartPID"];
-            CartProducts.Values["CartPID"] = CookiesPIDUpdated;
-            CartProducts.Expires = DateTime.Now;
-            Response.Cookies.Add(CartProducts);
-        }
+        //List<String> CookiePIDList = CookiePID.Split(',').Select(i => i.Trim()).Where(i => i != string.Empty).ToList();
+        //CookiePIDList.Remove(PID);
+        //string CookiesPIDUpdated = String.Join(",", CookiePIDList.ToArray());
+        //if (CookiesPIDUpdated != null)
+        //{
+        //    HttpCookie CartProducts = Request.Cookies["CartPID"];
+        //    CartProducts.Values["CartPID"] = CookiesPIDUpdated;
+        //    CartProducts.Expires = DateTime.Now;
+        //    Response.Cookies.Add(CartProducts);
+        //}
 
         Session.Clear();
         Session.Abandon();
@@ -83,6 +121,13 @@ public partial class GeneralLayout : System.Web.UI.MasterPage
         }
         Response.Redirect("~/Default.aspx");
     }
+
+    //protected void btnSignOut_Click(object sender, EventArgs e)
+    //{
+    //    Session["Username"] = null;
+
+    //    Response.Redirect("Default.aspx");
+    //}
 
     public void BindCategories()
     {

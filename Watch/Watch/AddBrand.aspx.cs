@@ -16,6 +16,7 @@ public partial class AddBrand : System.Web.UI.Page
         if (!IsPostBack)
         {
             BindBrandsRptr();
+            
         }
     }
     
@@ -39,14 +40,21 @@ public partial class AddBrand : System.Web.UI.Page
 
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
-        using (SqlConnection con = new SqlConnection(CS))
+        if (Session["USERNAME"] != null)
         {
-            SqlCommand cmd = new SqlCommand("insert into tblBrands values('" + txtBrandName.Text + "')", con);
-            con.Open();
-            cmd.ExecuteNonQuery();
-            txtBrandName.Text = string.Empty;
+            String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(CS))
+            {
+                SqlCommand cmd = new SqlCommand("insert into tblBrands values('" + txtBrandName.Text + "')", con);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                txtBrandName.Text = string.Empty;
+            }
+            BindBrandsRptr();
         }
-        BindBrandsRptr();
+        else
+        {
+            Response.Redirect("~/SignIn.aspx?rurl=AdminHome");
+        }
     }
 }

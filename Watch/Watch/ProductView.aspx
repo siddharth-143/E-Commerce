@@ -4,6 +4,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container">
+        <button id="btnCart2" runat="server" class="btn btn-primary navbar-btn pull-right"
+            onserverclick="btnCart2_ServerClick" type="button">
+            Cart <span id="CartBadge" runat="server" class="badge">0</span>
+        </button>
         <div class="row" style="padding-top: 50px">
             <div class="col-md-5">
                 <div style="max-width: 480px" class="thumbnail">
@@ -57,6 +61,10 @@
                             <p><%# ((int)Eval("30DayRet")==1)?"30 Days Returns":"" %></p>
                             <p><%# ((int)Eval("COD")==1)?"Cash on Delivery":"" %></p>
                         </div>
+                        <asp:HiddenField ID="hfCatID" runat="server" Value='<%# Eval("PcategoryID") %>' />
+                        <asp:HiddenField ID="hfGenderID" runat="server" Value='<%# Eval("PGender") %>' />
+                        <asp:HiddenField ID="hfBrandID" runat="server" Value='<%# Eval("PBrandID") %>' />
+
                     </ItemTemplate>
                 </asp:Repeater>
             </div>
