@@ -24,12 +24,6 @@
                                     </div>
                                     <div class="flex-grow-1 ms-3">
                                         <h4 class="media-heading proNameViewCart pt-1"><%# Eval("PName") %></h4>
-
-                                        <%-- Try something new --%>
-                                        <span class="ProPriceViewCart">Rs.&nbsp <%# Eval("PPrice","{0:0.00}") %></span>  <span class="proPriceDiscountView">Off Rs.<%# string.Format("{0}",Convert.ToInt64(Eval("PSelPrice"))-Convert.ToInt64(Eval("PPrice"))) %></span>                                     
-                                        <span class="proOgPriceView">Rs.&nbsp <%# Eval("PSelPrice","{0:0.00}") %></span>
-                                          <%-- Try something new --%>
-                                        <br />
                                         <span class="proOgPriceView">Rs.&nbsp <%# Eval("PSelPrice","{0:0.00}") %></span>  <span class="proPriceDiscountView">Off Rs.<%# string.Format("{0}",Convert.ToInt64(Eval("PPrice"))-Convert.ToInt64(Eval("PSelPrice"))) %></span>
                                         <p class="proPriceView">Rs.&nbsp <%# Eval("PPrice","{0:0.00}") %></p>
 
@@ -39,11 +33,8 @@
                                             <asp:TextBox ID="txtQty" runat="server" Width="40" Font-Size="Large" TextMode="SingleLine" Style="text-align: center" Text='<%# Eval("Qty") %>'></asp:TextBox>&nbsp
                                             <asp:Button ID="BtnPlus" CommandArgument='<%# Eval("PID") %>' CommandName="DoPlus" runat="server" Text="+" Font-Size="Large" />&nbsp&nbsp&nbsp                                          
                                         </div>
-                                        <br />
                                         <p>
-                                            <asp:Button CommandArgument='<%#Eval("CartID") %>' CommandName="RemoveThisCart" ID="btnRemoveCart" CssClass="removeButton" runat="server" Text="Remove" />
-                                            <br />
-                                            <span class="proNameViewCart pull-right">SubTotal: Rs.&nbsp <%# Eval("SubSAmount","{0:0.00}") %></span>
+                                            <asp:Button CommandArgument='<%#Eval("CartID") %>' CommandName="RemoveThisCart" ID="btnRemoveCart" CssClass="removeButton" runat="server" Text="Remove" /><span class="proNameViewCart float-end">SubTotal: Rs.&nbsp <%# Eval("SubSAmount","{0:0.00}") %></span>
                                         </p>
                                     </div>
                                 </div>
@@ -54,28 +45,26 @@
 
                     <div class="col-md-3 pt-5" runat="server" id="divAmountSect">
                         <div style="border: 1px solid #eaeaec;">
-                            <h5 class=" proNameViewCart">Price Details</h5>
-                            <div>
-                                <label class=" ">Total</label>
-                                <span class="float-end priceGray" runat="server" id="spanCartTotal"></span>
+                            <h5 class=" proNameViewCart">PRICE DETAILS</h5>
+
+                            <div class="cartTotal">
+                                <label>Cart Total</label>
+                                <span class="float-end " runat="server" id="spanTotal"></span>
                             </div>
                             <div>
                                 <label class=" ">Cart Discount</label>
                                 <span class="float-end priceGreen" runat="server" id="spanDiscount"></span>
                             </div>
-                        </div>
-                        <div>
-                            <div class="cartTotal">
-                                <label>Cart Total</label>
-                                <span class="float-end " runat="server" id="spanTotal"></span>
+                            <div>
+                                <label class=" ">Total</label>
+                                <span class="float-end priceGray" runat="server" id="spanCartTotal"></span>
                                 <div>
-                                    <asp:Button Style="border-radius: 3px; outline: 0; margin-top: 10px; margin-bottom: 20px; font-size: 13px; min-height: 22px; padding: 10px 15px; font-weight: 500; background: rgba(255,102,0,1); border: 1px solid #14cda8; color: #fff; width: 100%;" ID="btnBuyNow" runat="server" OnClick="btnBuyNow_Click" Text="BUY NOW" />
+                                    <asp:Button ID="btnBuyNow" CssClass="buyNowBtn" runat="server" Text="BUY NOW" OnClick="btnBuyNow_Click" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
