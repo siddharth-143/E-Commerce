@@ -85,8 +85,8 @@ public partial class Cart : System.Web.UI.Page
                     string CartTotal = dt.Compute("Sum(SubPAmount)", "").ToString();
                     string CartQuantity = dt.Compute("Sum(Qty)", "").ToString();
                     h5NoItems.InnerText = "My Cart ( " + CartQuantity + " Item(s) )";
-                    int Total1 = Convert.ToInt32(dt.Compute("Sum(SubSAmount)", ""));
-                    int CartTotal1 = Convert.ToInt32(dt.Compute("Sum(SubPAmount)", ""));
+                    int Total1 = Convert.ToInt32(dt.Compute("Sum(SubPAmount)", ""));
+                    int CartTotal1 = Convert.ToInt32(dt.Compute("Sum(SubSAmount)", ""));
                     spanTotal.InnerText = "Rs. " + string.Format("{0:#,###.##}", double.Parse(Total)) + ".00";
                     spanCartTotal.InnerText = "Rs. " + string.Format("{0:#,###.##}", double.Parse(CartTotal)) + ".00";
                     spanDiscount.InnerText = "- Rs. " + (CartTotal1 - Total1).ToString() + ".00";
@@ -125,7 +125,7 @@ public partial class Cart : System.Web.UI.Page
                     if (dt.Rows.Count > 0)
                     {
                         Int32 updateQty = Convert.ToInt32(dt.Rows[0]["Qty"].ToString());
-                        SqlCommand myCmd = new SqlCommand("SP_UpdateCart", con)
+                        SqlCommand myCmd = new SqlCommand("UpdateCart", con)
                         {
                             CommandType = CommandType.StoredProcedure
                         };
@@ -162,22 +162,22 @@ public partial class Cart : System.Web.UI.Page
                         Int32 myQty = Convert.ToInt32(dt.Rows[0]["Qty"].ToString());
                         //if (myQty <= 1)
                         //{
-                            //divQtyError.Visible = true;
+                        //divQtyError.Visible = true;
                         //}
                         //else
                         //{
-                            SqlCommand myCmd = new SqlCommand("UpdateCart", con)
-                            {
-                                CommandType = CommandType.StoredProcedure
-                            };
-                            myCmd.Parameters.AddWithValue("@Quantity", myQty - 1);
-                            myCmd.Parameters.AddWithValue("@CartPID", PID);
-                            myCmd.Parameters.AddWithValue("@UserID", UserID);
-                            con.Open();
-                            Int64 CartID = Convert.ToInt64(myCmd.ExecuteScalar());
-                            con.Close();
-                            BindProductCart();
-                            BindCartNumber();
+                        SqlCommand myCmd = new SqlCommand("UpdateCart", con)
+                        {
+                            CommandType = CommandType.StoredProcedure
+                        };
+                        myCmd.Parameters.AddWithValue("@Quantity", myQty - 1);
+                        myCmd.Parameters.AddWithValue("@CartPID", PID);
+                        myCmd.Parameters.AddWithValue("@UserID", UserID);
+                        con.Open();
+                        Int64 CartID = Convert.ToInt64(myCmd.ExecuteScalar());
+                        con.Close();
+                        BindProductCart();
+                        BindCartNumber();
 
                         //}
                     }
@@ -204,13 +204,21 @@ public partial class Cart : System.Web.UI.Page
         }
     }
 
-    protected void btnBuyNow_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("Payment.aspx");
-    }
 
     protected void btnCart2_ServerClick(object sender, EventArgs e)
     {
-        Response.Redirect("Cart.aspx");
+        Response.Redirect("~/Cart.aspx");
+    }
+
+    protected void btnBuyNow_Click(object sender, EventArgs e)
+    {
+        if (Session["USERNAME"] != null)
+        {
+            Response.Redirect("~/TimePass.aspx");
+        }
+        else
+        {
+            Response.Redirect("~/SignIn.aspx?rurl=cart");
+        }
     }
 }
