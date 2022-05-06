@@ -49,13 +49,13 @@ public partial class Cart : System.Web.UI.Page
                     if (dt.Rows.Count > 0)
                     {
                         string CartQuantity = dt.Compute("Sum(Qty)", "").ToString();
-                        CartBadge.InnerText = CartQuantity;
+                        //CartBadge.InnerText = CartQuantity;
 
                     }
                     else
                     {
                         //_ = CartBadge.InnerText == 0.ToString();
-                        CartBadge.InnerText = "0";
+                        //CartBadge.InnerText = "0";
 
                     }
                 }
@@ -214,7 +214,7 @@ public partial class Cart : System.Web.UI.Page
     {
         if (Session["USERNAME"] != null)
         {
-            Response.Redirect("~/TimePass.aspx");
+            Response.Redirect("~/Payment.aspx");
         }
         else
         {

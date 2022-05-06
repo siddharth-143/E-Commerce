@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Drawing;
 
 public partial class TimePass : System.Web.UI.Page
 {
@@ -19,7 +20,6 @@ public partial class TimePass : System.Web.UI.Page
             if (!IsPostBack)
             {
                 BindPriceData2();
-                genAutoNum();
                 BindOrderProducts();
             }
         }
@@ -114,12 +114,12 @@ public partial class TimePass : System.Web.UI.Page
                     string Total = dt.Compute("Sum(SubSAmount)", "").ToString();
                     string CartTotal = dt.Compute("Sum(SubPAmount)", "").ToString();
                     string CartQuantity = dt.Compute("Sum(Qty)", "").ToString();
-                    int Total1 = Convert.ToInt32(dt.Compute("Sum(SubSAmount)", ""));
-                    int CartTotal1 = Convert.ToInt32(dt.Compute("Sum(SubPAmount)", ""));
+                    int Total1 = Convert.ToInt32(dt.Compute("Sum(SubPAmount)", ""));
+                    int CartTotal1 = Convert.ToInt32(dt.Compute("Sum(SubSAmount)", ""));
                     spanTotal.InnerText = "Rs. " + string.Format("{0:#,###.##}", double.Parse(Total)) + ".00";
                     Session["myCartAmount"] = string.Format("{0:####}", double.Parse(Total));
                     spanCartTotal.InnerText = "Rs. " + string.Format("{0:#,###.##}", double.Parse(CartTotal)) + ".00";
-                    spanDiscount.InnerText = "- Rs. " + (CartTotal1 - Total1).ToString();
+                    spanDiscount.InnerText = "- Rs. " + (CartTotal1 - Total1).ToString() + ".00";
                     Session["TotalAmount"] = spanTotal.InnerText;
                     hdCartAmount.Value = CartTotal.ToString();
                     hdCartDiscount.Value = (CartTotal1 - Total1).ToString() + ".00";
@@ -133,63 +133,41 @@ public partial class TimePass : System.Web.UI.Page
         }
     }
 
-    protected void btnPaytm_Click(object sender, EventArgs e)
+    protected void btnCOD_Click(object sender, EventArgs e)
     {
-        if (Session["USERNAME"] != null)
+        if (txtName.Text != "" && txtAddress.Text != "" && txtPinCode.Text != "" && txtMobileNumber.Text != "")
         {
-            string USERID = Session["USERID"].ToString();
-            string PaymentType = "Paytm";
-            string PaymentStatus = "NotPaid";
-            string EMAILID = Session["USEREMAIL"].ToString();
-            using (SqlConnection con = new SqlConnection(CS))
+
+
+            if (Session["USERNAME"] != null)
             {
-                SqlCommand cmd = new SqlCommand("insert into tblPurchase values('" + USERID + "','"
-                    + hdPidSizeID.Value + "','" + hdCartAmount.Value + "','" + hdCartDiscount.Value + "','"
-                    + hdTotalPayed.Value + "','" + PaymentType + "','" + PaymentStatus + "',getdate(),'"
-                    + txtName.Text + "','" + txtAddress.Text + "','" + txtPinCode.Text + "','" + txtMobileNumber.Text + "') select SCOPE_IDENTITY()", con);
-                if (con.State == ConnectionState.Closed)
+                string USERID = Session["USERID"].ToString();
+                string PaymentType = "Paytm";
+                string PaymentStatus = "NotPaid";
+                string EMAILID = Session["USEREMAIL"].ToString();
+                using (SqlConnection con = new SqlConnection(CS))
                 {
-                    con.Open();
+                    SqlCommand cmd = new SqlCommand("insert into tblPurchase values('" + USERID + "','"
+                        + hdPidSizeID.Value + "','" + hdCartAmount.Value + "','" + hdCartDiscount.Value + "','"
+                        + hdTotalPayed.Value + "','" + PaymentType + "','" + PaymentStatus + "',getdate(),'"
+                        + txtName.Text + "','" + txtAddress.Text + "','" + txtPinCode.Text + "','" + txtMobileNumber.Text + "') select SCOPE_IDENTITY()", con);
+                    if (con.State == ConnectionState.Closed)
+                    {
+                        con.Open();
+                    }
+                    Int64 PurchaseID = Convert.ToInt64(cmd.ExecuteScalar());
                 }
-                Int64 PurchaseID = Convert.ToInt64(cmd.ExecuteScalar());
+                Response.Redirect("~/OrderSuccessfull.aspx");
+            }
+            else
+            {
+                Response.Redirect("SignIn.aspx");
             }
         }
         else
         {
-            Response.Redirect("SignIn.aspx");
-        }
-    }
-
-
-
-    private void genAutoNum()
-    {
-        Random r = new Random();
-        int num = r.Next(Convert.ToInt32("231965"),
-       Convert.ToInt32("987654"));
-        string ChkOrderNum = num.ToString();
-        using (SqlConnection con = new SqlConnection(CS))
-        {
-            SqlCommand cmd = new SqlCommand("FindOrderNumber", con)
-            {
-                CommandType = CommandType.StoredProcedure
-            };
-            cmd.Parameters.AddWithValue("@FindOrderNumber", ChkOrderNum);
-            if (con.State == ConnectionState.Closed) { con.Open(); }
-            using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
-            {
-                DataTable dt = new DataTable();
-                sda.Fill(dt);
-                con.Close();
-                if (dt.Rows.Count > 0)
-                {
-                    genAutoNum();
-                }
-                else
-                {
-                    OrderNumber = Convert.ToInt32(num.ToString());
-                }
-            }
+            lblMsg.ForeColor = Color.Red;
+            lblMsg.Text = "All Fields Are Mandatory";
         }
     }
     
