@@ -4,10 +4,6 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container">
-        <button id="btnCart2" runat="server" class="btn btn-primary navbar-btn pull-right"
-            onserverclick="btnCart2_ServerClick" type="button">
-            Cart <span id="CartBadge" runat="server" class="badge">0</span>
-        </button>
         <div class="row" style="padding-top: 50px">
             <div class="col-md-5">
                 <div style="max-width: 480px" class="thumbnail">
@@ -48,7 +44,6 @@
                         </div>
                         <div class="divDet1">
                             <asp:Button ID="btnAddToCart" OnClick="btnAddToCart_Click" CssClass="mainButton" runat="server" Text="ADD TO CART" />
-
                         </div>
                         <div class="divDet1">
                             <h5 class="h5Size">Description</h5>

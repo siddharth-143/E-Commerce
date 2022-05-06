@@ -247,12 +247,12 @@ public partial class ProductView : System.Web.UI.Page
                     if (dt.Rows.Count > 0)
                     {
                         string CartQuantity = dt.Compute("Sum(Qty)", "").ToString();
-                        CartBadge.InnerText = CartQuantity;
+                        //CartBadge.InnerText = CartQuantity;
 
                     }
                     else
                     {
-                        CartBadge.InnerText = 0.ToString();
+                        //CartBadge.InnerText = 0.ToString();
                     }
                 }
             }
@@ -268,8 +268,4 @@ public partial class ProductView : System.Web.UI.Page
         base.InitializeCulture();
     }
 
-    protected void btnCart2_ServerClick(object sender, EventArgs e)
-    {
-        Response.Redirect("Cart.aspx");
-    }
 }
