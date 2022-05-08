@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Drawing;
+using System.Data;
 
 public partial class SignUp : System.Web.UI.Page
 {
@@ -27,17 +28,35 @@ public partial class SignUp : System.Web.UI.Page
             gender = "Female";
         }
 
-        if (tbUname.Text != "" && tbName.Text != "" && tbPass.Text != "" && tbEmail.Text != "" && tbMobile.Text != "" && gender != "" )
+        if (tbUname.Text != "" && tbName.Text != "" && tbPass.Text != "" && tbEmail.Text != "" && tbMobile.Text != "" && gender != "")
         {
             if (tbPass.Text == tbCPass.Text)
             {
-                String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(CS))
+                //String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+                //using (SqlConnection con = new SqlConnection(CS))
+                //{
+                //    SqlCommand cmd = new SqlCommand("insert into Users values('" + tbUname.Text + "', '" + tbName.Text + "', '" + tbPass.Text + "', '" + tbEmail.Text + "', '" + tbMobile.Text + "','" + gender + "', 'U')", con);
+                //    // SqlCommand cmd = new SqlCommand("insert into Users values('" + tbUname.Text + "', '" + tbName.Text + "', '" + tbPass.Text + "', '" + tbEmail.Text + "', '" + tbMobile.Text + "','" + ddlGender.SelectedValue + "', 'U')", con);   // For dropdown list to select gender
+                //    con.Open();
+                //    cmd.ExecuteNonQuery();
+                //    lblMsg.Text = "Registration Successfull";
+                //    lblMsg.ForeColor = Color.Green;
+                //    Response.Redirect("~/Signin.aspx");
+                //}
+
+                // Using SQLHelper
+                string strcmd = "select Uid from Users where Username ='" + tbUname.Text + "' and Mobile = '"+tbMobile.Text+"'";
+                DataTable dt = new DataTable();
+                dt = SQLHelper.FillData(strcmd);
+                if (dt.Rows.Count > 0)
                 {
-                    SqlCommand cmd = new SqlCommand("insert into Users values('" + tbUname.Text + "', '" + tbName.Text + "', '" + tbPass.Text + "', '" + tbEmail.Text + "', '" + tbMobile.Text + "','" + gender + "', 'U')", con);
-                    // SqlCommand cmd = new SqlCommand("insert into Users values('" + tbUname.Text + "', '" + tbName.Text + "', '" + tbPass.Text + "', '" + tbEmail.Text + "', '" + tbMobile.Text + "','" + ddlGender.SelectedValue + "', 'U')", con);   // For dropdown list to select gender
-                    con.Open();
-                    cmd.ExecuteNonQuery();
+                    lblMsg.Text = "User alredy exist";
+                    lblMsg.ForeColor = Color.Red;
+                }
+                else
+                {
+                    strcmd = "insert into Users values('" + tbUname.Text + "', '" + tbName.Text + "', '" + tbPass.Text + "', '" + tbEmail.Text + "', '" + tbMobile.Text + "','" + gender + "', 'U')";
+                    SQLHelper.ExecuteNonQuery(strcmd);
                     lblMsg.Text = "Registration Successfull";
                     lblMsg.ForeColor = Color.Green;
                     Response.Redirect("~/Signin.aspx");

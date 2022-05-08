@@ -87,9 +87,9 @@ public partial class Cart : System.Web.UI.Page
                     h5NoItems.InnerText = "My Cart ( " + CartQuantity + " Item(s) )";
                     int Total1 = Convert.ToInt32(dt.Compute("Sum(SubPAmount)", ""));
                     int CartTotal1 = Convert.ToInt32(dt.Compute("Sum(SubSAmount)", ""));
-                    spanTotal.InnerText = "Rs. " + string.Format("{0:#,###.##}", double.Parse(Total)) + ".00";
-                    spanCartTotal.InnerText = "Rs. " + string.Format("{0:#,###.##}", double.Parse(CartTotal)) + ".00";
-                    spanDiscount.InnerText = "- Rs. " + (CartTotal1 - Total1).ToString() + ".00";
+                    spanTotal.InnerText = "Rs. " + string.Format("{0:#,###}", double.Parse(Total));
+                    spanCartTotal.InnerText = "Rs. " + string.Format("{0:#,###}", double.Parse(CartTotal));
+                    spanDiscount.InnerText = "- Rs. " + (CartTotal1 - Total1).ToString();
                 }
                 else
                 {

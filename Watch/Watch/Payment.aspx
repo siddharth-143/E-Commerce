@@ -6,7 +6,7 @@
     <asp:HiddenField ID="hdCartAmount" runat="server" />
     <asp:HiddenField ID="hdCartDiscount" runat="server" />
     <asp:HiddenField ID="hdTotalPayed" runat="server" />
-    <asp:HiddenField ID="hdPidSizeID" runat="server" />
+    <asp:HiddenField ID="hdQty" runat="server" />
 
     <div class="container">
         <div class="row" style="padding-top: 20px;">

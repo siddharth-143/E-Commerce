@@ -47,6 +47,8 @@ public partial class AddBrand : System.Web.UI.Page
             {
                 SqlCommand cmd = new SqlCommand("insert into tblBrands values('" + txtBrandName.Text + "')", con);
                 con.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
                 cmd.ExecuteNonQuery();
                 txtBrandName.Text = string.Empty;
             }
