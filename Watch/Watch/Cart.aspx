@@ -26,12 +26,12 @@
 
                                         <div class="pull-right form-inline">
                                             <asp:Label ID="lblQty" runat="server" Text="Qty:" Font-Size="Large"></asp:Label>
-                                            <asp:Button ID="BtnMinus" CommandArgument='<%# Eval("PID") %>' CommandName="DoMinus" Font-Size="Large" runat="server" Text="-" />&nbsp
-                                            <asp:TextBox ID="txtQty" runat="server" Width="40" Font-Size="Large" TextMode="SingleLine" Style="text-align: center" Text='<%# Eval("Qty") %>'></asp:TextBox>&nbsp
-                                            <asp:Button ID="BtnPlus" CommandArgument='<%# Eval("PID") %>' CommandName="DoPlus" runat="server" Text="+" Font-Size="Large" />&nbsp&nbsp&nbsp                                          
+                                            <asp:Button ID="BtnMinus" CommandArgument='<%# Eval("PID") %>' CommandName="DoMinus" Font-Size="Medium" runat="server" Text="-" />&nbsp
+                                            <asp:TextBox ID="txtQty" runat="server" Width="40" Font-Size="Medium" TextMode="SingleLine" Style="text-align: center" Text='<%# Eval("Qty") %>'></asp:TextBox>&nbsp
+                                            <asp:Button ID="BtnPlus" CommandArgument='<%# Eval("PID") %>' CommandName="DoPlus" runat="server" Text="+" Font-Size="Medium" />&nbsp&nbsp&nbsp                                          
                                         </div>
                                         <p>
-                                            <asp:Button CommandArgument='<%#Eval("CartID") %>' CommandName="RemoveThisCart" ID="btnRemoveCart" CssClass="removeButton" runat="server" Text="Remove" /><span class="proNameViewCart float-end">SubTotal: Rs.&nbsp <%# Eval("SubSAmount","{0:0.00}") %></span>
+                                            <asp:Button CommandArgument='<%#Eval("CartID") %>' CommandName="RemoveThisCart" ID="btnRemoveCart" CssClass="removeButton" runat="server" Text="Remove" /><span class="proNameViewCart float-end">SubTotal: Rs.&nbsp <%# Eval("SubPAmount","{0:0.00}") %></span>
                                         </p>
                                     </div>
                                 </div>

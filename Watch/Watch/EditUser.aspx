@@ -49,15 +49,17 @@
                 <div class="col-md-4">
                     <asp:RadioButton ID="rbMale" runat="server" Text="Male" GroupName="gender" />
                     <asp:RadioButton ID="rbFemale" runat="server" Text="Female" GroupName="gender" />
+                    <asp:HiddenField ID="hdfUid" runat="server" />
                 </div>
             </div>
         </div>
 
         <div class="center">
             <div class="center px-5">
-                <asp:Button ID="btnUpdate" runat="server" class="btn btn-primary" Text="Update" ValidationGroup="A" />
+                <asp:Button ID="btnAdd" runat="server" class="btn btn-secondary" Text="Add New User" ValidationGroup="A" OnClick="btnAdd_Click" />
+                <asp:Button ID="btnUpdate" runat="server" class="btn btn-primary" Text="Update" ValidationGroup="A" OnClick="btnUpdate_Click" />
+                <asp:Button ID="btnCancel" runat="server" class="btn btn-danger" Text="Cancel" ValidationGroup="" OnClick="btnCancel_Click" />
                 <asp:Label ID="lblMsg" runat="server"></asp:Label>
-                <asp:Button ID="Button1" runat="server" class="btn btn-danger" Text="Cancel" ValidationGroup="" />
             </div>
         </div>
     </div>
