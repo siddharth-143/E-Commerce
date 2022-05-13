@@ -26,12 +26,12 @@
                     </div>
                     <div class="form-group">
                         <asp:Label ID="Label3" runat="server" CssClass="control-label" Text="Pin Code"></asp:Label>
-                        <asp:TextBox ID="txtPinCode" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtPinCode" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="txtPinCode" Display="Dynamic" ValidationGroup="A"></asp:RequiredFieldValidator>
                     </div>
                     <div class="form-group">
                         <asp:Label ID="Label4" runat="server" CssClass="control-label" Text="Mobile Number"></asp:Label>
-                        <asp:TextBox ID="txtMobileNumber" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtMobileNumber" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="txtMobileNumber" Display="Dynamic" ValidationGroup="A"></asp:RequiredFieldValidator>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
 
             </div>
 
-            <div class="col-md-12">
+            <%--  <div class="col-md-12">
                 <h3>Choose Payment Mode</h3>
                 <hr />
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -92,6 +92,14 @@
                         <asp:Label ID="lblMsg" runat="server"></asp:Label>
                     </div>
                 </div>
+            </div>--%>
+
+            <div class="col-md-12">
+                <h3>Payment Mode</h3>
+                <h4>Cash On Delivery</h4>
+                <hr />
+                <asp:Button ID="btnCOD" runat="server" class="btn btn-primary" Text="Order Now" OnClick="btnCOD_Click" ValidationGroup="A" />
+                <asp:Label ID="lblMsg" runat="server"></asp:Label>
             </div>
         </div>
 

@@ -53,6 +53,7 @@
                                     <li><a class="dropdown-item" href="AddCategory.aspx">Add Category</a></li>
                                     <li><a class="dropdown-item" href="AddGender.aspx">Add Gender</a></li>
                                     <li><a class="dropdown-item" href="AddQuantity.aspx">Add Quantity</a></li>
+                                    <li><a class="dropdown-item" href="ManageUser.aspx">Manage User</a></li>
                                 </ul>
                             </li>
                         </ul>
