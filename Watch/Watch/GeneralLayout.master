@@ -41,58 +41,57 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <!-- Navigation start -->
         <div>
-            <!-- Navigation start -->
-            <div>
-                <nav id="navbar_top" class="navbar navbar-expand-lg navbar-light bg-light" role="navigation">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="Default.aspx"><span>
-                            <img src="Images/logo.jpg" height="30" /></span>  Watch.com</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item active">
-                                    <a class="nav-link active" aria-current="page" href="Default.aspx">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Contact</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">All Watches
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="Products.aspx">All Products</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider" />
-                                        </li>
+            <nav id="navbar_top" class="navbar navbar-expand-lg navbar-light bg-light" role="navigation">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="Default.aspx"><span>
+                        <img src="Images/logo.jpg" height="30" /></span>  Watch.com</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item active">
+                                <a class="nav-link active" aria-current="page" href="Default.aspx">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">All Watches
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="Products.aspx">All Products</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
 
-                                        <%--<asp:Repeater ID="Repeater1" runat="server" OnItemDataBound="OnItemDataBound">--%>
-                                        <asp:Repeater ID="rptCategory" runat="server">
-                                            <ItemTemplate>
-                                                <li>
-                                                    <a class="dropdown-item p-cat" href="Products.aspx?cat=<%# Eval("CatID") %>"><%# Eval("CatName") %></a>
-                                                    <asp:HiddenField ID="hfCatID" runat="server" Value='<%# Eval("CatID") %>' />
-                                                </li>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
+                                    <%--<asp:Repeater ID="Repeater1" runat="server" OnItemDataBound="OnItemDataBound">--%>
+                                    <asp:Repeater ID="rptCategory" runat="server">
+                                        <ItemTemplate>
+                                            <li>
+                                                <a class="dropdown-item p-cat" href="Products.aspx?cat=<%# Eval("CatID") %>"><%# Eval("CatName") %></a>
+                                                <asp:HiddenField ID="hfCatID" runat="server" Value='<%# Eval("CatID") %>' />
+                                            </li>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
 
-                                        <asp:Repeater ID="rptGender" runat="server">
-                                            <ItemTemplate>
-                                                <li>
-                                                    <a class="dropdown-item" href="Products.aspx?gen=<%# Eval("GenderID") %>"><%# Eval("GenderName") %></a>
-                                                </li>
-                                            </ItemTemplate>
+                                    <asp:Repeater ID="rptGender" runat="server">
+                                        <ItemTemplate>
+                                            <li>
+                                                <a class="dropdown-item" href="Products.aspx?gen=<%# Eval("GenderID") %>"><%# Eval("GenderName") %></a>
+                                            </li>
+                                        </ItemTemplate>
 
-                                            <FooterTemplate>
-                                                <div class="dropdown-divider"></div>
-                                            </FooterTemplate>
-                                        </asp:Repeater>
+                                        <FooterTemplate>
+                                            <div class="dropdown-divider"></div>
+                                        </FooterTemplate>
+                                    </asp:Repeater>
 
 
 
-                                        <%--                                        <li><a class="dropdown-item p-cat" href="Products.aspx?cat=1">Fitness</a></li>
+                                    <%--                                        <li><a class="dropdown-item p-cat" href="Products.aspx?cat=1">Fitness</a></li>
                                         <li><a class="dropdown-item p-cat" href="Products.aspx?cat=3">Analog</a></li>
                                         <li>
                                             <hr class="dropdown-divider" />
@@ -100,45 +99,54 @@
 
                                         <li><a class="dropdown-item" href="Products.aspx?gen=1">Men</a></li>
                                         <li><a class="dropdown-item" href="Products.aspx?gen=2">Women</a></li>--%>
-                                    </ul>
-                                </li>
+                                </ul>
+                            </li>
+                        </ul>
 
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">About</a>
-                                </li>
-
-                            </ul>
-
-                            <!-- Search form -->
-                            <div class="form-inline d-flex flex-fill">
-                                <%--<input class="form-control me-2" id="txtSearch" type="search" placeholder="Search" aria-label="Search">--%>
-                                <asp:TextBox ID="txtSearch1" class="form-control me-2" runat="server" type="search" placeholder="Search" aria-label="Search"></asp:TextBox>
-                                <%--<button class="btn btn-outline-success" type="submit" ValidationGroup="B">Search</button>--%>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidatorUsername" CssClass="text-danger" runat="server" ErrorMessage="Enter User Details !!!" ControlToValidate="txtSearch1" ValidationGroup="B" Display="None"></asp:RequiredFieldValidator>
-                                <asp:Button ID="btnSearchPro" class="btn btn-outline-success" runat="server" Text="Search" ValidationGroup="B" />
-                            </div>
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <!-- Search form -->
+                        <div class="form-inline d-flex">
+                            <%--<input class="form-control me-2" id="txtSearch" type="search" placeholder="Search" aria-label="Search">--%>
+                            <asp:TextBox ID="txtSearch1" Width="830" class="form-control me-2" runat="server" type="search" placeholder="Search" aria-label="Search"></asp:TextBox>
+                            <%--<button class="btn btn-outline-success" type="submit" ValidationGroup="B">Search</button>--%>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidatorUsername" CssClass="text-danger" runat="server" ErrorMessage="Enter User Details !!!" ControlToValidate="txtSearch1" ValidationGroup="B" Display="None"></asp:RequiredFieldValidator>
+                            <asp:Button ID="btnSearchPro" class="btn btn-outline-success" runat="server" Text="Search" ValidationGroup="B" />
+                        </div>
+                        <div class="form-inline d-flex flex-fill">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0 mt-1">
                                 <li>
                                     <button id="btnCart" type="button" class="btn btn-primary navbar-btn ms-2 me-2">
                                         Cart <span class="badge bg-secondary" id="pCount" runat="server"></span>
                                     </button>
                                 </li>
-                                <li class="nav-item" id="btnSignup" runat="server">
-                                    <a class="nav-link" href="SignUp.aspx">Sign Up</a>
-                                     <%--<asp:Button ID="btnSignup" CssClass ="btn btn-default navbar-btn " runat="server" Text="SignIn" OnClick="btnLogin_Click" />--%>
-                                </li>
-                                <li class="nav-item" id="btnSigin" runat="server">
-                                    <a class="nav-link" href="SignIn.aspx">Sign In</a>
-                                </li>
-                                <li class="nav-item">
-                                    <asp:Button ID="btnSignOut" runat="server" Text="Sign Out" CssClass="btn btn-primary navbar-btn" OnClick="btnSignOut_Click" />
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span>
+                                            <img src="Images/R.png" height="30" /></span>  Profile
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li class="center"><a class="dropdown-item" href="UserHome.aspx">User Profile</a></li>
+                                        <li class="center nav-item" id="btnSignup" runat="server">
+                                            <a class="nav-link" href="SignUp.aspx">Sign Up</a>
+                                            <%--<asp:Button ID="btnSignup" CssClass ="btn btn-default navbar-btn " runat="server" Text="SignIn" OnClick="btnLogin_Click" />--%>
+                                        </li>
+                                        <li class="center nav-item" id="btnSigin" runat="server">
+                                            <a class="nav-link" href="SignIn.aspx">Sign In</a>
+                                        </li>
+
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li class="center nav-item">
+                                            <asp:Button ID="btnSignOut" runat="server" Text="Sign Out" CssClass="btn btn-primary navbar-btn" OnClick="btnSignOut_Click" />
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                </nav>
-            </div>
+                </div>
+            </nav>
             <!-- Navigation end -->
 
 
@@ -149,7 +157,7 @@
             <footer>
                 <div class="container">
                     <p class="float-end"><a href="#">Back to top</a></p>
-                    <p>&copy; 2015 TechCybo.com &middot; <a href="Default.aspx">Home</a> &middot; <a href="#">About</a> &middot; <a href="#">Contact</a> &middot; <a href="#">Products</a></p>
+                    <p>&copy; 2022 Watch.com &middot; <a href="Default.aspx">Home</a> &middot; <a href="#">About</a> &middot; <a href="#">Contact</a> &middot; <a href="#">Products</a></p>
                 </div>
             </footer>
             <!-- Footer end-->

@@ -1,36 +1,60 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true" CodeFile="Timepass.aspx.cs" Inherits="Timepass" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="container" style="height: 609px">
-        <div class="position-absolute top-4 start-0">
-            <asp:GridView class="table table-striped" ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="Uid" DataSourceID="SqlDataSource1" Height="339px" OnRowCommand="GridView1_RowCommand">
-                <Columns>
-                    <%--<asp:BoundField DataField="Uid" HeaderText="Uid" InsertVisible="False" ReadOnly="True" SortExpression="Uid" />--%>
-                    <asp:BoundField HeaderStyle-CssClass="table-light" DataField="Uid" HeaderText="Uid" SortExpression="Uid" InsertVisible="False" ReadOnly="True">
-                        <HeaderStyle CssClass="table-light"></HeaderStyle>
-                    </asp:BoundField>
-                    <asp:BoundField HeaderStyle-CssClass="table-light" DataField="Username" HeaderText="Username" SortExpression="Username">
-                        <HeaderStyle CssClass="table-light"></HeaderStyle>
-                    </asp:BoundField>
-                    <%--<asp:BoundField HeaderStyle-CssClass="table-light" DataField="Password" HeaderText="Password" SortExpression="Password" />--%>
-                    <asp:BoundField HeaderStyle-CssClass="table-light" DataField="Name" HeaderText="Name" SortExpression="Name">
-                        <HeaderStyle CssClass="table-light"></HeaderStyle>
-                    </asp:BoundField>
-                    <asp:BoundField HeaderStyle-CssClass="table-light" DataField="Email" HeaderText="Email" SortExpression="Email">
-                        <HeaderStyle CssClass="table-light"></HeaderStyle>
-                    </asp:BoundField>
-                    <asp:BoundField HeaderStyle-CssClass="table-light" DataField="Mobile" HeaderText="Mobile" SortExpression="Mobile">
-                        <HeaderStyle CssClass="table-light"></HeaderStyle>
-                    </asp:BoundField>
-                    <asp:BoundField HeaderStyle-CssClass="table-light" DataField="Gender" HeaderText="Gender" SortExpression="Gender">
-                        <HeaderStyle CssClass="table-light"></HeaderStyle>
-                    </asp:BoundField>
-                    <asp:ButtonField CommandName="Ed" Text="Edit" />
-                    <asp:ButtonField CommandName="Del" Text="Remove" />
-                    <asp:ButtonField CommandName="Details" Text="Details" />
-                </Columns>
-            </asp:GridView>
-            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:MyDatabaseConnectionString1 %>" SelectCommand="SELECT Uid, Username, Name, Email, Mobile, Gender FROM Users ORDER BY Uid"></asp:SqlDataSource>
+    <div class="container">
+        <div class="container center-page">
+            <label class="col-xs-11" style="font-weight: bold">Username</label>
+            <div class="col-xs-11">
+                <asp:TextBox ID="tbUname" runat="server" Class="form-control" placeholder="Username"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldtbUname" runat="server" ControlToValidate="tbUname" Display="Dynamic" ErrorMessage="UserName is Required !" ValidationGroup="A" ForeColor="Red"></asp:RequiredFieldValidator>
+            </div>
+
+            <label class="col-xs-11" style="font-weight: bold">FullName</label>
+            <div class="col-xs-11">
+                <asp:TextBox ID="tbName" runat="server" class="form-control" placeholder="FullName"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbName" Display="Dynamic" ErrorMessage="Full Name is Required !" ForeColor="Red" ValidationGroup="A"></asp:RequiredFieldValidator>
+            </div>
+
+            <label class="col-xs-11" style="font-weight: bold">Password</label>
+            <div class="col-xs-11">
+                <asp:TextBox ID="tbPass" type="password" name="password" runat="server" class="form-control" placeholder="Password" TextMode="Password" data-toggle="password"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbPass" Display="Dynamic" ErrorMessage="Password is Requires Field !" ForeColor="Red" ValidationGroup="A"></asp:RequiredFieldValidator>
+            </div>
+
+            <label class="col-xs-11" style="font-weight: bold">Confirm Password</label>
+            <div class="col-xs-11">
+                <asp:TextBox ID="tbCPass" type="password" name="password" runat="server" class="form-control" placeholder="Confirm Password" TextMode="Password" data-toggle="password"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="tbCPass" Display="Dynamic" ErrorMessage="Confirm Password is Required Field !" ForeColor="Red" ValidationGroup="A"></asp:RequiredFieldValidator>
+            </div>
+
+            <label class="col-xs-11" style="font-weight: bold">Email</label>
+            <div class="col-xs-11">
+                <asp:TextBox ID="tbEmail" runat="server" class="form-control" placeholder="Email" TextMode="Email"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="tbEmail" Display="Dynamic" ErrorMessage="Email is Required Filed !" ForeColor="Red" ValidationGroup="A"></asp:RequiredFieldValidator>
+            </div>
+
+            <label class="col-xs-11" style="font-weight: bold">Mobile</label>
+            <div class="col-xs-11">
+                <asp:TextBox ID="tbMobile" runat="server" class="form-control" placeholder="Mobile" TextMode="Number"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="tbMobile" ErrorMessage="Mobile Number is Required Field !" ForeColor="Red" ValidationGroup="A"></asp:RequiredFieldValidator>
+            </div>
+
+            <label class="col-xs-11" style="font-weight: bold">Gender</label>
+            <div class="col-xs-11">
+                <asp:RadioButton ID="rbMale" runat="server" Text="Male" GroupName="gender" />
+                <asp:RadioButton ID="rbFemale" runat="server" Text="Female" GroupName="gender" />
+            </div>
+
+            <%--           <label class="col-xs-11" style="font-weight: bold">Address</label>
+            <div class="col-xs-11">
+                <asp:TextBox ID="tbAddress" runat="server" class="form-control" placeholder="Address" TextMode="MultiLine"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="tbAddress" ErrorMessage="Address is Required Field !" ForeColor="Red" ValidationGroup="A"></asp:RequiredFieldValidator>
+            </div>--%>
+
+            <div class="col-xs-11 space-vert center">
+                <asp:Button ID="btnSave" runat="server" class="btn btn-success" Text="Save" ValidationGroup="A" OnClick="btnSave_Click" />
+                <asp:Label ID="lblMsg" runat="server"></asp:Label>
+            </div>
         </div>
     </div>
 </asp:Content>

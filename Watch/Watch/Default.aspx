@@ -74,7 +74,7 @@
 
                 <h2>Fastrack</h2>
                 <p>Fastrack blueDial Analog Watch for Girls.</p>
-                <p><a class="btn btn-secondary" href="ProductView.aspx?PID=24">View details &raquo;</a></p>
+                <p><a class="btn btn-secondary" href="ProductView.aspx?PID=29">View details &raquo;</a></p>
             </div>
             <!-- /.col-lg-4 -->
             <div class="col-lg-4">
@@ -146,10 +146,10 @@
             <div class="col-md-7">
                 <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
                 <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
-                <p><a class="btn btn-secondary" href="ProductView.aspx?PID=24">View details &raquo;</a></p>
+                <p><a class="btn btn-secondary" href="ProductView.aspx?PID=29">View details &raquo;</a></p>
             </div>
             <div class="col-md-5">
-                <a href="ProductView.aspx?PID=24">
+                <a href="ProductView.aspx?PID=29">
                     <img src="Images/ASGARD01.jpg" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" role="img" aria-label="Placeholder: 500x500" preserveaspectratio="xMidYMid slice" focusable="false" />
                     <rect width="100%" height="100%" fill="#eee" />
                 </a>
@@ -162,10 +162,10 @@
             <div class="col-md-7 order-md-2">
                 <h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
                 <p class="lead">Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
-                <p><a class="btn btn-secondary" href="ProductView.aspx?PID=24">View details &raquo;</a></p>
+                <p><a class="btn btn-secondary" href="ProductView.aspx?PID=29">View details &raquo;</a></p>
             </div>
             <div class="col-md-5 order-md-1">
-                <a href="ProductView.aspx?PID=24">
+                <a href="ProductView.aspx?PID=29">
                     <img src="Images/ASGARD02.jpg" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" role="img" aria-label="Placeholder: 500x500" preserveaspectratio="xMidYMid slice" focusable="false" />
                     <rect width="100%" height="100%" fill="#eee" />
                 </a>
@@ -178,10 +178,10 @@
             <div class="col-md-7">
                 <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
                 <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
-                <p><a class="btn btn-secondary" href="ProductView.aspx?PID=24">View details &raquo;</a></p>
+                <p><a class="btn btn-secondary" href="ProductView.aspx?PID=29">View details &raquo;</a></p>
             </div>
             <div class="col-md-5">
-                <a href="ProductView.aspx?PID=24">
+                <a href="ProductView.aspx?PID=29">
                     <img src="Images/ASGARD03.jpg" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" role="img" aria-label="Placeholder: 500x500" preserveaspectratio="xMidYMid slice" focusable="false" />
                     <rect width="100%" height="100%" fill="#eee" />
                 </a>
