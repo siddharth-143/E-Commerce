@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container">
-        <h1>Users Details</h1>
+        <h1>Users Details</h1>              <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
         <hr />
         <asp:GridView class="table table-striped" ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="Uid" DataSourceID="SqlDataSource1" Height="339px" OnRowCommand="GridView1_RowCommand">
             <Columns>

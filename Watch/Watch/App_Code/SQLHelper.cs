@@ -62,4 +62,9 @@ public class SQLHelper
             throw ex;
         }
     }
+
+    public static string sf(string str)
+    {
+        return str.Replace("'", "''");
+    }
 }

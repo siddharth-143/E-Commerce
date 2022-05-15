@@ -21,7 +21,6 @@ public partial class UserHome : System.Web.UI.Page
         {
             lblSuccess.Text = "Login Success, Welcome " + Session["USERNAME"].ToString() + "";
             BindUserDetails();
-            BindUserAddress();
         }
         else
         {
@@ -33,8 +32,7 @@ public partial class UserHome : System.Web.UI.Page
     {
         SqlConnection con = new SqlConnection(CS);
         con.Open();
-        query = "select * from Users where Username='" + Session["USERNAME"] + "'";
-        //query = "select Users.Username, Users.Name, Users.Email, Users.Mobile, Users.Gender from Users left join tblPurchase on Users.Uid = tblPurchase.UserID where Username ='" + Session["USERNAME"] + "'";
+        query = "select * from Users where Username='" + Session["USERNAME"] + "'";        
         com = new SqlCommand(query, con);
         SqlDataAdapter da = new SqlDataAdapter(com);
         DataSet ds = new DataSet();
@@ -44,51 +42,47 @@ public partial class UserHome : System.Web.UI.Page
         lblEmail.Text = ds.Tables[0].Rows[0]["Email"].ToString();
         lblMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
         lblGender.Text = ds.Tables[0].Rows[0]["Gender"].ToString();
-        //lblAddress.Text = ds.Tables[0].Rows[0]["Address"].ToString();
+        lblAddress.Text = ds.Tables[0].Rows[0]["Address"].ToString();
     }
 
-    protected void BindUserAddress()
-    {
-        BindUserDetails();
-        SqlConnection con = new SqlConnection(CS);
-        con.Open();
-        query = "select tblPurchase.Address from tblPurchase left join Users on Users.Uid = tblPurchase.UserID where Username='" + Session["USERNAME"] + "'";
-        com = new SqlCommand(query, con);
-        SqlDataAdapter da = new SqlDataAdapter(com);
-        DataSet ds = new DataSet();
-        da.Fill(ds);
-       
-        if (ds.Tables[0].Rows.Count > 0)
-        {
-            lblAddress.Text = ds.Tables[0].Rows[0]["Address"].ToString();
-        }
-        else
-        {
-            BindUserDetails();
-        }
 
+    private void Clear()
+    {
+        tbAddress.Text = "";
+        tbAddress.Focus();
     }
 
     protected void btnUpdate_Click(object sender, EventArgs e)
     {
-        if (tbAddress.Text != "")
+
+        if (tbAddress.Text == "")
         {
-            Int32 UserID = Convert.ToInt32(Session["USERID"].ToString());
-            // Using SQLHelper
-            string strcmd = "update tblPurchase set Address ='" + tbAddress.Text + "' where UserID='" + UserID + "'";
-            DataTable dt = new DataTable();
-            dt = SQLHelper.FillData(strcmd);
-            SQLHelper.ExecuteNonQuery(strcmd);
-            lblMsg.Text = "Updated Successfull";
-            lblMsg.ForeColor = Color.Green;
-            //Response.Redirect("~/Signin.aspx");
-            BindUserAddress();
+            lblMsg.Text = "Please Enter a Address";
         }
         else
         {
-            lblMsg.ForeColor = Color.Red;
-            lblMsg.Text = "Something went wrong!";
+            try
+            {
+                Int32 UserID = Convert.ToInt32(Session["USERID"].ToString());
+                // Using SQLHelper
+                //string strcmd = "update tblPurchase set Address ='" + tbAddress.Text + "' where UserID='" + UserID + "'";
+                string strcmd = "update Users set Address='" + tbAddress.Text + "' where Username='" + Session["USERNAME"] + "'";
+                DataTable dt = new DataTable();
+                dt = SQLHelper.FillData(strcmd);
+                SQLHelper.ExecuteNonQuery(strcmd);
+                lblMsg.Text = "Address Updated Successfull";
+                lblMsg.ForeColor = Color.Green;
+                //Response.Redirect("~/Signin.aspx");
+                BindUserDetails();
+            }
+            catch (Exception ex)
+            {           
+                lblMsg.ForeColor = Color.Red;
+                lblMsg.Text = ex.Message;
+            }
         }
+
+
     }
 
     protected void btnEdit_Click(object sender, EventArgs e)
@@ -105,5 +99,10 @@ public partial class UserHome : System.Web.UI.Page
     protected void Button1_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/EditProfile.aspx");
+    }
+
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        Clear();
     }
 }

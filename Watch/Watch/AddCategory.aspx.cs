@@ -15,39 +15,127 @@ public partial class AddCategory : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-          BindBrandsRptr();
+            LoadBrands();
 
         }
     }
 
-    private void BindBrandsRptr()
+    private void LoadBrands()
     {
-        String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
-        using (SqlConnection con = new SqlConnection(CS))
+        try
         {
-            using (SqlCommand cmd = new SqlCommand("select * from tblCategories", con))
-            {
-                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
-                {
-                    DataTable dtcategories = new DataTable();
-                    sda.Fill(dtcategories);
-                    rptrCategories.DataSource = dtcategories;
-                    rptrCategories.DataBind();
-                }
-            }
+            string strcmd = "select CatID, CatName from tblCategories order by CatID";
+            DataTable dt = new DataTable();
+            dt = SQLHelper.FillData(strcmd);
+            GridView1.DataSource = dt;
+            GridView1.DataBind();
         }
+        catch (Exception ex)
+        {
+
+            lblMsg.Text = ex.Message;
+        }
+    }
+
+    private void Clear()
+    {
+        hdfID.Value = "";
+        txtCatName.Text = "";
+        btnAdd.Enabled = true;
+        btnUpdate.Enabled = false;
+        txtCatName.Focus();
     }
 
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
-        using (SqlConnection con = new SqlConnection(CS))
+        try
         {
-            SqlCommand cmd = new SqlCommand("insert into tblCategories values('" + txtBrandName.Text + "')", con);
-            con.Open();
-            cmd.ExecuteNonQuery();
-            txtBrandName.Text = string.Empty;
+            string strcmd = "select CatID from tblCategories where CatName='" + SQLHelper.sf(txtCatName.Text) + "'";
+            DataTable dt = new DataTable();
+            dt = SQLHelper.FillData(strcmd);
+            if (dt.Rows.Count > 0)
+            {
+                lblMsg.Text = "Brand name already exist !!!";
+                txtCatName.Focus();
+            }
+            else
+            {
+                strcmd = "insert into tblCategories(CatName) values('" + SQLHelper.sf(txtCatName.Text) + "')";
+                SQLHelper.ExecuteNonQuery(strcmd);
+                lblMsg.Text = "Brand Save Successfully";
+                LoadBrands();
+                Clear();
+            }
         }
-        BindBrandsRptr();
+        catch (Exception ex)
+        {
+
+            lblMsg.Text = ex.Message;
+        }
+    }
+
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        Clear();
+        lblMsg.Text = "";
+    }
+
+
+    protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        int index = 0;
+        if (e.CommandName == "Ed")
+        {
+            index = Convert.ToInt32(e.CommandArgument);     // return index no
+            hdfID.Value = GridView1.Rows[index].Cells[0].Text;
+            txtCatName.Text = GridView1.Rows[index].Cells[1].Text;
+            btnAdd.Enabled = false;
+            btnUpdate.Enabled = true;
+        }
+        if (e.CommandName == "Del")
+        {
+            index = Convert.ToInt32(e.CommandArgument);
+            string strID = GridView1.Rows[index].Cells[0].Text;
+            try
+            {
+                string strcmd = "delete from tblCategories where CatID=" + strID;
+                SQLHelper.ExecuteNonQuery(strcmd);
+                lblMsg.Text = "Brand Deleted Successfully";
+                LoadBrands();
+            }
+            catch (Exception ex)
+            {
+
+                lblMsg.Text = ex.Message;
+            }
+        }
+    }
+
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            string strcmd = "select CatID from tblCategories where CatName='" + SQLHelper.sf(txtCatName.Text) + "' and CatID<>" + hdfID.Value;
+            DataTable dt = new DataTable();
+            dt = SQLHelper.FillData(strcmd);
+            if (dt.Rows.Count > 0)
+            {
+                lblMsg.Text = "Brand name already exist !!!";
+                txtCatName.Focus();
+            }
+            else
+            {
+                strcmd = "update tblCategories set CatName='" + SQLHelper.sf(txtCatName.Text) + "' where CatID=" + hdfID.Value;
+                SQLHelper.ExecuteNonQuery(strcmd);
+                lblMsg.Text = "Brand Updated Successfully";
+                LoadBrands();
+                Clear();
+            }
+        }
+        catch (Exception ex)
+        {
+
+            lblMsg.Text = ex.Message;
+        }
     }
 }

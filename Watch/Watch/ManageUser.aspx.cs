@@ -37,5 +37,20 @@ public partial class ManageUser : System.Web.UI.Page
             Uid = GridView1.Rows[index].Cells[0].Text;
             Response.Redirect("~/EditUser.aspx?id=" + Uid);
         }
+        if (e.CommandName == "Del")
+        {
+            index = Convert.ToInt32(e.CommandArgument);
+            Uid = GridView1.Rows[index].Cells[0].Text;
+            try
+            {
+                string strcmd = "delete from Users where Uid=" + Uid;
+                SQLHelper.ExecuteNonQuery(strcmd);
+                lblMsg.Text = "User Delete Successfully !!!";
+            }
+            catch (Exception ex)
+            {
+                lblMsg.Text = ex.Message;
+            }
+        }
     }
 }

@@ -13,6 +13,8 @@
             <asp:BoundField DataField="Usertype" HeaderText="Usertype" SortExpression="Usertype" />
         </Fields>
     </asp:DetailsView>
+    <br />
+    <asp:Button ID="btnBack" runat="server" CssClass="btn btn-primary" Text="Back" OnClick="btnBack_Click" />
 
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:MyDatabaseConnectionString1 %>" SelectCommand="SELECT Users.* FROM Users WHERE (Uid = @Uid)">
         <SelectParameters>
