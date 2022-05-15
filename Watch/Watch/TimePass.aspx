@@ -1,61 +1,34 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true" CodeFile="Timepass.aspx.cs" Inherits="Timepass" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/GeneralLayout.master" AutoEventWireup="true" CodeFile="Timepass.aspx.cs" Inherits="Timepass" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="container">
-        <div class="container center-page">
-            <label class="col-xs-11" style="font-weight: bold">Username</label>
-            <div class="col-xs-11">
-                <asp:TextBox ID="tbUname" runat="server" Class="form-control" placeholder="Username"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldtbUname" runat="server" ControlToValidate="tbUname" Display="Dynamic" ErrorMessage="UserName is Required !" ValidationGroup="A" ForeColor="Red"></asp:RequiredFieldValidator>
+    <div class="text-center">
+        <main class="form-signin">
+            <img class="mb-4" src="Images/Clock.png" alt="" width="150" height="120">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+            <div class="form-floating">
+                <asp:TextBox ID="UserName" CssClass="form-control" runat="server" placeholder="Username"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidatorPass" CssClass="text-danger" runat="server" ErrorMessage="The Username field is Required !" ControlToValidate="UserName" Display="Dynamic" ValidationGroup="A"></asp:RequiredFieldValidator>
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+                <asp:TextBox ID="Password" type="password" CssClass="form-control" runat="server" placeholder="Password" TextMode="Password" data-toggle="password"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" CssClass="text-danger" runat="server" ErrorMessage="The Password field is Required !" ControlToValidate="Password" Display="Dynamic" ValidationGroup="A"></asp:RequiredFieldValidator>
+                <label for="floatingPassword">Password</label>
             </div>
 
-            <label class="col-xs-11" style="font-weight: bold">FullName</label>
-            <div class="col-xs-11">
-                <asp:TextBox ID="tbName" runat="server" class="form-control" placeholder="FullName"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbName" Display="Dynamic" ErrorMessage="Full Name is Required !" ForeColor="Red" ValidationGroup="A"></asp:RequiredFieldValidator>
+            <div class="checkbox mb-3">
+                <asp:CheckBox ID="CheckBox1" runat="server" />
+                <asp:Label ID="Label3" runat="server" CssClass="control-label" Text="Remember me ?"></asp:Label>
             </div>
-
-            <label class="col-xs-11" style="font-weight: bold">Password</label>
-            <div class="col-xs-11">
-                <asp:TextBox ID="tbPass" type="password" name="password" runat="server" class="form-control" placeholder="Password" TextMode="Password" data-toggle="password"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbPass" Display="Dynamic" ErrorMessage="Password is Requires Field !" ForeColor="Red" ValidationGroup="A"></asp:RequiredFieldValidator>
-            </div>
-
-            <label class="col-xs-11" style="font-weight: bold">Confirm Password</label>
-            <div class="col-xs-11">
-                <asp:TextBox ID="tbCPass" type="password" name="password" runat="server" class="form-control" placeholder="Confirm Password" TextMode="Password" data-toggle="password"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="tbCPass" Display="Dynamic" ErrorMessage="Confirm Password is Required Field !" ForeColor="Red" ValidationGroup="A"></asp:RequiredFieldValidator>
-            </div>
-
-            <label class="col-xs-11" style="font-weight: bold">Email</label>
-            <div class="col-xs-11">
-                <asp:TextBox ID="tbEmail" runat="server" class="form-control" placeholder="Email" TextMode="Email"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="tbEmail" Display="Dynamic" ErrorMessage="Email is Required Filed !" ForeColor="Red" ValidationGroup="A"></asp:RequiredFieldValidator>
-            </div>
-
-            <label class="col-xs-11" style="font-weight: bold">Mobile</label>
-            <div class="col-xs-11">
-                <asp:TextBox ID="tbMobile" runat="server" class="form-control" placeholder="Mobile" TextMode="Number"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="tbMobile" ErrorMessage="Mobile Number is Required Field !" ForeColor="Red" ValidationGroup="A"></asp:RequiredFieldValidator>
-            </div>
-
-            <label class="col-xs-11" style="font-weight: bold">Gender</label>
-            <div class="col-xs-11">
-                <asp:RadioButton ID="rbMale" runat="server" Text="Male" GroupName="gender" />
-                <asp:RadioButton ID="rbFemale" runat="server" Text="Female" GroupName="gender" />
-            </div>
-
-            <%--           <label class="col-xs-11" style="font-weight: bold">Address</label>
-            <div class="col-xs-11">
-                <asp:TextBox ID="tbAddress" runat="server" class="form-control" placeholder="Address" TextMode="MultiLine"></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="tbAddress" ErrorMessage="Address is Required Field !" ForeColor="Red" ValidationGroup="A"></asp:RequiredFieldValidator>
-            </div>--%>
-
-            <div class="col-xs-11 space-vert center">
-                <asp:Button ID="btnSave" runat="server" class="btn btn-success" Text="Save" ValidationGroup="A" OnClick="btnSave_Click" />
-                <asp:Label ID="lblMsg" runat="server"></asp:Label>
-            </div>
-        </div>
+            <asp:Label ID="lblError" runat="server" CssClass="text-danger"></asp:Label>
+            <asp:Button ID="Button1" runat="server" Text="Sign in" class="w-100 btn btn-lg btn-primary" type="submit" OnClick="Button1_Click" ValidationGroup="A" />
+            <asp:LinkButton ID="lbForgotPass" CssClass="float-end" runat="server" PostBackUrl="~/ForgotPassword.aspx">Forgot Password !</asp:LinkButton>
+            <p class="mt-5 mb-3 text-muted">
+                Don't have Account? 
+                <asp:LinkButton ID="LinkButton1" runat="server" PostBackUrl="~/SignUp.aspx">Sign Up</asp:LinkButton>
+            </p>
+        </main>
     </div>
 </asp:Content>
 

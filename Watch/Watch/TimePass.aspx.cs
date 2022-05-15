@@ -4,10 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
-using System.Drawing;
+using System.Data;
+using System.Web.Security;
 
 public partial class Timepass : System.Web.UI.Page
 {
@@ -15,93 +15,74 @@ public partial class Timepass : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            if (Session["USERNAME"] != null)
+            if (Request.Cookies["UNAME"] != null && Request.Cookies["PWD"] != null)
             {
-                LoadUser();
-            }
-            else
-            {
-                Response.Redirect("Signin.aspx");
+                UserName.Text = Request.Cookies["UNAME"].Value;
+                Password.Attributes["value"] = Request.Cookies["PWD"].Value;
+                CheckBox1.Checked = true;
             }
         }
     }
 
-    private void LoadUser()
+    protected void Button1_Click(object sender, EventArgs e)
     {
-        try
+        String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+        using (SqlConnection con = new SqlConnection(CS))
         {
-            string gender = string.Empty;
-            if (rbMale.Checked)
-            {
-                gender = "Male";
-            }
-            else if (rbFemale.Checked)
-            {
-                gender = "Female";
-            }
-            string strcmd = "select Username, Name, Password, Email, Mobile, Gender from Users where Username='" + Session["USERNAME"] + "'";
+            SqlCommand cmd = new SqlCommand("select * from Users where Username='" + UserName.Text + "' and Password='" + Password.Text + "'", con);
+            con.Open();
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
-            dt = SQLHelper.FillData(strcmd);
-            if (dt.Rows.Count > 0)
+            sda.Fill(dt);
+
+            if (dt.Rows.Count != 0)
             {
-                tbUname.Text = dt.Rows[0]["UserName"].ToString();
-                tbName.Text = dt.Rows[0]["Name"].ToString();
-                tbPass.Text = dt.Rows[0]["Password"].ToString();
-                tbCPass.Text = dt.Rows[0]["Password"].ToString();
-                tbEmail.Text = dt.Rows[0]["Email"].ToString();
-                tbMobile.Text = dt.Rows[0]["Mobile"].ToString();
-                gender = dt.Rows[0]["Gender"].ToString();
+                Session["USERID"] = dt.Rows[0]["Uid"].ToString();
+                Session["USEREMAIL"] = dt.Rows[0]["Email"].ToString();
+
+                if (CheckBox1.Checked)
+                {
+                    Response.Cookies["UNAME"].Value = UserName.Text;
+                    Response.Cookies["PWD"].Value = Password.Text;
+
+                    Response.Cookies["UNAME"].Expires = DateTime.Now.AddDays(15);
+                    Response.Cookies["PWD"].Expires = DateTime.Now.AddDays(15);
+
+                }
+                else
+                {
+                    Response.Cookies["UNAME"].Expires = DateTime.Now.AddDays(-1);
+                    Response.Cookies["PWD"].Expires = DateTime.Now.AddDays(-1);
+                }
+                string Utype;
+                Utype = dt.Rows[0][7].ToString().Trim();
+
+                if (Utype == "U")
+                {
+                    Session["USERNAME"] = UserName.Text;
+                    if (Request.QueryString["rurl"] != null)
+                    {
+                        if (Request.QueryString["rurl"] == "cart")
+                        {
+                            Response.Redirect("~/Cart.aspx");
+                        }
+                    }
+                    else
+                    {
+                        Response.Redirect("~/Default.aspx");
+                    }
+                }
+                if (Utype == "A")
+                {
+                    Session["USERNAME"] = UserName.Text;
+                    Response.Redirect("~/AdminHome.aspx");
+                }
 
             }
             else
             {
-                Response.Redirect("~/NotFound.aspx");
+                lblError.Text = "Invalid Username or Password !";
             }
-        }
-        catch (Exception ex)
-        {
-
-            lblMsg.Text = ex.ToString();
-        }
-    }
-
-    protected void btnSave_Click(object sender, EventArgs e)
-    {
-        string gender = string.Empty;
-        if (rbMale.Checked)
-        {
-            gender = "Male";
-        }
-        else if (rbFemale.Checked)
-        {
-            gender = "Female";
-        }
-
-        if (tbUname.Text != "" && tbName.Text != "" && tbPass.Text != "" && tbEmail.Text != "" && tbMobile.Text != "" && gender != "")
-        {
-            if (tbPass.Text == tbCPass.Text)
-            {
-                // Using SQLHelper
-                string strcmd = "select Uid from Users where Username ='" + tbUname.Text + "' and Mobile = '" + tbMobile.Text + "'";
-                DataTable dt = new DataTable();
-                dt = SQLHelper.FillData(strcmd);               
-                strcmd = "update Users set Username='" + tbUname.Text + "',Name='" + tbName.Text + "'" +
-                ",Password='" + tbPass.Text + "', Email='" + tbEmail.Text + "', Mobile='" + tbMobile.Text + "',Gender='" + gender + "' where Username='" + Session["USERNAME"] + "'";
-                SQLHelper.ExecuteNonQuery(strcmd);
-                lblMsg.Text = "Updated Successfull";
-                lblMsg.ForeColor = Color.Green;
-                //Response.Redirect("~/Signin.aspx");
-            }
-            else
-            {
-                lblMsg.ForeColor = Color.Red;
-                lblMsg.Text = "Passwords do not match";
-            }
-        }
-        else
-        {
-            lblMsg.ForeColor = Color.Red;
-            lblMsg.Text = "All Fields Are Mandatory";
         }
     }
 }

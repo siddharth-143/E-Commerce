@@ -1,59 +1,45 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true" CodeFile="AddQuantity.aspx.cs" Inherits="AddQuantity" %>
+﻿<%@ Page Title="Add Quantity" Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true" CodeFile="AddQuantity.aspx.cs" Inherits="AddQuantity" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <asp:HiddenField ID="hdfID" runat="server" />
     <div class="container">
-        <div class="form-horizontal">
-            <h2>Add Quantity</h2>
-            <hr />
-            <div class="form-group">
-                <asp:Label ID="Label1" runat="server" CssClass="col-md-2 control-label" Text="Quantity"></asp:Label>
-                <div class="col-md-3">
-                    <asp:TextBox ID="txtBrandName" CssClass="form-control" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorUsername" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="txtBrandName"></asp:RequiredFieldValidator>
+        <div class="form-control card mt-3">
+            <div class="card-header">
+                Add Quantity
+            </div>
+            <div class="card-body">
+                <p>Product Quantity</p>
+                <asp:TextBox ID="txtQuantity" runat="server" CssClass="form-control" Width="320px"></asp:TextBox>
+
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="txtQuantity" ValidationGroup="A"></asp:RequiredFieldValidator>
+                <div>
+                    <asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary" Text="Add" ValidationGroup="A" OnClick="btnAdd_Click" />
+                    <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-info" Text="Update" Enabled="false" ValidationGroup="A" OnClick="btnUpdate_Click" />
+                    <asp:Button ID="btnClear" runat="server" CssClass="btn btn-warning" Text="Clears" OnClick="btnClear_Click" />
+                    <asp:Label ID="lblMsg" runat="server" Text="" ForeColor="Red"></asp:Label>
                 </div>
             </div>
+        </div>
+        <br />
 
-            <div class="form-group">
-                <div class="col-md-2"></div>
-                <div class="col-md-6">
-                    <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="btn btn-primary" OnClick="btnAdd_Click" />
-                </div>
-            </div>
-            <br />
-
-            <h1>Quantity</h1>
-            <hr />
-            <div class="panel panel-default">
-                <div class="panel-heading">All Quantity</div>
-                <asp:Repeater ID="rptrQuantity" runat="server">
-                    <HeaderTemplate>
-                        <div class="panel-body">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Quantity</th>
-                                        <th>Edit</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                    </HeaderTemplate>
-                    <ItemTemplate>
-                        <tr>
-                            <td><%# Eval("ProQuntID") %></td>
-                            <td><%# Eval("PID") %></td>
-                            <td><%# Eval("Quantity") %></td>
-                            <td>Edit</td>
-                        </tr>
-                    </ItemTemplate>
-                    <FooterTemplate>
-                        </tbody>
-                </table>
+        <h1>Gender</h1>
+        <hr />
+        <div class="row">
+            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CssClass="table" OnRowCommand="GridView1_RowCommand">
+                <Columns>
+                    <asp:BoundField DataField="ProQuntID" HeaderText="ID" />
+                    <asp:BoundField DataField="Quantity" HeaderText="Quantity" />
+                    <%--<asp:BoundField DataField="PID" HeaderText="Quantity ID" />--%>
+                    <asp:ButtonField CommandName="Ed" Text="Edit">
+                        <ControlStyle CssClass="btn btn-info btn-sm" />
+                    </asp:ButtonField>
+                    <asp:ButtonField CommandName="Del" Text="Delete">
+                        <ControlStyle CssClass="btn btn-danger" />
+                    </asp:ButtonField>
+                </Columns>
+            </asp:GridView>
         </div>
-                    </FooterTemplate>
-                </asp:Repeater>
-            </div>
-        </div>
-        </div>
+    </div>
 </asp:Content>
+
 

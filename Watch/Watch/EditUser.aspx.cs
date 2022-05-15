@@ -36,7 +36,7 @@ public partial class EditUser : System.Web.UI.Page
             {
                 gender = "Female";
             }
-            string strcmd = "select Username, Name, Password, Email, Mobile, Gender from Users where Uid = " + hdfUid.Value;
+            string strcmd = "select Username, Name, Password, Email, Mobile, Gender, Address from Users where Uid = " + hdfUid.Value;
             DataTable dt = new DataTable();
             dt = SQLHelper.FillData(strcmd);
             if (dt.Rows.Count > 0)
@@ -48,6 +48,7 @@ public partial class EditUser : System.Web.UI.Page
                 tbEmail.Text = dt.Rows[0]["Email"].ToString();
                 tbMobile.Text = dt.Rows[0]["Mobile"].ToString();
                 gender = dt.Rows[0]["Gender"].ToString();
+                tbAddress.Text = dt.Rows[0]["Address"].ToString();
 
             }
             else
@@ -84,7 +85,7 @@ public partial class EditUser : System.Web.UI.Page
                 dt = SQLHelper.FillData(strcmd);
                 //strcmd = "insert into Users values('" + tbUname.Text + "', '" + tbName.Text + "', '" + tbPass.Text + "', '" + tbEmail.Text + "', '" + tbMobile.Text + "','" + gender + "', 'U')";
                 strcmd = "update Users set Username='" + tbUname.Text + "',Name='" + tbName.Text + "'" +
-                ",Password='" + tbPass.Text + "', Email='" + tbEmail.Text + "', Mobile='" + tbMobile.Text + "',Gender='" + gender + "' where Uid='" + hdfUid.Value + "'";
+                ",Password='" + tbPass.Text + "', Email='" + tbEmail.Text + "', Mobile='" + tbMobile.Text + "',Gender='" + gender + "',Address='" + tbAddress.Text + "' where Uid='" + hdfUid.Value + "'";
                 SQLHelper.ExecuteNonQuery(strcmd);
                 lblMsg.Text = "Updated Successfull";
                 lblMsg.ForeColor = Color.Green;
@@ -103,9 +104,25 @@ public partial class EditUser : System.Web.UI.Page
         }
     }
 
+    private void Clear()
+    {
+        tbUname.Text = "";
+        tbName.Text = "";
+        tbPass.Text = "";
+        tbCPass.Text = "";
+        tbMobile.Text = "";
+        tbEmail.Text = "";
+        tbAddress.Text = "";
+    }
+
+    protected void btnClear_Click(object sender, EventArgs e)
+    {
+        Clear();
+    }
+
     protected void btnCancel_Click(object sender, EventArgs e)
     {
-
+        Response.Redirect("~/ManageUser.aspx");
     }
 
     protected void btnAdd_Click(object sender, EventArgs e)
@@ -121,7 +138,7 @@ public partial class EditUser : System.Web.UI.Page
             gender = "Female";
         }
 
-        if (tbUname.Text != "" && tbName.Text != "" && tbPass.Text != "" && tbEmail.Text != "" && tbMobile.Text != "" && gender != "")
+        if (tbUname.Text != "" && tbName.Text != "" && tbPass.Text != "" && tbEmail.Text != "" && tbMobile.Text != "" && gender != "" && tbAddress.Text != "")
         {
             if (tbPass.Text == tbCPass.Text)
             {
@@ -136,7 +153,7 @@ public partial class EditUser : System.Web.UI.Page
                 }
                 else
                 {
-                    strcmd = "insert into Users values('" + tbUname.Text + "', '" + tbName.Text + "', '" + tbPass.Text + "', '" + tbEmail.Text + "', '" + tbMobile.Text + "','" + gender + "', 'U')";
+                    strcmd = "insert into Users values('" + tbUname.Text + "', '" + tbName.Text + "', '" + tbPass.Text + "', '" + tbEmail.Text + "', '" + tbMobile.Text + "','" + gender + "', 'U','" + tbAddress.Text + "')";
                     SQLHelper.ExecuteNonQuery(strcmd);
                     lblMsg.Text = "Registred Successfull";
                     lblMsg.ForeColor = Color.Green;

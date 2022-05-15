@@ -28,7 +28,7 @@ public partial class SignUp : System.Web.UI.Page
             gender = "Female";
         }
 
-        if (tbUname.Text != "" && tbName.Text != "" && tbPass.Text != "" && tbEmail.Text != "" && tbMobile.Text != "" && gender != "")
+        if (tbUname.Text != "" && tbName.Text != "" && tbPass.Text != "" && tbEmail.Text != "" && tbMobile.Text != "" && gender != "" && tbAddress.Text != "")
         {
             if (tbPass.Text == tbCPass.Text)
             {
@@ -55,7 +55,7 @@ public partial class SignUp : System.Web.UI.Page
                 }
                 else
                 {
-                    strcmd = "insert into Users values('" + tbUname.Text + "', '" + tbName.Text + "', '" + tbPass.Text + "', '" + tbEmail.Text + "', '" + tbMobile.Text + "','" + gender + "', 'U')";
+                    strcmd = "insert into Users values('" + tbUname.Text + "', '" + tbName.Text + "', '" + tbPass.Text + "', '" + tbEmail.Text + "', '" + tbMobile.Text + "','" + gender + "', 'U','" + tbAddress.Text + "')";
                     SQLHelper.ExecuteNonQuery(strcmd);
                     lblMsg.Text = "Registration Successfull";
                     lblMsg.ForeColor = Color.Green;

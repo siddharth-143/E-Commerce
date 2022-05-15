@@ -3,7 +3,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
         <asp:Label ID="lblSuccess" runat="server" CssClass="text-success" Font-Bold="True"></asp:Label>
-        <asp:Button ID="Button1" runat="server" Text="Update Profile" CssClass="btn btn-primary float-end" OnClick="Button1_Click" />
+        <asp:Button ID="Button1" runat="server" Text="Edit Profile" CssClass="btn btn-primary float-end" OnClick="Button1_Click" />
         <br />
         <table class="w-100 table border-2">
             <tr>
@@ -50,7 +50,8 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidatorAddress" runat="server" ControlToValidate="tbAddress" Display="Dynamic" ErrorMessage="Address Required Field !" ForeColor="Red" ValidationGroup="A"></asp:RequiredFieldValidator>
                 <br />
                 <div>
-                    <asp:Button ID="btnUpdate" runat="server" class="btn btn-success" Text="Update" ValidationGroup="A" OnClick="btnUpdate_Click" />
+                    <asp:Button ID="btnUpdate" runat="server" class="btn btn-info" Text="Update" ValidationGroup="A" OnClick="btnUpdate_Click" />
+                    <asp:Button ID="btnClear" runat="server" class="btn  btn-warning" Text="Clear" ValidationGroup="" OnClick="btnClear_Click" />
                     <asp:Label ID="lblMsg" runat="server"></asp:Label>
                 </div>
             </div>
