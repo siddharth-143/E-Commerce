@@ -128,11 +128,15 @@
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <li class="center"><a class="dropdown-item" href="UserHome.aspx">User Profile</a></li>
                                         <li class="center nav-item" id="btnSignup" runat="server">
-                                            <a class="nav-link" href="SignUp.aspx">Sign Up</a>
+                                            <a class="dropdown-item" href="SignUp.aspx">Sign Up</a>
                                             <%--<asp:Button ID="btnSignup" CssClass ="btn btn-default navbar-btn " runat="server" Text="SignIn" OnClick="btnLogin_Click" />--%>
                                         </li>
                                         <li class="center nav-item" id="btnSigin" runat="server">
-                                            <a class="nav-link" href="SignIn.aspx">Sign In</a>
+                                            <a class="dropdown-item" href="SignIn.aspx">Sign In</a>
+                                        </li>
+
+                                        <li class="center" id="btnOrders" runat="server">
+                                            <a class="dropdown-item" href="Orders.aspx">Orders</a>
                                         </li>
 
                                         <li>

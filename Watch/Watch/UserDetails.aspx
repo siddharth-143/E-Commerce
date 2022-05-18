@@ -11,6 +11,7 @@
             <asp:BoundField DataField="Mobile" HeaderText="Mobile" SortExpression="Mobile" />
             <asp:BoundField DataField="Gender" HeaderText="Gender" SortExpression="Gender" />
             <asp:BoundField DataField="Usertype" HeaderText="Usertype" SortExpression="Usertype" />
+            <asp:BoundField DataField="Address" HeaderText="Address" SortExpression="Address" />
         </Fields>
     </asp:DetailsView>
     <br />
