@@ -15,6 +15,8 @@ public partial class Products : System.Web.UI.Page
         if (!IsPostBack)
         {
             BindProductRepeater();
+            BindCategories();
+            BindGender();
         }
     }
     private void BindProductRepeater()
@@ -45,6 +47,48 @@ public partial class Products : System.Web.UI.Page
                 }
 
             }
+        }
+    }
+
+    public void BindCategories()
+    {
+        String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+
+        using (SqlConnection con = new SqlConnection(CS))
+        {
+            using (SqlCommand cmd = new SqlCommand("select * from tblCategories", con))
+            {
+                cmd.CommandType = CommandType.Text;
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dtBrands = new DataTable();
+                    sda.Fill(dtBrands);
+                    rptCategory.DataSource = dtBrands;
+                    rptCategory.DataBind();
+                }
+            }
+
+        }
+    }
+
+    public void BindGender()
+    {
+        String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+
+        using (SqlConnection con = new SqlConnection(CS))
+        {
+            using (SqlCommand cmd = new SqlCommand("select * from tblGender", con))
+            {
+                cmd.CommandType = CommandType.Text;
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dtBrands = new DataTable();
+                    sda.Fill(dtBrands);
+                    rptGender.DataSource = dtBrands;
+                    rptGender.DataBind();
+                }
+            }
+
         }
     }
 }

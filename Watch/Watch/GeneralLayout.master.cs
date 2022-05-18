@@ -191,7 +191,7 @@ public partial class GeneralLayout : System.Web.UI.MasterPage
                 {
                     DataTable dt = new DataTable();
                     sda.Fill(dt);
-                    //rptrBrands.DataSource = dt;
+                    //rptrBrands.DataSource = dt;                   
                     //rptrBrands.DataBind();
                 }
                 txtSearch1.Text = "";

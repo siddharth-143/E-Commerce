@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+     <asp:HiddenField ID="hdPID" runat="server" />
     <asp:HiddenField ID="hdCartAmount" runat="server" />
     <asp:HiddenField ID="hdCartDiscount" runat="server" />
     <asp:HiddenField ID="hdTotalPayed" runat="server" />
@@ -98,7 +99,7 @@
                 <h3>Payment Mode</h3>
                 <h4>Cash On Delivery</h4>
                 <hr />
-                <asp:Button ID="btnCOD" runat="server" class="btn btn-primary" Text="Order Now" OnClick="btnCOD_Click" ValidationGroup="A" />
+                <asp:Button ID="btnCOD" runat="server" class="btn btn-primary" Text="Place Order" OnClick="btnCOD_Click" ValidationGroup="A" />
                 <asp:Label ID="lblMsg" runat="server"></asp:Label>
             </div>
         </div>

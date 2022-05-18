@@ -112,6 +112,7 @@ public partial class Payment : System.Web.UI.Page
                 sda.Fill(dt);
                 if (dt.Rows.Count > 0)
                 {
+                    string Pid = dt.Copy().ToString();
                     string Total = dt.Compute("Sum(SubSAmount)", "").ToString();
                     string CartTotal = dt.Compute("Sum(SubPAmount)", "").ToString();
                     string CartQuantity = dt.Compute("Sum(Qty)", "").ToString();
@@ -137,6 +138,8 @@ public partial class Payment : System.Web.UI.Page
 
     protected void btnCOD_Click(object sender, EventArgs e)
     {
+        int Dqty = 0;
+        Int64 PID = Convert.ToInt64(Request.QueryString["PID"]);
         if (txtName.Text != "" && txtAddress.Text != "" && txtPinCode.Text != "" && txtMobileNumber.Text != "")
         {
             if (Session["USERNAME"] != null)

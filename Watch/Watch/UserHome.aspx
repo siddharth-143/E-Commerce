@@ -5,7 +5,7 @@
         <asp:Label ID="lblSuccess" runat="server" CssClass="text-success" Font-Bold="True"></asp:Label>
         <asp:Button ID="Button1" runat="server" Text="Edit Profile" CssClass="btn btn-primary float-end" OnClick="Button1_Click" />
         <br />
-        <table class="w-100 table border-2">
+        <table class="table table-striped border-2">
             <tr>
                 <td>Username</td>
                 <td>
@@ -56,5 +56,27 @@
                 </div>
             </div>
         </asp:Panel>
+
+        <div>
+            <h2>Orders Detail's</h2>
+            <asp:GridView ID="GridView1" CssClass="table table-striped" runat="server" AutoGenerateColumns="False" DataKeyNames="PurchaseID" DataSourceID="SqlDataSource1">
+                <Columns>
+                    <asp:BoundField DataField="PurchaseID" HeaderText="PurchaseID" InsertVisible="False" ReadOnly="True" SortExpression="PurchaseID" />
+                    <asp:BoundField DataField="UserID" HeaderText="UserID" SortExpression="UserID" />
+                    <asp:BoundField DataField="CartAmount" HeaderText="CartAmount" SortExpression="CartAmount" />
+                    <asp:BoundField DataField="CartDiscount" HeaderText="CartDiscount" SortExpression="CartDiscount" />
+                    <asp:BoundField DataField="TotalPayed" HeaderText="TotalPayed" SortExpression="TotalPayed" />
+                    <asp:BoundField DataField="PaymentType" HeaderText="PaymentType" SortExpression="PaymentType" />
+                    <asp:BoundField DataField="DateOfPurchase" HeaderText="DateOfPurchase" SortExpression="DateOfPurchase" />
+                    <asp:BoundField DataField="PinCode" HeaderText="PinCode" SortExpression="PinCode" />
+                    <asp:BoundField DataField="Qty" HeaderText="Qty" SortExpression="Qty" />
+                </Columns>
+            </asp:GridView>
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:MyDatabaseConnectionString1 %>" SelectCommand="SELECT [PurchaseID], [UserID], [CartAmount], [CartDiscount], [TotalPayed], [PaymentType], [DateOfPurchase], [PinCode], [Qty] FROM [tblPurchase] WHERE ([UserID] = @UserID2)">
+                <SelectParameters>
+                    <asp:SessionParameter Name="UserID2" SessionField="UserID" Type="Int32" />
+                </SelectParameters>
+            </asp:SqlDataSource>
+        </div>
     </div>
 </asp:Content>

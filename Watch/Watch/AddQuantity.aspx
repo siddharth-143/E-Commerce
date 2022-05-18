@@ -28,8 +28,8 @@
             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CssClass="table" OnRowCommand="GridView1_RowCommand">
                 <Columns>
                     <asp:BoundField DataField="ProQuntID" HeaderText="ID" />
+                    <asp:BoundField DataField="PID" HeaderText="Product ID" />
                     <asp:BoundField DataField="Quantity" HeaderText="Quantity" />
-                    <%--<asp:BoundField DataField="PID" HeaderText="Quantity ID" />--%>
                     <asp:ButtonField CommandName="Ed" Text="Edit">
                         <ControlStyle CssClass="btn btn-info btn-sm" />
                     </asp:ButtonField>
