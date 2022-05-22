@@ -21,6 +21,7 @@ public partial class UserHome : System.Web.UI.Page
         {
             lblSuccess.Text = "Login Success, Welcome " + Session["USERNAME"].ToString() + "";
             BindUserDetails();
+            BindUserAddress();
         }
         else
         {
@@ -28,6 +29,7 @@ public partial class UserHome : System.Web.UI.Page
         }
     }
 
+    // bind user details
     protected void BindUserDetails()
     {
         SqlConnection con = new SqlConnection(CS);
@@ -42,16 +44,39 @@ public partial class UserHome : System.Web.UI.Page
         lblEmail.Text = ds.Tables[0].Rows[0]["Email"].ToString();
         lblMobile.Text = ds.Tables[0].Rows[0]["Mobile"].ToString();
         lblGender.Text = ds.Tables[0].Rows[0]["Gender"].ToString();
-        lblAddress.Text = ds.Tables[0].Rows[0]["Address"].ToString();
+        //lblAddress.Text = ds.Tables[0].Rows[0]["Address"].ToString();
+    }
+
+    // Bind User delivery address
+    protected void BindUserAddress()
+    {
+        BindUserDetails();
+        SqlConnection con = new SqlConnection(CS);
+        con.Open();
+        query = "select tblPurchase.Address from tblPurchase left join Users on Users.Uid = tblPurchase.UserID where Username='" + Session["USERNAME"] + "'";
+        com = new SqlCommand(query, con);
+        SqlDataAdapter da = new SqlDataAdapter(com);
+        DataSet ds = new DataSet();
+        da.Fill(ds);
+
+        if (ds.Tables[0].Rows.Count > 0)
+        {
+            lblAddress.Text = ds.Tables[0].Rows[0]["Address"].ToString();
+        }
+        else
+        {
+            BindUserDetails();
+        }
     }
 
 
-    private void Clear()
+        private void Clear()
     {
         tbAddress.Text = "";
         tbAddress.Focus();
     }
 
+    // Update Delivery Address
     protected void btnUpdate_Click(object sender, EventArgs e)
     {
 
@@ -65,8 +90,8 @@ public partial class UserHome : System.Web.UI.Page
             {
                 Int32 UserID = Convert.ToInt32(Session["USERID"].ToString());
                 // Using SQLHelper
-                //string strcmd = "update tblPurchase set Address ='" + tbAddress.Text + "' where UserID='" + UserID + "'";
-                string strcmd = "update Users set Address='" + tbAddress.Text + "' where Username='" + Session["USERNAME"] + "'";
+                string strcmd = "update tblPurchase set Address ='" + tbAddress.Text + "' where UserID='" + UserID + "'";
+                //string strcmd = "update Users set Address='" + tbAddress.Text + "' where Username='" + Session["USERNAME"] + "'";
                 DataTable dt = new DataTable();
                 dt = SQLHelper.FillData(strcmd);
                 SQLHelper.ExecuteNonQuery(strcmd);

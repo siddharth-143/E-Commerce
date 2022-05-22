@@ -45,11 +45,11 @@
             <asp:RadioButton ID="rbFemale" runat="server" Text="Female" GroupName="gender" />
         </div>
 
-        <label class="col-xs-11" style="font-weight: bold">Email</label>
+<%--        <label class="col-xs-11" style="font-weight: bold">Address</label>
         <div class="col-xs-11">
             <asp:TextBox ID="tbAddress" runat="server" class="form-control" placeholder="Address" TextMode="MultiLine"></asp:TextBox>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="tbAddress" Display="Dynamic" ErrorMessage="Email is Required Filed !" ForeColor="Red" ValidationGroup="A"></asp:RequiredFieldValidator>
-        </div>
+        </div>--%>
 
         <%--        <div class="col-xs-11">
             <label class="col-xs-11" style="font-weight: bold"> Select Gender</label>

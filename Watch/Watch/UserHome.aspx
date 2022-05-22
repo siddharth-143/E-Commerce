@@ -68,11 +68,12 @@
                     <asp:BoundField DataField="TotalPayed" HeaderText="TotalPayed" SortExpression="TotalPayed" />
                     <asp:BoundField DataField="PaymentType" HeaderText="PaymentType" SortExpression="PaymentType" />
                     <asp:BoundField DataField="DateOfPurchase" HeaderText="DateOfPurchase" SortExpression="DateOfPurchase" />
+                     <asp:BoundField DataField="Address" HeaderText="Address" SortExpression="Address" />
                     <asp:BoundField DataField="PinCode" HeaderText="PinCode" SortExpression="PinCode" />
                     <asp:BoundField DataField="Qty" HeaderText="Qty" SortExpression="Qty" />
                 </Columns>
             </asp:GridView>
-            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:MyDatabaseConnectionString1 %>" SelectCommand="SELECT [PurchaseID], [UserID], [CartAmount], [CartDiscount], [TotalPayed], [PaymentType], [DateOfPurchase], [PinCode], [Qty] FROM [tblPurchase] WHERE ([UserID] = @UserID2)">
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:MyDatabaseConnectionString1 %>" SelectCommand="SELECT [PurchaseID], [UserID], [CartAmount], [CartDiscount], [TotalPayed], [PaymentType], [DateOfPurchase], [Address], [PinCode], [Qty] FROM [tblPurchase] WHERE ([UserID] = @UserID2)">
                 <SelectParameters>
                     <asp:SessionParameter Name="UserID2" SessionField="UserID" Type="Int32" />
                 </SelectParameters>

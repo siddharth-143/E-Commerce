@@ -1,7 +1,44 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true" CodeFile="UserDetails.aspx.cs" Inherits="UserDetails" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-      <asp:DetailsView ID="DetailsView1" runat="server" Height="50px" Width="125px" AutoGenerateRows="False" DataKeyNames="Uid" DataSourceID="SqlDataSource1" EditRowStyle-BorderStyle="Solid" CommandRowStyle-BorderStyle="Solid" FieldHeaderStyle-HorizontalAlign="NotSet">
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div class="container pt-5">
+        <table class="table table-striped border-2">
+            <tr>
+                <td>Username</td>
+                <td>
+                    <asp:Label ID="lblUsername" runat="server" Font-Bold="True"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td>Full Name</td>
+                <td>
+                    <asp:Label ID="lblFullName" runat="server" Font-Bold="True"></asp:Label></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>
+                    <asp:Label ID="lblEmail" runat="server" Font-Bold="True"></asp:Label></td>
+            </tr>
+            <tr>
+                <td>Mobile</td>
+                <td>
+                    <asp:Label ID="lblMobile" runat="server" Font-Bold="True"></asp:Label></td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <asp:Label ID="lblGender" runat="server" Font-Bold="True"></asp:Label></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>
+                    <asp:Label ID="lblAddress" runat="server" Font-Bold="True"></asp:Label></td>
+            </tr>
+        </table>
+    </div>
+</asp:Content>
+
+<%-- <asp:DetailsView ID="DetailsView1" runat="server" Height="50px" Width="125px" AutoGenerateRows="False" DataKeyNames="Uid" DataSourceID="SqlDataSource1" EditRowStyle-BorderStyle="Solid" CommandRowStyle-BorderStyle="Solid" FieldHeaderStyle-HorizontalAlign="NotSet">
         <Fields>
             <asp:BoundField DataField="Uid" HeaderText="Uid" InsertVisible="False" ReadOnly="True" SortExpression="Uid" />
             <asp:BoundField DataField="Username" HeaderText="Username" SortExpression="Username" />
@@ -11,7 +48,6 @@
             <asp:BoundField DataField="Mobile" HeaderText="Mobile" SortExpression="Mobile" />
             <asp:BoundField DataField="Gender" HeaderText="Gender" SortExpression="Gender" />
             <asp:BoundField DataField="Usertype" HeaderText="Usertype" SortExpression="Usertype" />
-            <asp:BoundField DataField="Address" HeaderText="Address" SortExpression="Address" />
         </Fields>
     </asp:DetailsView>
     <br />
@@ -21,6 +57,4 @@
         <SelectParameters>
             <asp:QueryStringParameter Name="Uid" QueryStringField="id" />
         </SelectParameters>
-    </asp:SqlDataSource>
-</asp:Content>
-
+    </asp:SqlDataSource>--%>

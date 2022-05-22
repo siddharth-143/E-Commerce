@@ -2,36 +2,35 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container">
-        <h1>Users Details</h1>              <asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
+        <div class="form-control card mt-3 w-50">
+            <div class="card-header">
+                Search Users
+            </div>
+            <div class="card-body">
+                <p>Users Name</p>
+                <asp:TextBox ID="txtSearch" type="search" runat="server" CssClass="form-control" Width="320px"></asp:TextBox>
+
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="txtSearch" ValidationGroup="A"></asp:RequiredFieldValidator>
+                <div>
+                    <asp:Button ID="btnSearch" type="search" runat="server" Text="Search" CssClass="btn btn-primary" OnClick="Search" ValidationGroup="A" />
+                    <asp:Label ID="lblMsg" runat="server" Text="" ForeColor="Red"></asp:Label>
+                </div>
+            </div>
+        </div>
         <hr />
-        <asp:GridView class="table table-striped" ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="Uid" DataSourceID="SqlDataSource1" Height="339px" OnRowCommand="GridView1_RowCommand">
+        <asp:GridView ID="gvCustomers" class="table table-striped" runat="server" AutoGenerateColumns="false" AllowPaging="true" OnPageIndexChanging="OnPaging" OnRowCommand="GridView1_RowCommand">
             <Columns>
-                <%--<asp:BoundField DataField="Uid" HeaderText="Uid" InsertVisible="False" ReadOnly="True" SortExpression="Uid" />--%>
-                <asp:BoundField HeaderStyle-CssClass="table-light" DataField="Uid" HeaderText="Uid" SortExpression="Uid" InsertVisible="False" ReadOnly="True">
-                    <HeaderStyle CssClass="table-light"></HeaderStyle>
-                </asp:BoundField>
-                <asp:BoundField HeaderStyle-CssClass="table-light" DataField="Username" HeaderText="Username" SortExpression="Username">
-                    <HeaderStyle CssClass="table-light"></HeaderStyle>
-                </asp:BoundField>
-                <%--<asp:BoundField HeaderStyle-CssClass="table-light" DataField="Password" HeaderText="Password" SortExpression="Password" />--%>
-                <asp:BoundField HeaderStyle-CssClass="table-light" DataField="Name" HeaderText="Name" SortExpression="Name">
-                    <HeaderStyle CssClass="table-light"></HeaderStyle>
-                </asp:BoundField>
-                <asp:BoundField HeaderStyle-CssClass="table-light" DataField="Email" HeaderText="Email" SortExpression="Email">
-                    <HeaderStyle CssClass="table-light"></HeaderStyle>
-                </asp:BoundField>
-                <asp:BoundField HeaderStyle-CssClass="table-light" DataField="Mobile" HeaderText="Mobile" SortExpression="Mobile">
-                    <HeaderStyle CssClass="table-light"></HeaderStyle>
-                </asp:BoundField>
-                <asp:BoundField HeaderStyle-CssClass="table-light" DataField="Gender" HeaderText="Gender" SortExpression="Gender">
-                    <HeaderStyle CssClass="table-light"></HeaderStyle>
-                </asp:BoundField>
-                <asp:ButtonField CommandName="Ed" Text="Edit" />
-                <asp:ButtonField CommandName="Del" Text="Remove" />
-                <asp:ButtonField CommandName="Details" Text="Details" />
+                <asp:BoundField DataField="Uid" HeaderText="Name" />
+                <asp:BoundField DataField="Username" HeaderText="Username" />
+                <asp:BoundField DataField="Name" HeaderText="Name" />
+                <asp:BoundField DataField="Email" HeaderText="Email" />
+                <asp:BoundField DataField="Mobile" HeaderText="Mobile" />
+                <asp:BoundField DataField="Gender" HeaderText="Gender" />
+                <asp:ButtonField CommandName="Ed" Text="Edit" ControlStyle-CssClass="btn btn-primary" />
+                <asp:ButtonField CommandName="Del" Text="Remove" ControlStyle-CssClass="btn btn-danger" />
+                <asp:ButtonField CommandName="Details" Text="Details" ControlStyle-CssClass="btn btn-secondary" />
             </Columns>
         </asp:GridView>
-         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:MyDatabaseConnectionString1 %>" SelectCommand="SELECT Uid, Username, Name, Email, Mobile, Gender FROM Users ORDER BY Uid"></asp:SqlDataSource>
     </div>
 </asp:Content>
 
