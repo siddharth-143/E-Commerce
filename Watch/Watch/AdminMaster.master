@@ -34,15 +34,31 @@
                                 <a class="nav-link" aria-current="page" href="AdminHome.aspx">Home</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">All Watches
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Products
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="AddProduct.aspx">Add Product</a></li>
 
                                 </ul>
                             </li>
+
                             <li class="nav-item">
-                                <a class="nav-link" href="#">About</a>
+                                <a class="nav-link" href="AddBrand.aspx">Add Brand</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="AddCategory.aspx">Add Category</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="AddGender.aspx">Add Gender</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="AddQuantity.aspx">Add Quantity</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="ManageUser.aspx">Manage Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="ManageOrders.aspx">Manage Orders</a>
                             </li>
 
                             <li class="nav-item dropdown">
@@ -54,12 +70,12 @@
                                     <li><a class="dropdown-item" href="AddGender.aspx">Add Gender</a></li>
                                     <li><a class="dropdown-item" href="AddQuantity.aspx">Add Quantity</a></li>
                                     <li><a class="dropdown-item" href="ManageUser.aspx">Manage User</a></li>
-                                     <li><a class="dropdown-item" href="ManageOrders.aspx">Manage Orders</a></li>
+                                    <li><a class="dropdown-item" href="ManageOrders.aspx">Manage Orders</a></li>
                                 </ul>
                             </li>
                         </ul>
                         <!-- Search form -->
-<%--                        <div class="form-inline d-flex">
+                        <%--                        <div class="form-inline d-flex">
                             <input class=" form-control me-2" type="search" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </div>--%>

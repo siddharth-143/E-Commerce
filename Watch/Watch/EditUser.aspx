@@ -45,33 +45,34 @@
                 </div>
             </div>
 
-            <div class="d-flex">
+            <%--            <div class="d-flex">
                 <label class="col-md-1 control-label center p-1" style="font-weight: bold">Address</label>
                 <div class="col-md-10">
                     <asp:TextBox ID="tbAddress" runat="server" class="form-control" placeholder="Address" TextMode="MultiLine"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="tbAddress" Display="Dynamic" ErrorMessage="Address is Required Filed !" ForeColor="Red" ValidationGroup="A"></asp:RequiredFieldValidator>
                 </div>
-            </div>
+            </div>--%>
 
-            <div class="d-flex center mt-2">
-                <label class=" px-5 control-label" style="font-weight: bold">Gender</label>
-                <div>
+            <div class="center d-flex mt-2 mb-4" style="padding-left:34%">
+                <label class="control-label px-5" style="font-weight: bold">Gender</label>
+                <div class="center">
                     <asp:RadioButton ID="rbMale" runat="server" Text="Male" GroupName="gender" />
                     <asp:RadioButton ID="rbFemale" runat="server" Text="Female" GroupName="gender" />
                     <asp:HiddenField ID="hdfUid" runat="server" />
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="center">
-            <div class="center px-5">
-                <asp:Button ID="btnAdd" runat="server" class="btn btn-secondary" Text="Add New User" ValidationGroup="A" OnClick="btnAdd_Click" />
-                <asp:Button ID="btnUpdate" runat="server" class="btn btn-primary" Text="Update" ValidationGroup="A" OnClick="btnUpdate_Click" />
-                <asp:Button ID="btnClear" runat="server" class="btn btn-warning" Text="Clear" ValidationGroup="" OnClick="btnClear_Click" />
-                <asp:Button ID="btnCancel" runat="server" class="btn btn-danger" Text="Cancel" ValidationGroup="" OnClick="btnCancel_Click" />
-                <asp:Label ID="lblMsg" runat="server"></asp:Label>
-            </div>
+    <div class="center">
+        <div class="center px-5">
+            <asp:Button ID="btnAdd" runat="server" class="btn btn-secondary" Text="Add New User" ValidationGroup="A" OnClick="btnAdd_Click" />
+            <asp:Button ID="btnUpdate" runat="server" class="btn btn-primary" Text="Update" ValidationGroup="A" OnClick="btnUpdate_Click" />
+            <asp:Button ID="btnClear" runat="server" class="btn btn-warning" Text="Clear" ValidationGroup="" OnClick="btnClear_Click" />
+            <asp:Button ID="btnCancel" runat="server" class="btn btn-danger" Text="Cancel" ValidationGroup="" OnClick="btnCancel_Click" />
+            <asp:Label ID="lblMsg" runat="server"></asp:Label>
         </div>
+    </div>
     </div>
 </asp:Content>
 

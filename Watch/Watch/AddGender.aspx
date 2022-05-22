@@ -9,7 +9,7 @@
             </div>
             <div class="card-body">
                 <p>Gender Name</p>
-                <asp:TextBox ID="txtGender" runat="server" CssClass="form-control" Width="320px"></asp:TextBox>
+                <asp:TextBox ID="txtGender" type="search" runat="server" CssClass="form-control" Width="320px"></asp:TextBox>
 
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="txtGender" ValidationGroup="A"></asp:RequiredFieldValidator>
                 <div>

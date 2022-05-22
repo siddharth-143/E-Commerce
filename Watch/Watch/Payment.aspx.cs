@@ -15,12 +15,14 @@ public partial class Payment : System.Web.UI.Page
     public static Int32 OrderNumber = 1;
     protected void Page_Load(object sender, EventArgs e)
     {
+        hdPID.Value = Session["CartPID"].ToString();
         if (Session["USERNAME"] != null)
         {
             if (!IsPostBack)
             {
                 BindPriceData2();
                 BindOrderProducts();
+                BindProductDetails();
             }
         }
         else
@@ -96,8 +98,30 @@ public partial class Payment : System.Web.UI.Page
     //    }
     //}
 
+    protected void BindProductDetails()
+    {
+        Int64 PID = Convert.ToInt64(Request.QueryString["PID"]);
+
+        String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+        using (SqlConnection con = new SqlConnection(CS))
+        {
+            using (SqlCommand cmd = new SqlCommand("select * from tblProducts where PID=" + PID + "", con))
+            {
+                cmd.CommandType = CommandType.Text;
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dtBrands = new DataTable();
+                    sda.Fill(dtBrands);
+                    Session["CartPID"].ToString();
+                }
+
+            }
+        }
+    }
+
     private void BindPriceData2()
     {
+        Int64 PID = Convert.ToInt64(Request.QueryString["PID"]);
         string UserIDD = Session["USERID"].ToString();
         DataTable dt = new DataTable();
         using (SqlConnection con = new SqlConnection(CS))
@@ -138,8 +162,8 @@ public partial class Payment : System.Web.UI.Page
 
     protected void btnCOD_Click(object sender, EventArgs e)
     {
-        int Dqty = 0;
         Int64 PID = Convert.ToInt64(Request.QueryString["PID"]);
+        string PIDD = Session["CartPID"].ToString();
         if (txtName.Text != "" && txtAddress.Text != "" && txtPinCode.Text != "" && txtMobileNumber.Text != "")
         {
             if (Session["USERNAME"] != null)
@@ -148,13 +172,19 @@ public partial class Payment : System.Web.UI.Page
                 string PaymentType = "COD";
                 string PaymentStatus = "NotPaid";
                 string EMAILID = Session["USEREMAIL"].ToString();
-                using (SqlConnection con = new SqlConnection(CS))
-                {
-                    SqlCommand cmd = new SqlCommand("insert into tblPurchase values('" + USERID + "','"+EMAILID+"','"
+                string query = "insert into tblPurchase values('" + USERID + "', '"+hdPID.Value+"','" + EMAILID + "','"
                         + hdCartAmount.Value + "','" + hdCartDiscount.Value + "','"
                         + hdTotalPayed.Value + "','" + PaymentType + "','" + PaymentStatus + "',getdate(),'"
-                        + txtName.Text + "','" + txtAddress.Text + "','" + txtPinCode.Text + "','" + txtMobileNumber.Text + "','"+ hdQty.Value +"') select SCOPE_IDENTITY()", con);
+                        + txtName.Text + "','" + txtAddress.Text + "','" + txtPinCode.Text + "','" + txtMobileNumber.Text + "','" + hdQty.Value + "') select SCOPE_IDENTITY()";
+                //query += "Update tblProductQuantity set Quantity = Quantity - '" + hdQty.Value + "' where PID = '"+PIDD+"'";
+                using (SqlConnection con = new SqlConnection(CS))
+                {
+                    //SqlCommand cmd = new SqlCommand("insert into tblPurchase values('" + USERID + "','" + EMAILID + "','"
+                    //    + hdCartAmount.Value + "','" + hdCartDiscount.Value + "','"
+                    //    + hdTotalPayed.Value + "','" + PaymentType + "','" + PaymentStatus + "',getdate(),'"
+                    //    + txtName.Text + "','" + txtAddress.Text + "','" + txtPinCode.Text + "','" + txtMobileNumber.Text + "','" + hdQty.Value + "') select SCOPE_IDENTITY()", con);
 
+                    SqlCommand cmd = new SqlCommand(query, con);
                     if (con.State == ConnectionState.Closed)
                     {
                         con.Open();
@@ -173,6 +203,7 @@ public partial class Payment : System.Web.UI.Page
             lblMsg.ForeColor = Color.Red;
             lblMsg.Text = "All Fields Are Mandatory";
         }
+
     }
 
     private void BindOrderProducts()
