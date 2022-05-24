@@ -15,8 +15,8 @@ public partial class Time : System.Web.UI.Page
         if (!IsPostBack)
         {
             BindProductRepeater();
-            //BindCategories();
-            //BindGender();
+            BindCategories();
+            BindGender();
         }
     }
     private void BindProductRepeater()
@@ -50,45 +50,57 @@ public partial class Time : System.Web.UI.Page
         }
     }
 
-    //public void BindCategories()
-    //{
-    //    String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+    public void BindCategories()
+    {
+        String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
 
-    //    using (SqlConnection con = new SqlConnection(CS))
-    //    {
-    //        using (SqlCommand cmd = new SqlCommand("select * from tblCategories", con))
-    //        {
-    //            cmd.CommandType = CommandType.Text;
-    //            using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
-    //            {
-    //                DataTable dtBrands = new DataTable();
-    //                sda.Fill(dtBrands);
-    //                rptCategory.DataSource = dtBrands;
-    //                rptCategory.DataBind();
-    //            }
-    //        }
+        using (SqlConnection con = new SqlConnection(CS))
+        {
+            using (SqlCommand cmd = new SqlCommand("select * from tblCategories", con))
+            {
+                cmd.CommandType = CommandType.Text;
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dtBrands = new DataTable();
+                    sda.Fill(dtBrands);
+                    rptCategory.DataSource = dtBrands;
+                    rptCategory.DataBind();
+                }
+            }
 
-    //    }
-    //}
+        }
+    }
 
-    //public void BindGender()
-    //{
-    //    String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+    public void BindGender()
+    {
+        String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
 
-    //    using (SqlConnection con = new SqlConnection(CS))
-    //    {
-    //        using (SqlCommand cmd = new SqlCommand("select * from tblGender", con))
-    //        {
-    //            cmd.CommandType = CommandType.Text;
-    //            using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
-    //            {
-    //                DataTable dtBrands = new DataTable();
-    //                sda.Fill(dtBrands);
-    //                rptGender.DataSource = dtBrands;
-    //                rptGender.DataBind();
-    //            }
-    //        }
+        using (SqlConnection con = new SqlConnection(CS))
+        {
+            using (SqlCommand cmd = new SqlCommand("select * from tblGender", con))
+            {
+                cmd.CommandType = CommandType.Text;
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dtBrands = new DataTable();
+                    sda.Fill(dtBrands);
+                    rptGender.DataSource = dtBrands;
+                    rptGender.DataBind();
+                }
+            }
 
-    //    }
-    //}
+        }
+    }
+
+    protected void btnBuy_Click(object sender, EventArgs e)
+    {
+        if (Session["USERNAME"] != null)
+        {
+            Response.Redirect("~/Payment.aspx");
+        }
+        else
+        {
+            Response.Redirect("~/SignIn.aspx?rurl=cart");
+        }
+    }
 }
