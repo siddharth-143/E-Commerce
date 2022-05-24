@@ -19,7 +19,7 @@
                     <asp:BoundField DataField="DateOfPurchase" HeaderText="DateOfPurchase" SortExpression="DateOfPurchase" />
                     <asp:BoundField DataField="PinCode" HeaderText="PinCode" SortExpression="PinCode" />
                     <asp:BoundField DataField="Qty" HeaderText="Qty" SortExpression="Qty" />
-                    <asp:ButtonField CommandName="Del" Text="Delete">
+                    <asp:ButtonField CommandName="Del" Text="Cancel Order">
                         <ControlStyle CssClass="btn btn-danger" />
                     </asp:ButtonField>
                 </Columns>

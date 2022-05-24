@@ -172,18 +172,13 @@ public partial class Payment : System.Web.UI.Page
                 string PaymentType = "COD";
                 string PaymentStatus = "NotPaid";
                 string EMAILID = Session["USEREMAIL"].ToString();
-                string query = "insert into tblPurchase values('" + USERID + "', '"+hdPID.Value+"','" + EMAILID + "','"
+                string query = "insert into tblPurchase values('" + USERID + "','" + EMAILID + "','"
                         + hdCartAmount.Value + "','" + hdCartDiscount.Value + "','"
                         + hdTotalPayed.Value + "','" + PaymentType + "','" + PaymentStatus + "',getdate(),'"
                         + txtName.Text + "','" + txtAddress.Text + "','" + txtPinCode.Text + "','" + txtMobileNumber.Text + "','" + hdQty.Value + "') select SCOPE_IDENTITY()";
-                //query += "Update tblProductQuantity set Quantity = Quantity - '" + hdQty.Value + "' where PID = '"+PIDD+"'";
+                query += "Update tblProductQuantity set Quantity = Quantity - '" + hdQty.Value + "' where PID = '"+PIDD+"'";
                 using (SqlConnection con = new SqlConnection(CS))
-                {
-                    //SqlCommand cmd = new SqlCommand("insert into tblPurchase values('" + USERID + "','" + EMAILID + "','"
-                    //    + hdCartAmount.Value + "','" + hdCartDiscount.Value + "','"
-                    //    + hdTotalPayed.Value + "','" + PaymentType + "','" + PaymentStatus + "',getdate(),'"
-                    //    + txtName.Text + "','" + txtAddress.Text + "','" + txtPinCode.Text + "','" + txtMobileNumber.Text + "','" + hdQty.Value + "') select SCOPE_IDENTITY()", con);
-
+                {                 
                     SqlCommand cmd = new SqlCommand(query, con);
                     if (con.State == ConnectionState.Closed)
                     {

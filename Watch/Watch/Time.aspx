@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true" CodeFile="Time.aspx.cs" Inherits="Time" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/GeneralLayout.master" AutoEventWireup="true" CodeFile="Time.aspx.cs" Inherits="Time" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container">
@@ -31,7 +31,7 @@
                         <div class="row">
                             <asp:Repeater ID="rptrProducts" runat="server">
                                 <ItemTemplate>
-                                    <div class="col-sm-4 col-md-4 mb-2">
+                                    <div class="col-sm-4 col-md-4 mb-4">
                                         <a style="text-decoration: none" href="ProductView.aspx?PID=<%#Eval("PID") %>">
                                             <div class="item">
                                                 <div class="thumbnail">
@@ -44,11 +44,12 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <div class="d-flex">
-                                            <asp:Button ID="btnAdd" runat="server" Text="Buy" Width="48%" CssClass="btn btn-primary me-3" />
-                                            <asp:Button ID="btnBuy" runat="server" Text="Add to Cart" Width="48%" CssClass="btn" BackColor="#FF6600" />
+                                        <div class="d-flex ">
+                                            <asp:Button ID="btnCart" runat="server" Text="Add to Cart" CssClass="btn btn-primary me-2 ms-2" Width="48%" />
+                                            <asp:Button ID="btnBuy" runat="server" Text="Buy Now" CssClass="btn btn-warning" Width="48%" OnClick="btnBuy_Click" />
                                         </div>
                                     </div>
+
                                 </ItemTemplate>
                             </asp:Repeater>
                         </div>

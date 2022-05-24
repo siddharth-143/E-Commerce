@@ -36,6 +36,7 @@ public partial class Orders : System.Web.UI.Page
 
     protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
     {
+        Int64 PurchaseID = Convert.ToInt64(Request.QueryString["PurchaseID"]);
         int index = 0;
         if (e.CommandName == "Del")
         {
@@ -43,7 +44,7 @@ public partial class Orders : System.Web.UI.Page
             string strID = GridView1.Rows[index].Cells[0].Text;
             try
             {
-                string strcmd = "delete from tblPurchase where UserID=" + Session["UserID"];
+                string strcmd = "delete from tblPurchase where PurchaseID ="+strID;
                 SQLHelper.ExecuteNonQuery(strcmd);
                 lblMsg.Text = "Order Cancel Successfully";
             }

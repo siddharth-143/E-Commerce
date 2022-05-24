@@ -39,10 +39,8 @@
     padding-top: 25px;
 }
 
-.content a {
-    width: 200px;
-    height: 35px;
-    /*color: #fff;*/
+: 35px;
+    color: #fff;
     border-radius: 30px;
     padding: 5px 10px;
     background: rgba(255,102,0, 1);
@@ -52,6 +50,11 @@
 .content a:hover {
             text-decoration: none;
             background: #000;
+}
+
+.back {
+    border-radius: 200px;
+    h200
 }
 
 .back {

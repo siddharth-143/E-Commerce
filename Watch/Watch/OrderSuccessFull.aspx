@@ -19,7 +19,8 @@
                         </div>
                         <h1>Order Placed Success !</h1>
                         <p>Thank you! for Visiting our website.Have a nice day :) </p>
-                        <a href="Default.aspx">Go to Home</a>
+                        <asp:Button ID="btnHome" runat="server" CssClass="btn btn-primary" Text="Go to Home" OnClick="btnHome_Click" />
+                        <%--<a href="Default.aspx">Go to Home</a>--%>
                     </div>
                 </div>
             </div>
