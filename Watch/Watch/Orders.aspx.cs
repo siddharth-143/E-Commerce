@@ -15,6 +15,7 @@ public partial class Orders : System.Web.UI.Page
     SqlCommand com;
     protected void Page_Load(object sender, EventArgs e)
     {
+        string PName = Request.QueryString["PName"];
         if (Session["USERNAME"] != null)
         {
             lblSuccess.Text = "Login Success, Welcome " + Session["USERNAME"].ToString() + "";
@@ -47,6 +48,7 @@ public partial class Orders : System.Web.UI.Page
                 string strcmd = "delete from tblPurchase where PurchaseID ="+strID;
                 SQLHelper.ExecuteNonQuery(strcmd);
                 lblMsg.Text = "Order Cancel Successfully";
+                Response.Redirect("~/Orders.aspx");
             }
             catch (Exception ex)
             {

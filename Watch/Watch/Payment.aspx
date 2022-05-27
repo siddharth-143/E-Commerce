@@ -4,6 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <asp:HiddenField ID="hdPID" Value='<%# Eval("PID") %>' runat="server" />
+    <asp:HiddenField ID="hdPName" Value='<%# Eval("PName") %>' runat="server" />
     <asp:HiddenField ID="hdCartAmount" runat="server" />
     <asp:HiddenField ID="hdCartDiscount" runat="server" />
     <asp:HiddenField ID="hdTotalPayed" runat="server" />
