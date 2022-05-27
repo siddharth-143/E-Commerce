@@ -63,9 +63,9 @@
                 <Columns>
                     <asp:BoundField DataField="PurchaseID" HeaderText="PurchaseID" InsertVisible="False" ReadOnly="True" SortExpression="PurchaseID" />
                     <asp:BoundField DataField="UserID" HeaderText="UserID" SortExpression="UserID" />
-                    <asp:BoundField DataField="CartAmount" HeaderText="CartAmount" SortExpression="CartAmount" />
+                    <asp:BoundField DataField="TotalPayed" HeaderText="CartAmount" SortExpression="CartAmount" />
                     <asp:BoundField DataField="CartDiscount" HeaderText="CartDiscount" SortExpression="CartDiscount" />
-                    <asp:BoundField DataField="TotalPayed" HeaderText="TotalPayed" SortExpression="TotalPayed" />
+                    <asp:BoundField DataField="CartAmount" HeaderText="TotalPayed" SortExpression="TotalPayed" />
                     <asp:BoundField DataField="PaymentType" HeaderText="PaymentType" SortExpression="PaymentType" />
                     <asp:BoundField DataField="DateOfPurchase" HeaderText="DateOfPurchase" SortExpression="DateOfPurchase" />
                      <asp:BoundField DataField="Address" HeaderText="Address" SortExpression="Address" />

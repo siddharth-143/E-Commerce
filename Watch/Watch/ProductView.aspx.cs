@@ -208,9 +208,12 @@ public partial class ProductView : System.Web.UI.Page
                         {
                             CommandType = CommandType.StoredProcedure
                         };
+                        string PName = (Session["myPName"].ToString());
+                        PName = PName + "," + PName;
                         myCmd.Parameters.AddWithValue("@UID", UserID);
                         myCmd.Parameters.AddWithValue("@PID", Session["CartPID"].ToString());
-                        myCmd.Parameters.AddWithValue("@PName", Session["myPName"].ToString());
+                        //myCmd.Parameters.AddWithValue("@PName", Session["myPName"].ToString());
+                        myCmd.Parameters.AddWithValue("@PName", PName);
                         myCmd.Parameters.AddWithValue("@PPrice", Session["myPPrice"].ToString());
                         myCmd.Parameters.AddWithValue("@PSelPrice", Session["myPSelPrice"].ToString());
                         myCmd.Parameters.AddWithValue("@Qty", myQty);

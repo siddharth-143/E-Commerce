@@ -16,6 +16,7 @@ public partial class Payment : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         hdPID.Value = Session["CartPID"].ToString();
+        hdPName.Value = Request.QueryString["PName"];
         if (Session["USERNAME"] != null)
         {
             if (!IsPostBack)
@@ -101,7 +102,6 @@ public partial class Payment : System.Web.UI.Page
     protected void BindProductDetails()
     {
         Int64 PID = Convert.ToInt64(Request.QueryString["PID"]);
-
         String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
         using (SqlConnection con = new SqlConnection(CS))
         {
@@ -172,11 +172,16 @@ public partial class Payment : System.Web.UI.Page
                 string PaymentType = "COD";
                 string PaymentStatus = "NotPaid";
                 string EMAILID = Session["USEREMAIL"].ToString();
-                string query = "insert into tblPurchase values('" + USERID + "','" + EMAILID + "','"
+
+                string query = "select * from tblCart where Uid=" + Session["USERID"].ToString();
+                DataTable dt = new DataTable();
+                dt = SQLHelper.FillData(query);
+
+                query = "insert into tblPurchase values('" + USERID + "','" + EMAILID + "','" + dt.Rows[0]["PName"] + "','"
                         + hdCartAmount.Value + "','" + hdCartDiscount.Value + "','"
                         + hdTotalPayed.Value + "','" + PaymentType + "','" + PaymentStatus + "',getdate(),'"
                         + txtName.Text + "','" + txtAddress.Text + "','" + txtPinCode.Text + "','" + txtMobileNumber.Text + "','" + hdQty.Value + "') select SCOPE_IDENTITY()";
-                query += "Update tblProductQuantity set Quantity = Quantity - '" + hdQty.Value + "' where PID = '"+PIDD+"'";
+                query += "Update tblProductQuantity set Quantity = Quantity - '" + hdQty.Value + "' where PID = '" + PIDD + "'";
                 using (SqlConnection con = new SqlConnection(CS))
                 {                 
                     SqlCommand cmd = new SqlCommand(query, con);
@@ -203,29 +208,46 @@ public partial class Payment : System.Web.UI.Page
 
     private void BindOrderProducts()
     {
+        //String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
+        //SqlConnection con = new SqlConnection(CS);
+        //con.Open();
+        //SqlCommand cmd = new SqlCommand("Select * from tblCart", con);
+        //SqlDataAdapter da = new SqlDataAdapter(cmd);
+        //DataSet ds = new DataSet();
+        //da.Fill(ds);
+        //con.Close();
+        //if (ds.Tables[0].Rows.Count > 0)
+        //{
+        //    gvProducts.DataSource = ds;
+        //    gvProducts.DataBind();
+        //}
+        //else
+        //{
+        //    ds.Tables[0].Rows.Add(ds.Tables[0].NewRow());
+        //    gvProducts.DataSource = ds;
+        //    gvProducts.DataBind();
+        //    int columncount = gvProducts.Rows[0].Cells.Count;
+        //    gvProducts.Rows[0].Cells.Clear();
+        //    gvProducts.Rows[0].Cells.Add(new TableCell());
+        //    gvProducts.Rows[0].Cells[0].ColumnSpan = columncount;
+        //    gvProducts.Rows[0].Cells[0].Text = "No Records Found";
+        //}
+
+        Int64 PID = Convert.ToInt64(Request.QueryString["PID"]);
+        string UserIDD = Session["USERID"].ToString();
         String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
-        SqlConnection con = new SqlConnection(CS);
-        con.Open();
-        SqlCommand cmd = new SqlCommand("Select * from tblCart", con);
-        SqlDataAdapter da = new SqlDataAdapter(cmd);
-        DataSet ds = new DataSet();
-        da.Fill(ds);
-        con.Close();
-        if (ds.Tables[0].Rows.Count > 0)
+        using (SqlConnection con = new SqlConnection(CS))
         {
-            gvProducts.DataSource = ds;
-            gvProducts.DataBind();
-        }
-        else
-        {
-            ds.Tables[0].Rows.Add(ds.Tables[0].NewRow());
-            gvProducts.DataSource = ds;
-            gvProducts.DataBind();
-            int columncount = gvProducts.Rows[0].Cells.Count;
-            gvProducts.Rows[0].Cells.Clear();
-            gvProducts.Rows[0].Cells.Add(new TableCell());
-            gvProducts.Rows[0].Cells[0].ColumnSpan = columncount;
-            gvProducts.Rows[0].Cells[0].Text = "No Records Found";
+            using (SqlCommand cmd = new SqlCommand("select * from tblCart", con))
+            {
+                cmd.CommandType = CommandType.Text;
+                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                {
+                    DataTable dtBrands = new DataTable();
+                    sda.Fill(dtBrands);                 
+                }
+
+            }
         }
     }
 }

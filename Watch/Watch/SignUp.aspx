@@ -35,8 +35,13 @@
 
         <label class="col-xs-11" style="font-weight: bold">Mobile</label>
         <div class="col-xs-11">
-            <asp:TextBox ID="tbMobile" runat="server" class="form-control" placeholder="Mobile" TextMode="Number"></asp:TextBox>
+            <asp:TextBox ID="tbMobile" runat="server" class="form-control" onkeypress="return this.value.length<=9" placeholder="Mobile" TextMode="Number" MaxLength="2" Rows="10"></asp:TextBox>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="tbMobile" ErrorMessage="Mobile Number is Required Field !" ForeColor="Red" ValidationGroup="A"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1"
+                ControlToValidate="tbMobile" runat="server"
+                ErrorMessage="Only Numbers allowed"
+                ValidationExpression="\d+">
+            </asp:RegularExpressionValidator>
         </div>
 
         <label class="col-xs-11" style="font-weight: bold">Gender</label>
@@ -45,7 +50,7 @@
             <asp:RadioButton ID="rbFemale" runat="server" Text="Female" GroupName="gender" />
         </div>
 
-<%--        <label class="col-xs-11" style="font-weight: bold">Address</label>
+        <%--        <label class="col-xs-11" style="font-weight: bold">Address</label>
         <div class="col-xs-11">
             <asp:TextBox ID="tbAddress" runat="server" class="form-control" placeholder="Address" TextMode="MultiLine"></asp:TextBox>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="tbAddress" Display="Dynamic" ErrorMessage="Email is Required Filed !" ForeColor="Red" ValidationGroup="A"></asp:RequiredFieldValidator>
