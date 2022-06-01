@@ -52,7 +52,7 @@ public partial class ForgotPassword : System.Web.UI.Page
                     Password = "123"
                 };
                 SMTP.EnableSsl = true;
-                // SMTP.DeliveryMethod = SmtpDeliveryMethod.Network;
+                SMTP.DeliveryMethod = SmtpDeliveryMethod.Network;
                 SMTP.Send(PassRecMail);
                 SMTP.UseDefaultCredentials = false;
 

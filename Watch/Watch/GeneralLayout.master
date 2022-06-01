@@ -110,8 +110,9 @@
                             <%--<input class="form-control me-2" id="txtSearch" type="search" placeholder="Search" aria-label="Search">--%>
                             <asp:TextBox ID="txtSearch1" Width="830" class="form-control me-2" runat="server" type="search" placeholder="Search" aria-label="Search"></asp:TextBox>
                             <%--<button class="btn btn-outline-success" type="submit" ValidationGroup="B">Search</button>--%>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidatorUsername" CssClass="text-danger" runat="server" ErrorMessage="Enter User Details !!!" ControlToValidate="txtSearch1" ValidationGroup="B" Display="None"></asp:RequiredFieldValidator>
-                            <asp:Button ID="btnSearchPro" class="btn btn-outline-success" runat="server" Text="Search" ValidationGroup="B" />
+
+                            <asp:Button ID="btnSearchPro" class="btn btn-outline-success" runat="server" Text="Search" CausesValidation="False" OnClick="btnSearchPro_Click" />
+                            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidatorUsername" CssClass="text-danger" runat="server" ErrorMessage="Enter User Details !!!" ControlToValidate="txtSearch1" ValidationGroup="B" Display="None"></asp:RequiredFieldValidator>--%>
                         </div>
                         <div class="form-inline d-flex flex-fill">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0 mt-1">

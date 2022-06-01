@@ -3,13 +3,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <asp:HiddenField ID="hfPName" runat="server" Value='<%# Eval("PName") %>' />
+    <asp:HiddenField ID="hfPPrice" runat="server" Value='<%# Eval("PPrice") %>' />
+    <asp:HiddenField ID="hfSelPrice" runat="server" Value='<%# Eval("PSelPrice") %>' />
     <div class="container">
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
-                <div class="row" style="padding-top: 50px">
+                <div class="row" style="padding-top: 50px;">
                     <div class="col-sm-3">
-                        <div class="list-group">
+                        <div class="list-group position-fixed" style="width: 20%">
                             <a href="Products.aspx" class="list-group-item list-group-item-action fw-bold center" aria-current="true">All Watches</a>
                             <asp:Repeater ID="rptCategory" runat="server">
                                 <ItemTemplate>
@@ -55,6 +58,41 @@
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
+
+
+
+
+
+
+
+
+
+        <div class="col-md-7">
+            <asp:Repeater ID="rptrProductDetails" runat="server">
+                <ItemTemplate>
+                    <div class="divDet1 pt-2">
+                        <h1 class="proNameView"><%#Eval("PName") %></h1>
+                        <span class="proOgPriceView"><%#Eval("PSelPrice", "{0:0.00}") %></span><span class="proPriceDiscountView"> <%# string.Format("{0}",Convert.ToInt64(Eval("PPrice"))-Convert.ToInt64(Eval("PSelPrice"))) %> OFF</span>
+                        <p class="proPriceView"><%#Eval("PPrice", "{0:0.00}") %></p>
+                    </div>
+                    <div class="divDet1">
+                        <h5 class="h5Size">Description</h5>
+                        <p>
+                            <%#Eval("PDescription") %>
+                        </p>
+                    </div>
+                    <div>
+                        <p><%# ((int)Eval("FreeDelivery")==1)?"Free Delivery":"" %></p>
+                        <p><%# ((int)Eval("30DayRet")==1)?"30 Days Returns":"" %></p>
+                        <p><%# ((int)Eval("COD")==1)?"Cash on Delivery":"" %></p>
+                    </div>
+                    <asp:HiddenField ID="hfCatID" runat="server" Value='<%# Eval("PcategoryID") %>' />
+                    <asp:HiddenField ID="hfGenderID" runat="server" Value='<%# Eval("PGender") %>' />
+                    <asp:HiddenField ID="hfBrandID" runat="server" Value='<%# Eval("PBrandID") %>' />
+
+                </ItemTemplate>
+            </asp:Repeater>
+        </div>
     </div>
 </asp:Content>
 

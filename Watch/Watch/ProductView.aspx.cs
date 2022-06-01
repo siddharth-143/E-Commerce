@@ -226,7 +226,7 @@ public partial class ProductView : System.Web.UI.Page
         else
         {
             Int64 PID = Convert.ToInt64(Request.QueryString["PID"]);
-            Response.Redirect("Signin.aspx?rurl=" + PID);
+            Response.Redirect("Signin.aspx");
         }
     }
 
