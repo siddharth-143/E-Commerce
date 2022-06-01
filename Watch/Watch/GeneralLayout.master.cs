@@ -10,8 +10,6 @@ using System.Web.UI.WebControls;
 
 public partial class GeneralLayout : System.Web.UI.MasterPage
 {
-    private object rptrProducts;
-
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -20,7 +18,7 @@ public partial class GeneralLayout : System.Web.UI.MasterPage
             BindGender();
             // BindCartNumber();
             BindCartNumber2();
-            SearchCustomers();
+
             if (Session["USERNAME"] != null)
             {
                 btnSignup.Visible = false;
@@ -171,39 +169,6 @@ public partial class GeneralLayout : System.Web.UI.MasterPage
         }
     }
 
-    private void SearchCustomers()
-    {
-        String CS = ConfigurationManager.ConnectionStrings["MyDatabaseConnectionString1"].ConnectionString;
-        using (SqlConnection con = new SqlConnection(CS))
-        {
-            using (SqlCommand cmd = new SqlCommand())
-            {
-                string sql = "SELECT PID, PName, PPrice, PSelPrice, PBrandID, PCategoryID, PGender, PDescription, FreeDelivery, 30DayRet," +
-                    "COD FROM tblProducts";
-                if (!string.IsNullOrEmpty(txtSearch1.Text.Trim()))
-                {
-                    sql += " WHERE Name LIKE @PName + '%'";
-                    cmd.Parameters.AddWithValue("@PName", txtSearch1.Text.Trim());
-                }
-                cmd.CommandText = sql;
-                cmd.Connection = con;
-                using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
-                {
-                    DataTable dt = new DataTable();
-                    sda.Fill(dt);
-                    //rptrBrands.DataSource = dt;                   
-                    //rptrBrands.DataBind();
-                }
-                txtSearch1.Text = "";
-            }
-        }
-    }
-
-    protected void Search(object sender, EventArgs e)
-    {
-        this.SearchCustomers();
-    }
-
     //protected void OnItemDataBound(object sender, RepeaterItemEventArgs e)
     //{
     //    if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -230,4 +195,10 @@ public partial class GeneralLayout : System.Web.UI.MasterPage
     //        }
     //    }
     //}
+
+    protected void btnSearchPro_Click(object sender, EventArgs e)
+    {
+        //string result = "~/Time.aspx?result=" + txtSearch1.Text;
+        //Response.Redirect(result);
+    }
 }
