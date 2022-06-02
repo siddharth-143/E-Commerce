@@ -1,27 +1,29 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true" CodeFile="ManageOrders.aspx.cs" Inherits="ManageOrders" %>
+﻿<%@ Page Title="Orders Report" Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true" CodeFile="ManageOrders.aspx.cs" Inherits="ManageOrders" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="container mt-2">
-        <h4>Manage Orders</h4>
-        <asp:GridView class="table table-striped" ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="PurchaseID" DataSourceID="SqlDataSource1">
-            <Columns>
-                <asp:BoundField DataField="PurchaseID" HeaderText="PurchaseID" InsertVisible="False" ReadOnly="True" SortExpression="PurchaseID" />
-                <asp:BoundField DataField="UserID" HeaderText="UserID" SortExpression="UserID" />
-                <asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" />
-                <%--<asp:BoundField DataField="CartAmount" HeaderText="CartAmount" SortExpression="CartAmount" />--%>
-                <%--<asp:BoundField DataField="CartDiscount" HeaderText="CartDiscount" SortExpression="CartDiscount" />--%>
-                <asp:BoundField DataField="TotalPayed" HeaderText="TotalPayed" SortExpression="TotalPayed" />
-                <%--<asp:BoundField DataField="PaymentType" HeaderText="PaymentType" SortExpression="PaymentType" />--%>
-                <%--<asp:BoundField DataField="PaymentStatus" HeaderText="PaymentStatus" SortExpression="PaymentStatus" />--%>
-                <asp:BoundField DataField="DateOfPurchase" HeaderText="DateOfPurchase" SortExpression="DateOfPurchase" />
-                <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
-                <asp:BoundField DataField="Address" HeaderText="Address" SortExpression="Address" />
-                <asp:BoundField DataField="PinCode" HeaderText="PinCode" SortExpression="PinCode" />
-                <asp:BoundField DataField="MobileNumber" HeaderText="MobileNumber" SortExpression="MobileNumber" />
-                <asp:BoundField DataField="Qty" HeaderText="Qty" SortExpression="Qty" />
-            </Columns>
-        </asp:GridView>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:MyDatabaseConnectionString1 %>" SelectCommand="SELECT tblPurchase.* FROM tblPurchase"></asp:SqlDataSource>
+    <div class="form-control card mt-3 mb-3">
+        <div class="card-header">
+            Order Report
+        </div>
+        <div class="card-body">
+            <div class="d-flex">
+                <p>Start Date</p>
+                <p class="ms-lg-5" style="padding-left: 250px">End Date</p>
+            </div>
+            <div class="d-flex">
+                <asp:TextBox ID="txtStartDate" type="search" runat="server" CssClass="form-control" Width="320px"></asp:TextBox>
+                <asp:TextBox ID="txtEndDate" type="search" runat="server" CssClass="form-control ms-5" Width="320px"></asp:TextBox>
+            </div>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" OnClick="FilterData" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="txtStartDate" ValidationGroup="A"></asp:RequiredFieldValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" OnClick="FilterData" CssClass="text-danger" runat="server" ErrorMessage="This field is Required !" ControlToValidate="txtEndDate" ValidationGroup="A"></asp:RequiredFieldValidator>
+            <div>
+                <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" ValidationGroup="A" OnClick="FilterData" />
+                <asp:Label ID="lblMsg" runat="server" Text="" ForeColor="Red"></asp:Label>
+            </div>
+        </div>
     </div>
+
+    <asp:GridView class="table table-striped" ID="GridView1" runat="server">
+    </asp:GridView>
 </asp:Content>
 
