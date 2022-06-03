@@ -26,6 +26,8 @@
     </div>--%>
 
     <div class="container">
+        <h2>Recover Password</h2>
+        <hr />
         <div class="container center-page">
             <label class="col-xs-11" style="font-weight: bold">Username</label>
             <div class="col-xs-11">
