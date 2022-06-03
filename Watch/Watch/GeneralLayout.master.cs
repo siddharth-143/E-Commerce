@@ -198,7 +198,7 @@ public partial class GeneralLayout : System.Web.UI.MasterPage
 
     protected void btnSearchPro_Click(object sender, EventArgs e)
     {
-        //string result = "~/Time.aspx?result=" + txtSearch1.Text;
+        //string result = "~/Search.aspx?result=" + txtSearch1.Text;
         //Response.Redirect(result);
     }
 }
